@@ -9,10 +9,37 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Classes/Core/Currency.cpp \
+    Classes/Core/Price.cpp \
+    Classes/Core/Product.cpp \
+    Classes/Core/Service.cpp \
+    Classes/Domain/Cart.cpp \
+    Classes/Domain/Clothing.cpp \
+    Classes/Domain/Customer.cpp \
+    Classes/Domain/Order.cpp \
+    Classes/Domain/Wallet.cpp \
+    Classes/Interfaces/Buyable.cpp \
+    Classes/Interfaces/MoneyPossesive.cpp \
+    Classes/System/StoreSystem.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    Enums/Color.h \
+    Enums/ServiceType.h \
+    Headers/Core/Currency.h \
+    Headers/Core/Price.h \
+    Headers/Core/Product.h \
+    Headers/Core/Service.h \
+    Headers/Domain/Cart.h \
+    Headers/Domain/Clothing.h \
+    Headers/Domain/Customer.h \
+    Headers/Domain/Order.h \
+    Headers/Domain/Wallet.h \
+    Headers/Interfaces/Buyable.h \
+    Headers/Interfaces/MoneyPossesive.h \
+    Headers/System/StoreSystem.h \
+    Templates/Listing.h \
     mainwindow.h
 
 FORMS += \

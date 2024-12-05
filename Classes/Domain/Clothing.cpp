@@ -1,8 +1,4 @@
-//
-// Created by pawel on 29/11/2024.
-//
-
-#include "Headers/Domain/Clothing.h"
+#include "../../Headers/Domain/Clothing.h"
 
 Clothing::Clothing(std::string id, std::string name, std::string description, uint32_t quantity, Price& price, Color color, std::string clothing_type, uint32_t size)
         : Product(id, name, description, quantity, price) {

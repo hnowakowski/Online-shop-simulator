@@ -1,8 +1,4 @@
-//
-// Created by pawel on 30/11/2024.
-//
-
-#include "Headers/Interfaces/Buyable.h"
+#include "../../Headers/Interfaces/Buyable.h"
 
 std::string Buyable::GetId() {
     return id;

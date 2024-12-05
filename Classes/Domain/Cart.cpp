@@ -1,8 +1,4 @@
-//
-// Created by pawel on 29/11/2024.
-//
-
-#include "Headers/Domain/Cart.h"
+#include "../../Headers/Domain/Cart.h"
 #include <algorithm>
 
 bool Cart::AddBuyable(std::shared_ptr<Buyable> buyable) {

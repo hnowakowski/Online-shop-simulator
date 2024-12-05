@@ -1,7 +1,3 @@
-//
-// Created by pawel on 30/11/2024.
-//
-
 #ifndef OOP_PROJECT_BUYABLE_H
 #define OOP_PROJECT_BUYABLE_H
 
