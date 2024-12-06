@@ -1,8 +1,4 @@
-//
-// Created by pawel on 30/11/2024.
-//
-
-#include "Headers/Core/Service.h"
+#include "../../Headers/Core/Service.h"
 
 ServiceType Service::GetType() {
     return servicetype;

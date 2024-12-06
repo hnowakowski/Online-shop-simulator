@@ -1,7 +1,3 @@
-//
-// Created by pawel on 29/11/2024.
-//
-
 #ifndef OOP_PROJECT_CLOTHING_H
 #define OOP_PROJECT_CLOTHING_H
 

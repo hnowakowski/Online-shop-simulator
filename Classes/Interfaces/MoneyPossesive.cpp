@@ -1,9 +1,5 @@
-//
-// Created by pawel on 29/11/2024.
-//
-
 #include <cmath>
-#include "Headers/Interfaces/MoneyPossesive.h"
+#include "../../Headers/Interfaces/MoneyPossesive.h"
 
 bool MoneyPossesive::GetTotal(uint32_t &mainunit, uint32_t &subunit) {
    mainunit = this->mainunit;

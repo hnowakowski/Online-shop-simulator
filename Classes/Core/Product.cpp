@@ -1,8 +1,4 @@
-//
-// Created by pawel on 24/11/2024.
-//
-
-#include "Headers/Core/Product.h"
+#include "../../Headers/Core/Product.h"
 
 uint32_t Product::GetQuantity() {
     return quantity;

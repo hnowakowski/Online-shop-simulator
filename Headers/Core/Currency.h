@@ -1,10 +1,7 @@
-//
-// Created by pawel on 24/11/2024.
-//
-
 #ifndef OOP_PROJECT_CURRENCY_H
 #define OOP_PROJECT_CURRENCY_H
 
+#include <stdint.h>
 #include <string>
 #include <map>
 

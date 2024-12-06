@@ -1,8 +1,4 @@
-//
-// Created by pawel on 29/11/2024.
-//
-
-#include "Headers/Core/Price.h"
+#include "../../Headers/Core/Price.h"
 
 
 void Price::UpdatePrice(uint32_t newmainprice, uint32_t newsubprice) {

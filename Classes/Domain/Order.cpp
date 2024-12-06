@@ -1,8 +1,5 @@
-//
-// Created by pawel on 30/11/2024.
-//
-
-#include "Headers/Domain/Order.h"
+#include "../../Headers/Domain/Order.h"
+#include "../../Headers/Domain/Customer.h"
 
 std::string Order::GetId() {
     return id;

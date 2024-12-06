@@ -1,7 +1,3 @@
-//
-// Created by pawel on 30/11/2024.
-//
-
 #ifndef OOP_PROJECT_STORESYSTEM_H
 #define OOP_PROJECT_STORESYSTEM_H
 
@@ -40,6 +36,7 @@ public:
     void AddOrder(Order &order);
     bool RemoveProduct(std::string id);
     bool RemoveCustomer(std::string id);
+    bool RemoveService(std::string id);
     bool RemoveOrder(std::string id);
 
     static StoreSystem &GetInstance() {

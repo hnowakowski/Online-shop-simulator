@@ -1,12 +1,9 @@
-//
-// Created by pawel on 30/11/2024.
-//
-
 #ifndef OOP_PROJECT_LISTING_H
 #define OOP_PROJECT_LISTING_H
 
 #include <vector>
 #include <stdexcept>
+#include "../Headers/Domain/Customer.h"
 #include "algorithm"
 
 template <typename T>

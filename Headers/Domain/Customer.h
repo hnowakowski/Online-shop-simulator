@@ -1,14 +1,11 @@
-//
-// Created by pawel on 30/11/2024.
-//
-
 #ifndef OOP_PROJECT_CUSTOMER_H
 #define OOP_PROJECT_CUSTOMER_H
 
 #include <vector>
 #include <memory>
-#include "Order.h"
 #include "Wallet.h"
+
+class Order; //this instead of include in header files works somehow, prevents a loop include, requires an include h in a cpp tho
 
 class Customer {
 private:

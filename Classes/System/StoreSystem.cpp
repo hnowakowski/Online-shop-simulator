@@ -1,8 +1,4 @@
-//
-// Created by pawel on 30/11/2024.
-//
-
-#include "Headers/System/StoreSystem.h"
+#include "../../Headers/System/StoreSystem.h"
 #include "algorithm"
 
 Currency &StoreSystem::GetBaseCurrency() {

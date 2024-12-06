@@ -1,8 +1,4 @@
-//
-// Created by pawel on 24/11/2024.
-//
-
-#include "Headers/Core/Currency.h"
+#include "../../Headers/Core/Currency.h"
 #include "stdexcept"
 
 std::string Currency::GetName() {

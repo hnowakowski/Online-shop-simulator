@@ -1,9 +1,6 @@
-//
-// Created by pawel on 30/11/2024.
-//
-
-#include "Headers/Domain/Customer.h"
-#include "Headers/System/StoreSystem.h"
+#include "../../Headers/Domain/Customer.h"
+#include "../../Headers/System/StoreSystem.h"
+#include "../../Headers/Domain/Order.h"
 
 std::string Customer::GetId() {
     return id;

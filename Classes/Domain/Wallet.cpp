@@ -1,8 +1,4 @@
-//
-// Created by pawel on 29/11/2024.
-//
-
-#include "Headers/Domain/Wallet.h"
+#include "../../Headers/Domain/Wallet.h"
 
 void Wallet::AddMain(uint32_t amount) {
     mainunit += amount;
