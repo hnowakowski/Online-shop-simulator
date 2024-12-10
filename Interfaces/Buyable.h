@@ -34,6 +34,8 @@ public:
 
     virtual void UpdateSubUnitPrice(uint32_t newsubprice);
 
+    Buyable();
+
     Buyable(std::string id, std::string name, std::string description, std::string image, std::shared_ptr<Price> &price);
 
     virtual ~Buyable() = default;

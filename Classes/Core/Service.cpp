@@ -1,5 +1,6 @@
 #include <utility>
 
+#include "../../Enums/ServiceType.h"
 #include "../../Headers/Core/Service.h"
 
 ServiceType Service::GetType() {
@@ -20,6 +21,9 @@ Service &Service::operator=(const Service &other) {
 
     return *this;
 }
+
+Service::Service()
+    : Buyable(), servicetype(ServiceType::OTHER) {}
 
 Service::Service(std::string id, std::string name, std::string description, std::string image, std::shared_ptr<Price> &price, ServiceType type) : Buyable(id, name, description, image, price) {
     this->servicetype = type;

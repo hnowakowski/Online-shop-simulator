@@ -6,15 +6,18 @@
 #include <memory>
 #include <fstream>
 #include <ExternalLibs/nlohmann/json.hpp>
+#include <iostream>
 
 template <typename T>
 class LoaderSaver {
 public:
     static bool Load(const std::string &filename, std::vector<std::shared_ptr<T>> &objects) {
+        std::cout<<"Load inside LoaderSaver called\n";
         std::ifstream file(filename);
         if (!file.is_open()) {
             return false;
         }
+        std::cout<<"File found\n";
 
         nlohmann::json json;
         file >> json;

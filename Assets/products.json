@@ -1,0 +1,16 @@
+[
+    {
+        "id": "P1",
+        "name": "Blahaj",
+        "description": "Haiiii :3",
+        "image": "Images/Products/blahaj.png",
+        "quantity": 999,
+        "price": {
+            "currency": {
+                "code": "PLN"
+            },
+            "mainunit": 79,
+            "subunit": 99
+        }
+    }
+]

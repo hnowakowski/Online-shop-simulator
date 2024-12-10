@@ -15,6 +15,8 @@ public:
 
     Product& operator=(const Product &other);
 
+    Product();
+
     Product(std::string id, std::string name, std::string description, std::string image, uint32_t quantity, std::shared_ptr<Price> &price);
 
     nlohmann::json toJSON() const override;

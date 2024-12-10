@@ -1,8 +1,12 @@
 #include "../../Headers/Core/Product.h"
+#include <iostream>
 
 uint32_t Product::GetQuantity() {
     return quantity;
 }
+
+Product::Product()
+    : Buyable(), quantity(0) {}
 
 
 Product::Product(std::string id, std::string name, std::string description, std::string image, uint32_t quantity, std::shared_ptr<Price> &price) : Buyable(id, name, description, image, price) {
@@ -41,10 +45,13 @@ nlohmann::json Product::toJSON() const {
 }
 
 void Product::fromJSON(const nlohmann::json &json) {
+    std::cout<<"Product is being read\n";
     id = json.at("id").get<std::string>();
     name = json.at("name").get<std::string>();
     description = json.at("description").get<std::string>();
     image = json.at("image").get<std::string>();
     quantity = json.at("quantity").get<uint32_t>();
     price->fromJSON(json.at("price"));
+
+    std::cout << "Parsed name: " << name << std::endl;
 }
