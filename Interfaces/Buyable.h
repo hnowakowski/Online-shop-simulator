@@ -11,6 +11,7 @@ protected:
     std::string id;
     std::string name;
     std::string description;
+    std::string image;
     std::shared_ptr<Price> price;
 public:
     virtual std::string GetId();
@@ -18,6 +19,8 @@ public:
     virtual std::string GetName();
 
     virtual std::string GetDescription();
+
+    virtual std::string GetImage();
 
     virtual uint32_t GetMainUnitPrice();
 
@@ -31,7 +34,7 @@ public:
 
     virtual void UpdateSubUnitPrice(uint32_t newsubprice);
 
-    Buyable(std::string id, std::string name, std::string description, std::shared_ptr<Price> &price);
+    Buyable(std::string id, std::string name, std::string description, std::string image, std::shared_ptr<Price> &price);
 
     virtual ~Buyable() = default;
 };

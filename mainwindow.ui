@@ -41,7 +41,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="pageMain">
        <property name="sizePolicy">
@@ -298,7 +298,6 @@ generate it from an array or smth</string>
               <property name="font">
                <font>
                 <pointsize>18</pointsize>
-                <weight>DemiBold</weight>
                </font>
               </property>
               <property name="text">
@@ -416,9 +415,7 @@ generate it from an array or smth</string>
              </sizepolicy>
             </property>
             <property name="font">
-             <font>
-              <weight>Thin</weight>
-             </font>
+             <font/>
             </property>
             <property name="text">
              <string>RightAd</string>
@@ -472,7 +469,6 @@ generate it from an array or smth</string>
               <property name="font">
                <font>
                 <pointsize>18</pointsize>
-                <weight>DemiBold</weight>
                </font>
               </property>
               <property name="text">
@@ -713,7 +709,6 @@ BECOME A CONSUMER TODAY!!</string>
               <property name="font">
                <font>
                 <pointsize>13</pointsize>
-                <weight>DemiBold</weight>
                </font>
               </property>
               <property name="frameShadow">
@@ -785,7 +780,6 @@ BECOME A CONSUMER TODAY!!</string>
                 <property name="font">
                  <font>
                   <pointsize>12</pointsize>
-                  <weight>DemiBold</weight>
                  </font>
                 </property>
                 <property name="text">
@@ -941,7 +935,6 @@ BECOME A CONSUMER TODAY!!</string>
                 <property name="font">
                  <font>
                   <pointsize>15</pointsize>
-                  <weight>DemiBold</weight>
                  </font>
                 </property>
                 <property name="text">
@@ -1046,7 +1039,6 @@ BECOME A CONSUMER TODAY!!</string>
               <property name="font">
                <font>
                 <pointsize>13</pointsize>
-                <weight>DemiBold</weight>
                </font>
               </property>
               <property name="text">
