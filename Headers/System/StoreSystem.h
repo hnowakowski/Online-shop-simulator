@@ -9,35 +9,43 @@
 
 class StoreSystem {
 private:
-    Currency basecurrency;
+    std::shared_ptr<Currency> basecurrency;
+    std::vector<std::shared_ptr<Currency>> currencies;
 
-    Listing<Product> products;
-    Listing<Service> services;
+    Listing<std::shared_ptr<Product>> products;
+    Listing<std::shared_ptr<Service>> services;
 
-    Listing<Customer> customers;
-    Listing<Order> orders;
+    Listing<std::shared_ptr<Customer>> customers;
+    Listing<std::shared_ptr<Order>> orders;
 
-    StoreSystem() : basecurrency(*new Currency("Złoty polski", "PLN", "Zł", 100)) {};
+    StoreSystem() : basecurrency(new Currency("Złoty polski","PLN","Zł",100)) {
+        AddCurrency(const_cast<std::shared_ptr<Currency> &>(GetBaseCurrency()));
+    };
+
     StoreSystem(StoreSystem &other) = delete;
+
     StoreSystem &operator=(StoreSystem &other) = delete;
 
 public:
-    Currency & GetBaseCurrency();
+    std::shared_ptr<Currency> & GetBaseCurrency();
 
-    bool GetProduct(std::string id, Product &product);
-    bool GetService(std::string id, Service &service);
+    bool GetProduct(const std::string &id, std::shared_ptr<Product> &product);
+    bool GetService(const std::string &id, std::shared_ptr<Service> &service);
+    bool GetCustomer(const std::string &id, std::shared_ptr<Customer> &customer);
+    bool GetOrder(const std::string &id, std::shared_ptr<Order> &order);
+    bool GetCurrency(const std::string &code, std::shared_ptr<Currency> &currency);
 
-    bool GetCustomer(std::string id, Customer &customer);
-    bool GetOrder(std::string id, Order &order);
+    void AddProduct(std::shared_ptr<Product> &product);
+    void AddService(std::shared_ptr<Service> &service);
+    void AddCustomer(std::shared_ptr<Customer> &customer);
+    void AddOrder(std::shared_ptr<Order> &order);
+    void AddCurrency(std::shared_ptr<Currency> &currency);
 
-    void AddProduct(Product &product);
-    void AddService(Service &service);
-    void AddCustomer(Customer &customer);
-    void AddOrder(Order &order);
-    bool RemoveProduct(std::string id);
-    bool RemoveCustomer(std::string id);
-    bool RemoveService(std::string id);
-    bool RemoveOrder(std::string id);
+    bool RemoveProduct(const std::string &id);
+    bool RemoveCustomer(const std::string &id);
+    bool RemoveService(const std::string &id);
+    bool RemoveOrder(const std::string &id);
+    bool RemoveCurrency(const std::string& code);
 
     static StoreSystem &GetInstance() {
         static StoreSystem instance;

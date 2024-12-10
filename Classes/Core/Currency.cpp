@@ -1,5 +1,6 @@
 #include "../../Headers/Core/Currency.h"
 #include "stdexcept"
+#include "Headers/System/StoreSystem.h"
 
 std::string Currency::GetName() {
     return name;
@@ -13,7 +14,7 @@ std::string Currency::GetSymbol() {
     return symbol;
 }
 
-bool Currency::SetExchangeRate(std::string code, float rate) {
+bool Currency::SetExchangeRate(std::string code, float & rate) {
     if(code != this->code) {
         exchange_rates[code] = rate;
         return true;
@@ -47,4 +48,35 @@ bool Currency::operator==(const Currency &other_currency) {
         return true;
     }
     return false;
+}
+
+Currency &Currency::operator=(const Currency &currency) {
+    if(this == &currency) {
+        return *this;
+    }
+
+    this->name = currency.name;
+    this->code = currency.code;
+    this->symbol = currency.symbol;
+    this->subs_is_main = currency.subs_is_main;
+    this->exchange_rates = currency.exchange_rates;
+    return *this;
+}
+
+nlohmann::json Currency::toJSON() const {
+    return nlohmann::json{
+            {"code", code}
+    };
+}
+
+void Currency::fromJSON(const nlohmann::json &json) {
+    code = json.at("code").get<std::string>();
+    std::shared_ptr<Currency> c;
+    bool found = StoreSystem::GetInstance().GetCurrency(code, c);
+    if(found) {
+        *this = *c;
+    }
+    else {
+        throw std::invalid_argument("Currency not found");
+    }
 }

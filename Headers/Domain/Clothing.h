@@ -16,7 +16,7 @@ public:
     uint32_t GetSize();
 
     Clothing & operator=(const Clothing &other);
-    Clothing(std::string id, std::string name, std::string description, uint32_t quantity, Price& price, Color color, std::string clothing_type, uint32_t size);
+    Clothing(std::string id, std::string name, std::string description, uint32_t quantity, std::shared_ptr<Price>& price, Color color, std::string clothing_type, uint32_t size);
 };
 
 

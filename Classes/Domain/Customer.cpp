@@ -1,3 +1,5 @@
+#include <memory>
+
 #include "../../Headers/Domain/Customer.h"
 #include "../../Headers/System/StoreSystem.h"
 #include "../../Headers/Domain/Order.h"
@@ -38,11 +40,11 @@ Customer &Customer::operator=(const Customer &other) {
     return *this;
 }
 
-Wallet &Customer::GetWallet() {
+std::shared_ptr<Wallet> &Customer::GetWallet() {
     return wallet;
 }
 
-Customer::Customer(std::string id, std::string name, std::string surname, std::string email, std::string phone) : wallet(StoreSystem::GetInstance().GetBaseCurrency(), 0, 0) {
+Customer::Customer(std::string id, std::string name, std::string surname, std::string email, std::string phone) : wallet(std::make_shared<Wallet>(StoreSystem::GetInstance().GetBaseCurrency(), 0, 0)) {
     this->id = id;
     this->name = name;
     this->surname = surname;
@@ -50,7 +52,7 @@ Customer::Customer(std::string id, std::string name, std::string surname, std::s
     this->phone = phone;
 }
 
-Customer::Customer(std::string id, std::string name, std::string surname, std::string email, std::string phone, Wallet &wallet) : wallet(wallet) {
+Customer::Customer(std::string id, std::string name, std::string surname, std::string email, std::string phone, std::shared_ptr<Wallet> &wallet) : wallet(wallet) {
     this->id = id;
     this->name = name;
     this->surname = surname;

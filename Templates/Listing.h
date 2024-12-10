@@ -11,9 +11,9 @@ class Listing {
 private:
     std::vector<T> items;
 public:
-    bool GetItem(std::string id, T &item) {
+    bool GetItem(const std::string& id, T &item) {
         for(int i = 0; i < items.size(); ++i) {
-            if(items[i].GetId() == id) {
+            if(items[i]->GetId() == id) {
                 item = items[i];
                 return true;
             }
@@ -26,9 +26,9 @@ public:
         return true;
     }
 
-    bool RemoveItem(std::string id) {
+    bool RemoveItem(const std::string& id) {
         for(int i = 0; i < items.size(); ++i) {
-            if(items[i].GetId() == id) {
+            if(items[i]->GetId() == id) {
                 items.erase(items.begin() + i);
                 return true;
             }

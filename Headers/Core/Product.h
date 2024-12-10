@@ -5,9 +5,9 @@
 #include <string>
 #include "Currency.h"
 #include "Price.h"
-#include "../../Headers/Interfaces/Buyable.h"
+#include "Interfaces/Buyable.h"
 
-class Product : public Buyable {
+class Product : public Buyable, virtual public Serializable {
 protected:
     uint32_t quantity;
 public:
@@ -15,7 +15,11 @@ public:
 
     Product& operator=(const Product &other);
 
-    Product(std::string id, std::string name, std::string description, uint32_t quantity, Price &price);
+    Product(std::string id, std::string name, std::string description, uint32_t quantity, std::shared_ptr<Price> &price);
+
+    nlohmann::json toJSON() const override;
+
+    void fromJSON(const nlohmann::json &json) override;
 };
 
 
