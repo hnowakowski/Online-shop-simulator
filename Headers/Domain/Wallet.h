@@ -4,7 +4,7 @@
 
 #include <cstdint>
 #include "../Core/Currency.h"
-#include "Headers/Interfaces/MoneyPossesive.h"
+#include "Interfaces/MoneyPossesive.h"
 
 class Wallet : virtual public MoneyPossesive {
 public:
@@ -14,7 +14,7 @@ public:
     void RemoveSub(uint32_t amount);
 
     Wallet &operator=(const Wallet &other);
-    Wallet(Currency& currency, uint32_t mainunit, uint32_t subunit);
+    Wallet(std::shared_ptr<Currency>& currency, uint32_t mainunit, uint32_t subunit);
 };
 
 

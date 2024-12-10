@@ -1,4 +1,5 @@
 QT       += core gui
+QT       += widgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -18,9 +19,9 @@ SOURCES += \
     Classes/Domain/Customer.cpp \
     Classes/Domain/Order.cpp \
     Classes/Domain/Wallet.cpp \
-    Classes/Interfaces/Buyable.cpp \
-    Classes/Interfaces/MoneyPossesive.cpp \
     Classes/System/StoreSystem.cpp \
+    Interfaces/Buyable.cpp \
+    Interfaces/MoneyPossesive.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -36,10 +37,12 @@ HEADERS += \
     Headers/Domain/Customer.h \
     Headers/Domain/Order.h \
     Headers/Domain/Wallet.h \
-    Headers/Interfaces/Buyable.h \
-    Headers/Interfaces/MoneyPossesive.h \
     Headers/System/StoreSystem.h \
+    Interfaces/Buyable.h \
+    Interfaces/MoneyPossesive.h \
+    Interfaces/Serializable.h \
     Templates/Listing.h \
+    Templates/LoaderSaver.h \
     mainwindow.h
 
 FORMS += \

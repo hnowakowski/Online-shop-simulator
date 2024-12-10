@@ -1,7 +1,17 @@
-# cmake_minimum_required(VERSION <specify CMake version here>)
+cmake_minimum_required(VERSION 3.27)
 project(OOP_project)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+
+
+find_package(Qt6 COMPONENTS
+        Core
+        Gui
+        Widgets
+        REQUIRED)
 
 include_directories(.)
 include_directories(Classes)
@@ -21,8 +31,8 @@ add_executable(OOP_project
         Classes/Domain/Clothing.cpp
         Headers/Domain/Cart.h
         Headers/Core/Price.h
-        Headers/Interfaces/MoneyPossesive.h
-        Classes/Interfaces/MoneyPossesive.cpp
+        Interfaces/MoneyPossesive.h
+        Interfaces/MoneyPossesive.cpp
         Classes/Core/Price.cpp
         Classes/Domain/Cart.cpp
         Headers/Domain/Customer.h
@@ -32,8 +42,50 @@ add_executable(OOP_project
         Headers/System/StoreSystem.h
         Classes/System/StoreSystem.cpp
         Templates/Listing.h
-        Headers/Interfaces/Buyable.h
-        Classes/Interfaces/Buyable.cpp
+        Interfaces/Buyable.h
+        Interfaces/Buyable.cpp
         Headers/Core/Service.h
         Enums/ServiceType.h
-        Classes/Core/Service.cpp)
+        Classes/Core/Service.cpp
+        Interfaces/Serializable.h
+        ExternalLibs/nlohmann/json.hpp
+        Templates/LoaderSaver.h
+        Templates/LoaderSaver.h
+        Interfaces/MoneyPossesive.cpp
+)
+
+if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+    set(DEBUG_SUFFIX)
+    if (MSVC AND CMAKE_BUILD_TYPE MATCHES "Debug")
+        set(DEBUG_SUFFIX "d")
+    endif ()
+    set(QT_INSTALL_PATH "${CMAKE_PREFIX_PATH}")
+    if (NOT EXISTS "${QT_INSTALL_PATH}/bin")
+        set(QT_INSTALL_PATH "${QT_INSTALL_PATH}/..")
+        if (NOT EXISTS "${QT_INSTALL_PATH}/bin")
+            set(QT_INSTALL_PATH "${QT_INSTALL_PATH}/..")
+        endif ()
+    endif ()
+    if (EXISTS "${QT_INSTALL_PATH}/plugins/platforms/qwindows${DEBUG_SUFFIX}.dll")
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E make_directory
+                "$<TARGET_FILE_DIR:${PROJECT_NAME}>/plugins/platforms/")
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy
+                "${QT_INSTALL_PATH}/plugins/platforms/qwindows${DEBUG_SUFFIX}.dll"
+                "$<TARGET_FILE_DIR:${PROJECT_NAME}>/plugins/platforms/")
+    endif ()
+    foreach (QT_LIB Core Gui Widgets)
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy
+                "${QT_INSTALL_PATH}/bin/Qt6${QT_LIB}${DEBUG_SUFFIX}.dll"
+                "$<TARGET_FILE_DIR:${PROJECT_NAME}>")
+    endforeach (QT_LIB)
+endif ()
+
+
+target_link_libraries(OOP_project
+        Qt::Core
+        Qt::Gui
+        Qt::Widgets
+)

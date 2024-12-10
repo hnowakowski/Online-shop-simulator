@@ -15,8 +15,8 @@ public:
     std::pair<uint32_t, uint32_t> GetTotalPrice(std::vector<std::shared_ptr<Buyable>> &unconvertable_buyables);
     Cart& operator=(const Cart &cart);
 
-    Cart(Currency & currency);
-    Cart(Currency & currency, std::vector<std::shared_ptr<Buyable>> & buyables);
+    Cart(std::shared_ptr<Currency> & currency);
+    Cart(std::shared_ptr<Currency> & currency, std::vector<std::shared_ptr<Buyable>> & buyables);
 };
 
 

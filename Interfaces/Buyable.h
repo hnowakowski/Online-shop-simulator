@@ -3,14 +3,15 @@
 
 
 #include "MoneyPossesive.h"
-#include "../Core/Price.h"
+#include "Headers/Core/Price.h"
+#include "Serializable.h"
 
 class Buyable{
 protected:
     std::string id;
     std::string name;
     std::string description;
-    Price &price;
+    std::shared_ptr<Price> price;
 public:
     virtual std::string GetId();
 
@@ -24,13 +25,15 @@ public:
 
     virtual bool GetPrice(uint32_t &mainunit, uint32_t &subunit);
 
-    virtual bool GetPrice(uint32_t &mainunit, uint32_t &subunit, Currency &currency);
+    virtual bool GetPrice(uint32_t &mainunit, uint32_t &subunit, std::shared_ptr<Currency> &currency);
 
     virtual void UpdateMainUnitPrice(uint32_t newmainprice);
 
     virtual void UpdateSubUnitPrice(uint32_t newsubprice);
 
-    Buyable(std::string id, std::string name, std::string description, Price &price);
+    Buyable(std::string id, std::string name, std::string description, std::shared_ptr<Price> &price);
+
+    virtual ~Buyable() = default;
 };
 
 

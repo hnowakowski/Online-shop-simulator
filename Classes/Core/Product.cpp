@@ -5,7 +5,7 @@ uint32_t Product::GetQuantity() {
 }
 
 
-Product::Product(std::string id, std::string name, std::string description, uint32_t quantity, Price &price) : Buyable(id, name, description, price) {
+Product::Product(std::string id, std::string name, std::string description, uint32_t quantity, std::shared_ptr<Price> &price) : Buyable(id, name, description, price) {
     this->id = id;
     this->name = name;
     this->description = description;
@@ -25,4 +25,22 @@ Product &Product::operator=(const Product &other) {
     this->price = other.price;
 
     return *this;
+}
+
+nlohmann::json Product::toJSON() const {
+    return nlohmann::json{
+            {"id",          id},
+            {"name",        name},
+            {"description", description},
+            {"quantity",     quantity},
+            {"price",       price->toJSON()}
+    };
+}
+
+void Product::fromJSON(const nlohmann::json &json) {
+    id = json.at("id").get<std::string>();
+    name = json.at("name").get<std::string>();
+    description = json.at("description").get<std::string>();
+    quantity = json.at("quantity").get<uint32_t>();
+    price->fromJSON(json.at("price"));
 }
