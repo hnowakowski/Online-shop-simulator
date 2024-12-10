@@ -1,7 +1,7 @@
 #include "../../Headers/Domain/Clothing.h"
 
-Clothing::Clothing(std::string id, std::string name, std::string description, uint32_t quantity, std::shared_ptr<Price>& price, Color color, std::string clothing_type, uint32_t size)
-        : Product(id, name, description, quantity, price) {
+Clothing::Clothing(std::string id, std::string name, std::string description, std::string image, uint32_t quantity, std::shared_ptr<Price>& price, Color color, std::string clothing_type, uint32_t size)
+        : Product(id, name, description, image, quantity, price) {
     this->color = color;
     this->clothing_type = clothing_type;
     this->size = size;
@@ -27,6 +27,7 @@ Clothing &Clothing::operator=(const Clothing &other) {
     this->id = other.id;
     this->name = other.name;
     this->description = other.description;
+    this->image = other.image;
     this->quantity = other.quantity;
     this->price = other.price;
     this->color = other.color;

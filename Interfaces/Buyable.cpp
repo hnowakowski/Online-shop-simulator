@@ -12,6 +12,10 @@ std::string Buyable::GetDescription() {
     return description;
 }
 
+std::string Buyable::GetImage() {
+    return image;
+}
+
 bool Buyable::GetPrice(uint32_t &mainunit, uint32_t &subunit) {
     return price->GetTotal(mainunit, subunit);
 }
@@ -36,9 +40,10 @@ void Buyable::UpdateSubUnitPrice(uint32_t newsubprice) {
     price->UpdateSubUnit(newsubprice);
 }
 
-Buyable::Buyable(std::string id, std::string name, std::string description, std::shared_ptr<Price> &price) : price(price) {
+Buyable::Buyable(std::string id, std::string name, std::string description, std::string image, std::shared_ptr<Price> &price) : price(price) {
     this->id = id;
     this->name = name;
     this->description = description;
+    this->image = image;
     this->price = price;
 }
