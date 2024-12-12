@@ -45,6 +45,6 @@ void Price::fromJSON(const nlohmann::json &json) {
     subunit = json.at("subunit").get<uint32_t>();
 }
 
-Price::Price(const nlohmann::json &json) : MoneyPossesive(currency, mainunit, subunit) {
+Price::Price(const nlohmann::json &json) : MoneyPossesive(nullptr, 0, 0) {
     this->Price::fromJSON(json);
 }

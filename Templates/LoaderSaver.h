@@ -25,6 +25,7 @@ public:
 
         for (const auto &item : json) {
             std::cout << "Processing item: " << item.dump() << std::endl;
+            std::cout<<item.contains("price")<<"\n";
             auto object = std::make_shared<T>(item);
             objects.push_back(object);
             std::cout << "Object created successfully!" << std::endl;

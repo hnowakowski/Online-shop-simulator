@@ -27,7 +27,7 @@ Service::Service()
 }
 
 Service::Service(std::string id, std::string name, std::string description, std::string image,
-                 std::shared_ptr<Price> &price, ServiceType type) : Buyable(id, name, description, image, price) {
+                 std::shared_ptr<Price> price, ServiceType type) : Buyable(id, name, description, image, price) {
     this->id = id;
     this->name = name;
     this->description = description;
