@@ -1,6 +1,6 @@
 #include "../../Headers/System/StoreSystem.h"
 
- std::shared_ptr<Currency> & StoreSystem::GetBaseCurrency() {
+ std::shared_ptr<Currency> StoreSystem::GetBaseCurrency() {
     return basecurrency;
 }
 
@@ -43,24 +43,24 @@ bool StoreSystem::GetCurrency(const std::string &code, std::shared_ptr<Currency>
 }
 
 
-void StoreSystem::AddProduct(std::shared_ptr<Product> &product) {
+void StoreSystem::AddProduct(std::shared_ptr<Product> product) {
     products.AddItem(product);
 }
 
-void StoreSystem::AddService(std::shared_ptr<Service> &service) {
+void StoreSystem::AddService(std::shared_ptr<Service> service) {
     services.AddItem(service);
 }
 
-void StoreSystem::AddCustomer(std::shared_ptr<Customer> &customer) {
+void StoreSystem::AddCustomer(std::shared_ptr<Customer> customer) {
     customers.AddItem(customer);
 }
 
-void StoreSystem::AddOrder(std::shared_ptr<Order> &order) {
+void StoreSystem::AddOrder(std::shared_ptr<Order> order) {
     orders.AddItem(order);
 }
 
 
-void StoreSystem::AddCurrency(std::shared_ptr<Currency> &currency) {
+void StoreSystem::AddCurrency(std::shared_ptr<Currency> currency) {
     currencies.push_back(currency);
 }
 

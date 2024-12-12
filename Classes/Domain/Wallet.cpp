@@ -31,7 +31,7 @@ Wallet &Wallet::operator=(const Wallet &other) {
 
 }
 
-Wallet::Wallet(std::shared_ptr<Currency> &currency, uint32_t mainunit, uint32_t subunit) : MoneyPossesive(currency, mainunit, subunit) {
+Wallet::Wallet(std::shared_ptr<Currency> currency, uint32_t mainunit, uint32_t subunit) : MoneyPossesive(currency, mainunit, subunit) {
     this->currency = currency;
     this->mainunit = mainunit;
     this->subunit = subunit;

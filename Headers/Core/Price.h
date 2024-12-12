@@ -16,11 +16,13 @@ public:
 
     Price &operator=(const Price &price);
 
-    Price(std::shared_ptr<Currency> &currency, uint32_t mainunit, uint32_t subunit);
+    Price(std::shared_ptr<Currency> currency, uint32_t mainunit, uint32_t subunit);
 
     nlohmann::json toJSON() const override;
 
     void fromJSON(const nlohmann::json &json) override;
+
+    Price(const nlohmann::json &json);
 };
 
 

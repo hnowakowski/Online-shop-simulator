@@ -36,14 +36,14 @@ Cart &Cart::operator=(const Cart &cart) {
     return *this;
 }
 
-Cart::Cart(std::shared_ptr<Currency> &currency) : MoneyPossesive(currency) {
+Cart::Cart(std::shared_ptr<Currency> currency) : MoneyPossesive(currency) {
     this->currency = currency;
     this->mainunit = 0;
     this->subunit = 0;
     this->buyables = std::vector<std::shared_ptr<Buyable>>();
 }
 
-Cart::Cart(std::shared_ptr<Currency> &currency, std::vector<std::shared_ptr<Buyable>> & buyables) : MoneyPossesive(currency) {
+Cart::Cart(std::shared_ptr<Currency> currency, std::vector<std::shared_ptr<Buyable>> & buyables) : MoneyPossesive(currency) {
     this->currency = currency;
     this->mainunit = 0;
     this->subunit = 0;

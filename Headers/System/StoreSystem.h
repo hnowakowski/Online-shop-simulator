@@ -8,7 +8,6 @@
 #include "../Core/Service.h"
 
 class StoreSystem {
-private:
     std::shared_ptr<Currency> basecurrency;
     std::vector<std::shared_ptr<Currency>> currencies;
 
@@ -19,7 +18,7 @@ private:
     Listing<std::shared_ptr<Order>> orders;
 
     StoreSystem() : basecurrency(new Currency("Złoty polski","PLN","Zł",100)) {
-        AddCurrency(const_cast<std::shared_ptr<Currency> &>(GetBaseCurrency()));
+        AddCurrency(GetBaseCurrency());
     };
 
     StoreSystem(StoreSystem &other) = delete;
@@ -27,7 +26,7 @@ private:
     StoreSystem &operator=(StoreSystem &other) = delete;
 
 public:
-    std::shared_ptr<Currency> & GetBaseCurrency();
+    std::shared_ptr<Currency> GetBaseCurrency();
 
     bool GetProduct(const std::string &id, std::shared_ptr<Product> &product);
     bool GetService(const std::string &id, std::shared_ptr<Service> &service);
@@ -35,17 +34,17 @@ public:
     bool GetOrder(const std::string &id, std::shared_ptr<Order> &order);
     bool GetCurrency(const std::string &code, std::shared_ptr<Currency> &currency);
 
-    void AddProduct(std::shared_ptr<Product> &product);
-    void AddService(std::shared_ptr<Service> &service);
-    void AddCustomer(std::shared_ptr<Customer> &customer);
-    void AddOrder(std::shared_ptr<Order> &order);
-    void AddCurrency(std::shared_ptr<Currency> &currency);
+    void AddProduct(std::shared_ptr<Product> product);
+    void AddService(std::shared_ptr<Service> service);
+    void AddCustomer(std::shared_ptr<Customer> customer);
+    void AddOrder(std::shared_ptr<Order> order);
+    void AddCurrency(std::shared_ptr<Currency> currency);
 
     bool RemoveProduct(const std::string &id);
     bool RemoveCustomer(const std::string &id);
     bool RemoveService(const std::string &id);
     bool RemoveOrder(const std::string &id);
-    bool RemoveCurrency(const std::string& code);
+    bool RemoveCurrency(const std::string &code);
 
     static StoreSystem &GetInstance() {
         static StoreSystem instance;

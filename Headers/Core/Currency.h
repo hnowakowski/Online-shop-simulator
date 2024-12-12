@@ -7,7 +7,6 @@
 #include "Interfaces/Serializable.h"
 
 class Currency : public Serializable {
-private:
     std::string name;
     std::string code;
     std::string symbol;
@@ -36,6 +35,8 @@ public:
     nlohmann::json toJSON() const override;
 
     void fromJSON(const nlohmann::json &json) override;
+
+    Currency(const nlohmann::json &json);
 };
 
 

@@ -40,7 +40,7 @@ Customer &Customer::operator=(const Customer &other) {
     return *this;
 }
 
-std::shared_ptr<Wallet> &Customer::GetWallet() {
+std::shared_ptr<Wallet> Customer::GetWallet() {
     return wallet;
 }
 
@@ -52,7 +52,7 @@ Customer::Customer(std::string id, std::string name, std::string surname, std::s
     this->phone = phone;
 }
 
-Customer::Customer(std::string id, std::string name, std::string surname, std::string email, std::string phone, std::shared_ptr<Wallet> &wallet) : wallet(wallet) {
+Customer::Customer(std::string id, std::string name, std::string surname, std::string email, std::string phone, std::shared_ptr<Wallet> wallet) : wallet(wallet) {
     this->id = id;
     this->name = name;
     this->surname = surname;

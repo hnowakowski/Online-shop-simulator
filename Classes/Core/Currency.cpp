@@ -80,3 +80,7 @@ void Currency::fromJSON(const nlohmann::json &json) {
         throw std::invalid_argument("Currency not found");
     }
 }
+
+Currency::Currency(const nlohmann::json &json) {
+    this->Currency::fromJSON(json);
+}

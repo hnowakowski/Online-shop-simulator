@@ -7,7 +7,7 @@ bool MoneyPossesive::GetTotal(uint32_t &mainunit, uint32_t &subunit) {
    return true;
 }
 
-bool MoneyPossesive::GetTotal(uint32_t &mainunit, uint32_t &subunit, std::shared_ptr<Currency> & new_currency) {
+bool MoneyPossesive::GetTotal(uint32_t &mainunit, uint32_t &subunit, std::shared_ptr<Currency> new_currency) {
     if(new_currency == this->currency) {
         mainunit = this->mainunit;
         subunit = this->subunit;
@@ -33,7 +33,7 @@ uint32_t MoneyPossesive::GetSubUnit() {
     return subunit;
 }
 
-bool MoneyPossesive::ChangeCurrency(std::shared_ptr<Currency> & new_currency) {
+bool MoneyPossesive::ChangeCurrency(std::shared_ptr<Currency> new_currency) {
     if(this->GetConvertedTotal(mainunit, subunit, new_currency)){
         this->currency = new_currency;
         return true;
@@ -41,13 +41,13 @@ bool MoneyPossesive::ChangeCurrency(std::shared_ptr<Currency> & new_currency) {
     return false;
 }
 
-MoneyPossesive::MoneyPossesive(std::shared_ptr<Currency> &currency, uint32_t mainunit, uint32_t subunit) : currency(currency) {
+MoneyPossesive::MoneyPossesive(std::shared_ptr<Currency> currency, uint32_t mainunit, uint32_t subunit) : currency(currency) {
     this->currency = currency;
     this->mainunit = mainunit;
     this->subunit = subunit;
 }
 
-bool MoneyPossesive::GetConvertedTotal(uint32_t &mainunit, uint32_t &subunit, std::shared_ptr<Currency> &new_currency) {
+bool MoneyPossesive::GetConvertedTotal(uint32_t &mainunit, uint32_t &subunit, std::shared_ptr<Currency> new_currency) {
     float exchange_rate;
     if(!new_currency->GetExchangeRate(this->currency->GetCode(), exchange_rate)) {
         return false;
@@ -61,7 +61,7 @@ bool MoneyPossesive::GetConvertedTotal(uint32_t &mainunit, uint32_t &subunit, st
     return true;
 }
 
-MoneyPossesive::MoneyPossesive(std::shared_ptr<Currency> &currency) : currency(currency) {
+MoneyPossesive::MoneyPossesive(std::shared_ptr<Currency> currency) : currency(currency) {
     this->currency = currency;
     this->mainunit = 0;
     this->subunit = 0;

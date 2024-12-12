@@ -25,7 +25,7 @@ Price& Price::operator=(const Price &price) {
     return *this;
 }
 
-Price::Price(std::shared_ptr<Currency> &currency, uint32_t mainunit, uint32_t subunit) : MoneyPossesive(currency, mainunit, subunit) {
+Price::Price(std::shared_ptr<Currency> currency, uint32_t mainunit, uint32_t subunit) : MoneyPossesive(currency, mainunit, subunit) {
     this->currency = currency;
     this->mainunit = mainunit;
     this->subunit = subunit;
@@ -40,7 +40,11 @@ nlohmann::json Price::toJSON() const {
 }
 
 void Price::fromJSON(const nlohmann::json &json) {
-    currency->fromJSON(json.at("currency"));
+    currency = std::make_shared<Currency>(json.at("currency"));
     mainunit = json.at("mainunit").get<uint32_t>();
     subunit = json.at("subunit").get<uint32_t>();
+}
+
+Price::Price(const nlohmann::json &json) : MoneyPossesive(currency, mainunit, subunit) {
+    this->Price::fromJSON(json);
 }

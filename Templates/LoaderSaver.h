@@ -24,10 +24,12 @@ public:
         file.close();
 
         for (const auto &item : json) {
-            auto object = std::make_shared<T>();
-            object->fromJSON(item);
+            std::cout << "Processing item: " << item.dump() << std::endl;
+            auto object = std::make_shared<T>(item);
             objects.push_back(object);
+            std::cout << "Object created successfully!" << std::endl;
         }
+
 
         return true;
     }

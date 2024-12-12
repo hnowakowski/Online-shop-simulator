@@ -14,7 +14,7 @@ public:
     void RemoveSub(uint32_t amount);
 
     Wallet &operator=(const Wallet &other);
-    Wallet(std::shared_ptr<Currency>& currency, uint32_t mainunit, uint32_t subunit);
+    Wallet(std::shared_ptr<Currency> currency, uint32_t mainunit, uint32_t subunit);
 };
 
 

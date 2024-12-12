@@ -50,7 +50,6 @@ add_executable(OOP_project
         Interfaces/Serializable.h
         ExternalLibs/nlohmann/json.hpp
         Templates/LoaderSaver.h
-        Templates/LoaderSaver.h
         Interfaces/MoneyPossesive.cpp
 )
 

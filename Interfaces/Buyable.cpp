@@ -43,7 +43,7 @@ void Buyable::UpdateSubUnitPrice(uint32_t newsubprice) {
 Buyable::Buyable()
     : id(""), name(""), description(""), image(""), price(nullptr) {}
 
-Buyable::Buyable(std::string id, std::string name, std::string description, std::string image, std::shared_ptr<Price> &price) : price(price) {
+Buyable::Buyable(std::string id, std::string name, std::string description, std::string image, std::shared_ptr<Price> price) : price(price) {
     this->id = id;
     this->name = name;
     this->description = description;

@@ -9,7 +9,7 @@
 
 class Product : public Buyable, virtual public Serializable {
 protected:
-    uint32_t quantity;
+    uint32_t quantity{};
 public:
     uint32_t GetQuantity();
 
@@ -17,11 +17,13 @@ public:
 
     Product();
 
-    Product(std::string id, std::string name, std::string description, std::string image, uint32_t quantity, std::shared_ptr<Price> &price);
+    Product(std::string id, std::string name, std::string description, std::string image, uint32_t quantity, std::shared_ptr<Price> price);
 
     nlohmann::json toJSON() const override;
 
     void fromJSON(const nlohmann::json &json) override;
+
+    explicit Product(const nlohmann::json& json);
 };
 
 

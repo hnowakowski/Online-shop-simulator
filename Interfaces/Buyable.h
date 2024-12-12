@@ -2,7 +2,6 @@
 #define OOP_PROJECT_BUYABLE_H
 
 
-#include "MoneyPossesive.h"
 #include "Headers/Core/Price.h"
 #include "Serializable.h"
 
@@ -36,7 +35,7 @@ public:
 
     Buyable();
 
-    Buyable(std::string id, std::string name, std::string description, std::string image, std::shared_ptr<Price> &price);
+    Buyable(std::string id, std::string name, std::string description, std::string image, std::shared_ptr<Price> price);
 
     virtual ~Buyable() = default;
 };

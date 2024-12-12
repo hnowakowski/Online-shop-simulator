@@ -6,7 +6,6 @@
 #include "../../Enums/Color.h"
 
 class Clothing : public Product {
-private:
     Color color;
     std::string clothing_type;
     uint32_t size{};
@@ -17,6 +16,11 @@ public:
 
     Clothing & operator=(const Clothing &other);
     Clothing(std::string id, std::string name, std::string description, std::string image, uint32_t quantity, std::shared_ptr<Price>& price, Color color, std::string clothing_type, uint32_t size);
+
+    nlohmann::json toJSON() const override;
+    void fromJSON(const nlohmann::json &json) override;
+
+    Clothing(const nlohmann::json &json);
 };
 
 

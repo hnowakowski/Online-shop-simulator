@@ -21,6 +21,8 @@ public:
 
     void fromJSON(const nlohmann::json &json) override;
 
+    explicit Service(const nlohmann::json& json);
+
 };
 
 
