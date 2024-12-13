@@ -1,16 +1,30 @@
 [
     {
-        "id": "P1",
-        "name": "Blahaj",
         "description": "Haiiii :3",
-        "image": "Images/Products/blahaj.png",
-        "quantity": 999,
+        "id": "P1",
+        "image": "Images/Products/blahaj.jpg",
+        "name": "Blahaj",
         "price": {
             "currency": {
                 "code": "PLN"
             },
             "mainunit": 79,
             "subunit": 99
-        }
+        },
+        "quantity": 20
+    },
+    {
+        "description": "Creatine zyzz hardstyle we go jim sam sulek uuuu sigma winter arc",
+        "id": "P2",
+        "image": "Images/Products/creatine.jpg",
+        "name": "Creatine",
+        "price": {
+            "currency": {
+                "code": "PLN"
+            },
+            "mainunit": 109,
+            "subunit": 99
+        },
+        "quantity": 10
     }
 ]

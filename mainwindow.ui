@@ -80,6 +80,7 @@
                <height>451</height>
               </rect>
              </property>
+             <layout class="QVBoxLayout" name="verticalLayout_13"/>
             </widget>
            </widget>
           </item>
@@ -1084,8 +1085,8 @@ BECOME A CONSUMER TODAY!!</string>
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>953</width>
-                 <height>331</height>
+                 <width>16</width>
+                 <height>16</height>
                 </rect>
                </property>
               </widget>
