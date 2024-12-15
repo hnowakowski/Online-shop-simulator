@@ -27,7 +27,6 @@ SOURCES += \
     Classes/System/StoreSystem.cpp \
     Interfaces/Buyable.cpp \
     Interfaces/MoneyPossesive.cpp \
-    Setupers/pageMain.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -47,7 +46,6 @@ HEADERS += \
     Headers/Domain/Customer.h \
     Headers/Domain/Order.h \
     Headers/Domain/Wallet.h \
-    Headers/Setupers/pageMain.h \
     Headers/System/StoreSystem.h \
     Interfaces/Buyable.h \
     Interfaces/DynamicWidget.h \

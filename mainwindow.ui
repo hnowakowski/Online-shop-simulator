@@ -145,11 +145,11 @@ generate it from an array or smth</string>
             </item>
             <item>
              <widget class="Line" name="line_6">
+              <property name="frameShape">
+               <enum>QFrame::Shape::VLine</enum>
+              </property>
               <property name="frameShadow">
                <enum>QFrame::Shadow::Plain</enum>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Orientation::Vertical</enum>
               </property>
              </widget>
             </item>
@@ -185,11 +185,11 @@ generate it from an array or smth</string>
              <layout class="QHBoxLayout" name="horizontalLayout_2">
               <item>
                <widget class="Line" name="line_7">
+                <property name="frameShape">
+                 <enum>QFrame::Shape::VLine</enum>
+                </property>
                 <property name="frameShadow">
                  <enum>QFrame::Shadow::Plain</enum>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Orientation::Vertical</enum>
                 </property>
                </widget>
               </item>
@@ -209,11 +209,11 @@ generate it from an array or smth</string>
               </item>
               <item>
                <widget class="Line" name="line_8">
+                <property name="frameShape">
+                 <enum>QFrame::Shape::VLine</enum>
+                </property>
                 <property name="frameShadow">
                  <enum>QFrame::Shadow::Plain</enum>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Orientation::Vertical</enum>
                 </property>
                </widget>
               </item>
@@ -240,21 +240,21 @@ generate it from an array or smth</string>
           </item>
           <item row="0" column="1">
            <widget class="Line" name="line_4">
+            <property name="frameShape">
+             <enum>QFrame::Shape::VLine</enum>
+            </property>
             <property name="frameShadow">
              <enum>QFrame::Shadow::Plain</enum>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
             </property>
            </widget>
           </item>
           <item row="2" column="1">
            <widget class="Line" name="line_3">
+            <property name="frameShape">
+             <enum>QFrame::Shape::VLine</enum>
+            </property>
             <property name="frameShadow">
              <enum>QFrame::Shadow::Plain</enum>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
             </property>
            </widget>
           </item>
@@ -281,11 +281,11 @@ generate it from an array or smth</string>
           </item>
           <item>
            <widget class="Line" name="line_2">
+            <property name="frameShape">
+             <enum>QFrame::Shape::VLine</enum>
+            </property>
             <property name="frameShadow">
              <enum>QFrame::Shadow::Plain</enum>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
             </property>
            </widget>
           </item>
@@ -399,11 +399,11 @@ generate it from an array or smth</string>
           </item>
           <item>
            <widget class="Line" name="line_13">
+            <property name="frameShape">
+             <enum>QFrame::Shape::VLine</enum>
+            </property>
             <property name="frameShadow">
              <enum>QFrame::Shadow::Plain</enum>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
             </property>
            </widget>
           </item>
@@ -446,11 +446,11 @@ generate it from an array or smth</string>
           </item>
           <item>
            <widget class="Line" name="line_10">
+            <property name="frameShape">
+             <enum>QFrame::Shape::VLine</enum>
+            </property>
             <property name="frameShadow">
              <enum>QFrame::Shadow::Plain</enum>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
             </property>
            </widget>
           </item>
@@ -645,11 +645,11 @@ BECOME A CONSUMER TODAY!!</string>
           </item>
           <item>
            <widget class="Line" name="line_11">
+            <property name="frameShape">
+             <enum>QFrame::Shape::VLine</enum>
+            </property>
             <property name="frameShadow">
              <enum>QFrame::Shadow::Plain</enum>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
             </property>
            </widget>
           </item>
@@ -689,11 +689,11 @@ BECOME A CONSUMER TODAY!!</string>
           </item>
           <item>
            <widget class="Line" name="line_17">
+            <property name="frameShape">
+             <enum>QFrame::Shape::VLine</enum>
+            </property>
             <property name="frameShadow">
              <enum>QFrame::Shadow::Plain</enum>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
             </property>
            </widget>
           </item>
@@ -758,8 +758,8 @@ BECOME A CONSUMER TODAY!!</string>
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>953</width>
-                 <height>162</height>
+                 <width>16</width>
+                 <height>16</height>
                 </rect>
                </property>
               </widget>
@@ -975,11 +975,11 @@ BECOME A CONSUMER TODAY!!</string>
           </item>
           <item>
            <widget class="Line" name="line_18">
+            <property name="frameShape">
+             <enum>QFrame::Shape::VLine</enum>
+            </property>
             <property name="frameShadow">
              <enum>QFrame::Shadow::Plain</enum>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
             </property>
            </widget>
           </item>
@@ -1019,11 +1019,11 @@ BECOME A CONSUMER TODAY!!</string>
           </item>
           <item>
            <widget class="Line" name="line_15">
+            <property name="frameShape">
+             <enum>QFrame::Shape::VLine</enum>
+            </property>
             <property name="frameShadow">
              <enum>QFrame::Shadow::Plain</enum>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
             </property>
            </widget>
           </item>
@@ -1145,11 +1145,11 @@ BECOME A CONSUMER TODAY!!</string>
           </item>
           <item>
            <widget class="Line" name="line_16">
+            <property name="frameShape">
+             <enum>QFrame::Shape::VLine</enum>
+            </property>
             <property name="frameShadow">
              <enum>QFrame::Shadow::Plain</enum>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
             </property>
            </widget>
           </item>

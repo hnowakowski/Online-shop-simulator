@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "Headers/Setupers/pageMain.h"
 #include "Templates/LoaderSaver.h"
 #include "Headers/Core/Product.h"
 #include "Headers/CustomWidgets/ProductScrollArea.h"
@@ -17,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     }
     ProductScrollArea test(ui->scrollAreaProducts, products);
     test.Populate();
+
 }
 
 MainWindow::~MainWindow()
