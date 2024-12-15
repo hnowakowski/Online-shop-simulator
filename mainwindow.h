@@ -4,6 +4,12 @@
 #include <QMainWindow>
 #include "ui_mainwindow.h"
 
+#ifdef DEBUG
+#define PATH (std::filesystem::current_path().string() + "\\..\\..\\")
+#else
+#define PATH ""
+#endif
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;

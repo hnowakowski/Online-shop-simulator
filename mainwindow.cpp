@@ -11,11 +11,12 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->stackedWidget->setCurrentWidget(ui->pageMain);
     std::vector<std::shared_ptr<Product>> products;
-    if(LoaderSaver<Product>::Load("C:\\Users\\SilverBoi\\Desktop\\hackerman stuff\\uni stuff\\oop\\shop_project\\Assets\\products.json", products)){
-        std::cout<<"Products loaded!\n";
+    if(LoaderSaver<Product>::Load(PATH + "Assets\\products.json", products)){
+        qDebug() <<"Products loaded!\n";
     }
     ProductScrollArea test(ui->scrollAreaProducts, products);
     test.Populate();
+    //qDebug() << "Curr path: " << PATH;
 
 }
 

@@ -2,7 +2,7 @@
     {
         "description": "Haiiii :3",
         "id": "P1",
-        "image": "Images/Products/blahaj.jpg",
+        "image": "Assets\\Images\\Products\\blahaj.jpg",
         "name": "Blahaj",
         "price": {
             "currency": {
@@ -16,7 +16,7 @@
     {
         "description": "Creatine zyzz hardstyle we go jim sam sulek uuuu sigma winter arc",
         "id": "P2",
-        "image": "Images/Products/creatine.jpg",
+        "image": "Assets\\Images\\Products\\creatine.jpg",
         "name": "Creatine",
         "price": {
             "currency": {

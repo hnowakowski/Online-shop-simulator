@@ -8,6 +8,5 @@ debug/
 release/
 .qtc_clangd/
 .qmake.stash
-products.json
 mainwindow
 ui_mainwindow.h

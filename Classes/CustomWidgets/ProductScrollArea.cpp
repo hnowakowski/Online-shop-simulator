@@ -6,6 +6,7 @@
 #include <QImage>
 #include <QPixmap>
 #include "Headers/Core/Product.h"
+#include "mainwindow.h"
 #include "Headers/CustomWidgets/ProductScrollArea.h"
 
 void ProductScrollArea::Populate() {
@@ -24,10 +25,12 @@ void ProductScrollArea::Populate() {
 
     for (auto &product : products) {
         QWidget *productPanel = new QWidget();
-        QVBoxLayout *panelLayout = new QVBoxLayout(productPanel);
+        QHBoxLayout *panelLayout = new QHBoxLayout(productPanel);
 
         QLabel *imageLabel = new QLabel();
-        QPixmap pixmap(product->GetImage().c_str());
+        std::string imgPath = (PATH + product->GetImage()).c_str();
+        qDebug()<<imgPath<<"\n";
+        QPixmap pixmap(imgPath.c_str());
         imageLabel->setPixmap(pixmap.scaled(100, 100, Qt::KeepAspectRatio));
         panelLayout->addWidget(imageLabel);
 
