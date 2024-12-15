@@ -23,11 +23,11 @@ SOURCES += \
     Classes/Domain/Order.cpp \
     Classes/Domain/Wallet.cpp \
     Classes/CustomWidgets/AddressLineEdit.cpp \
-    Classes/CustomWidgets/ProductScrollArea.cpp \
-    Classes/CustomWidgets/ProductScrollAreaBuyable.cpp \
+    Classes/CustomWidgets/BuyableScrollAreaMain.cpp \
     Classes/CustomWidgets/RadioButtonList.cpp \
     Classes/System/StoreSystem.cpp \
     Interfaces/Buyable.cpp \
+    Interfaces/BuyableScrollArea.cpp \
     Interfaces/MoneyPossesive.cpp \
     main.cpp \
     mainwindow.cpp
@@ -40,8 +40,7 @@ HEADERS += \
     Headers/Core/Product.h \
     Headers/Core/Service.h \
     Headers/CustomWidgets/AddressLineEdit.h \
-    Headers/CustomWidgets/ProductScrollArea.h \
-    Headers/CustomWidgets/ProductScrollAreaBuyable.h \
+    Headers/CustomWidgets/BuyableScrollAreaMain.h \
     Headers/CustomWidgets/RadioButtonList.h \
     Headers/Domain/Cart.h \
     Headers/Domain/Clothing.h \
@@ -50,6 +49,7 @@ HEADERS += \
     Headers/Domain/Wallet.h \
     Headers/System/StoreSystem.h \
     Interfaces/Buyable.h \
+    Interfaces/BuyableScrollArea.h \
     Interfaces/DynamicWidget.h \
     Interfaces/MoneyPossesive.h \
     Interfaces/Serializable.h \
