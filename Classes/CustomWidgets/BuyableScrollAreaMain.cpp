@@ -25,32 +25,43 @@ void BuyableScrollAreaMain::Populate() {
 
     for (auto &buyable : buyables) {
         QWidget *productPanel = new QWidget();
-        QHBoxLayout *panelLayout = new QHBoxLayout(productPanel);
+        QHBoxLayout *productLayout = new QHBoxLayout(productPanel);
 
         QLabel *imageLabel = new QLabel();
         std::string imgPath = (PATH + buyable->GetImage()).c_str();
         qDebug()<<imgPath<<"\n";
         QPixmap pixmap(imgPath.c_str());
         imageLabel->setPixmap(pixmap.scaled(200, 200));
-        panelLayout->addWidget(imageLabel);
+        productLayout->addWidget(imageLabel);
+
+        QWidget *infoPanel = new QWidget();
+        QVBoxLayout *infoLayout = new QVBoxLayout(infoPanel);
 
         QLabel *nameLabel = new QLabel(QString::fromStdString(buyable->GetName()));
         QFont nameFont = nameLabel->font();
         nameFont.setPointSize(12);
         nameFont.setBold(true);
         nameLabel->setFont(nameFont);
-        panelLayout->addWidget(nameLabel);
+        infoLayout->addWidget(nameLabel);
 
         QLabel *descriptionLabel = new QLabel(QString::fromStdString(buyable->GetDescription()));
         descriptionLabel->setWordWrap(true);
-        panelLayout->addWidget(descriptionLabel);
+        infoLayout->addWidget(descriptionLabel);
 
-        layout->addWidget(productPanel);
+        productLayout->addWidget(infoPanel);
+
+        QSpacerItem *horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding);
+        productLayout->addItem(horizontalSpacer);
 
         QPushButton *addToCartButton = new QPushButton("Add to Cart");
-        panelLayout->addWidget(addToCartButton);
-
+        productLayout->addWidget(addToCartButton);
         layout->addWidget(productPanel);
+
+        QFrame *sepLine = new QFrame();
+        sepLine->setFrameShape(QFrame::HLine);
+        sepLine->setFrameShadow(QFrame::Plain);
+        sepLine->setLineWidth(1);
+        layout->addWidget(sepLine);
     }
 
     scrollArea->widget()->adjustSize();
