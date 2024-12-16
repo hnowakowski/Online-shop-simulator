@@ -50,3 +50,25 @@ Buyable::Buyable(std::string id, std::string name, std::string description, std:
     this->image = image;
     this->price = price;
 }
+
+nlohmann::json Buyable::toJSON() const {
+    return nlohmann::json{
+        {"id",          id},
+        {"name",        name},
+        {"description", description},
+        {"image", image},
+        {"price",       price->toJSON()}
+    };
+}
+
+void Buyable::fromJSON(const nlohmann::json &json) {
+    id = json.at("id").get<std::string>();
+    name = json.at("name").get<std::string>();
+    description = json.at("description").get<std::string>();
+    image = json.at("image").get<std::string>();
+    price = std::make_shared<Price>(json.at("price"));
+}
+
+Buyable::Buyable(const nlohmann::json& json) {
+    this->Buyable::fromJSON(json);
+}

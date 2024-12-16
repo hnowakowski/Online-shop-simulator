@@ -7,7 +7,7 @@
 #include "Price.h"
 #include "Interfaces/Buyable.h"
 
-class Product : public Buyable, virtual public Serializable {
+class Product : public Buyable{
 protected:
     uint32_t quantity{};
 public:

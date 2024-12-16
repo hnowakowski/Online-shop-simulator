@@ -3,10 +3,8 @@
 
 
 enum class ServiceType {
-    DELIVERY,
-    INSTALLATION,
-    REPAIR,
-    CONSULTATION,
+    DISCORDIAN,
+    ART,
     OTHER
 };
 

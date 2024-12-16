@@ -23,25 +23,25 @@ void BuyableScrollAreaMain::Populate() {
         delete item;
     }
 
-    for (auto &product : products) {
+    for (auto &buyable : buyables) {
         QWidget *productPanel = new QWidget();
         QHBoxLayout *panelLayout = new QHBoxLayout(productPanel);
 
         QLabel *imageLabel = new QLabel();
-        std::string imgPath = (PATH + product->GetImage()).c_str();
+        std::string imgPath = (PATH + buyable->GetImage()).c_str();
         qDebug()<<imgPath<<"\n";
         QPixmap pixmap(imgPath.c_str());
         imageLabel->setPixmap(pixmap.scaled(200, 200));
         panelLayout->addWidget(imageLabel);
 
-        QLabel *nameLabel = new QLabel(QString::fromStdString(product->GetName()));
+        QLabel *nameLabel = new QLabel(QString::fromStdString(buyable->GetName()));
         QFont nameFont = nameLabel->font();
         nameFont.setPointSize(12);
         nameFont.setBold(true);
         nameLabel->setFont(nameFont);
         panelLayout->addWidget(nameLabel);
 
-        QLabel *descriptionLabel = new QLabel(QString::fromStdString(product->GetDescription()));
+        QLabel *descriptionLabel = new QLabel(QString::fromStdString(buyable->GetDescription()));
         descriptionLabel->setWordWrap(true);
         panelLayout->addWidget(descriptionLabel);
 
@@ -56,5 +56,5 @@ void BuyableScrollAreaMain::Populate() {
     scrollArea->widget()->adjustSize();
 }
 
-BuyableScrollAreaMain::BuyableScrollAreaMain(QScrollArea *scrollArea, std::vector<std::shared_ptr<Product>> products)
-    : BuyableScrollArea(scrollArea, products) {}
+BuyableScrollAreaMain::BuyableScrollAreaMain(QScrollArea *scrollArea, std::vector<std::shared_ptr<Buyable>> buyables)
+    : BuyableScrollArea(scrollArea, buyables) {}

@@ -5,7 +5,7 @@
 #include "Headers/Core/Price.h"
 #include "Serializable.h"
 
-class Buyable{
+class Buyable : virtual public Serializable{
 protected:
     std::string id;
     std::string name;
@@ -36,6 +36,12 @@ public:
     Buyable();
 
     Buyable(std::string id, std::string name, std::string description, std::string image, std::shared_ptr<Price> price);
+
+    virtual nlohmann::json toJSON() const override;
+
+    virtual void fromJSON(const nlohmann::json &json) override;
+
+    Buyable(const nlohmann::json& json);
 
     virtual ~Buyable() = default;
 };

@@ -5,13 +5,13 @@
 #include <QWidget>
 #include <QImage>
 #include <QPixmap>
-#include "../Core/Product.h"
+#include "../../Interfaces/Buyable.h"
 #include "../../Interfaces/BuyableScrollArea.h"
 
 class BuyableScrollAreaMain : public BuyableScrollArea{
 public:
     void Populate();
 
-    BuyableScrollAreaMain(QScrollArea *scrollArea, std::vector<std::shared_ptr<Product>> products);
+    BuyableScrollAreaMain(QScrollArea *scrollArea, std::vector<std::shared_ptr<Buyable>> buyable);
 };
 

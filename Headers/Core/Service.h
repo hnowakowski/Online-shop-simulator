@@ -5,7 +5,7 @@
 #include "Interfaces/Buyable.h"
 #include "../../Enums/ServiceType.h"
 
-class Service : public Buyable, virtual public Serializable {
+class Service : public Buyable{
 private:
     ServiceType servicetype;
 public:
