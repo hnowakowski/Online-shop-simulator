@@ -4,15 +4,8 @@
     return basecurrency;
 }
 
-bool StoreSystem::GetProduct(const std::string &id, std::shared_ptr<Product> &product) {
-    if (products.GetItem(id, product)) {
-        return true;
-    }
-    return false;
-}
-
-bool StoreSystem::GetService(const std::string &id, std::shared_ptr<Service> &service) {
-    if (services.GetItem(id, service)) {
+bool StoreSystem::GetBuyable(const std::string &id, std::shared_ptr<Buyable> &buyable) {
+    if (buyables.GetItem(id, buyable)) {
         return true;
     }
     return false;
@@ -42,13 +35,28 @@ bool StoreSystem::GetCurrency(const std::string &code, std::shared_ptr<Currency>
     return false;
 }
 
-
-void StoreSystem::AddProduct(std::shared_ptr<Product> product) {
-    products.AddItem(product);
+void StoreSystem::SetBuyableDisplayedType(BuyableDisplayedType buyableDisplayedType){
+    this->buyableDisplayedType = buyableDisplayedType;
 }
 
-void StoreSystem::AddService(std::shared_ptr<Service> service) {
-    services.AddItem(service);
+void StoreSystem::SetBuyableSortedBy(BuyableSortedBy buyableSortedBy){
+    this->buyableSortedBy = buyableSortedBy;
+}
+
+BuyableDisplayedType StoreSystem::GetBuyableDisplayedType(){
+    return this->buyableDisplayedType;
+}
+
+BuyableSortedBy StoreSystem::GetBuyableSortedBy(){
+    return this->buyableSortedBy;
+}
+
+Listing<std::shared_ptr<Buyable>> StoreSystem::GetBuyables(){
+    return this->buyables;
+}
+
+void StoreSystem::AddBuyable(std::shared_ptr<Buyable> buyable) {
+    buyables.AddItem(buyable);
 }
 
 void StoreSystem::AddCustomer(std::shared_ptr<Customer> customer) {
@@ -65,15 +73,8 @@ void StoreSystem::AddCurrency(std::shared_ptr<Currency> currency) {
 }
 
 
-bool StoreSystem::RemoveProduct(const std::string& id) {
-    if (products.RemoveItem(id)) {
-        return true;
-    }
-    return false;
-}
-
-bool StoreSystem::RemoveService(const std::string& id) {
-    if (services.RemoveItem(id)) {
+bool StoreSystem::RemoveBuyable(const std::string& id) {
+    if (buyables.RemoveItem(id)) {
         return true;
     }
     return false;

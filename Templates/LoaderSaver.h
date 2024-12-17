@@ -18,7 +18,6 @@ public:
             return false;
         }
         std::cout<<"File found\n";
-
         nlohmann::json json;
         file >> json;
         file.close();

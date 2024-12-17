@@ -33,6 +33,8 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    Enums/BuyableDisplayedType.h \
+    Enums/BuyableSortedBy.h \
     Enums/Color.h \
     Enums/ServiceType.h \
     Headers/Core/Currency.h \

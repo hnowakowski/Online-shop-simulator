@@ -7,5 +7,5 @@
 #include <QPixmap>
 #include "BuyableScrollArea.h"
 
-BuyableScrollArea::BuyableScrollArea(QScrollArea *scrollArea, std::vector<std::shared_ptr<Buyable>> buyables) : buyables(buyables), scrollArea(scrollArea) {};
+BuyableScrollArea::BuyableScrollArea(QScrollArea *scrollArea) : scrollArea(scrollArea) {};
 

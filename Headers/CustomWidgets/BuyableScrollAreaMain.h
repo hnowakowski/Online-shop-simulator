@@ -12,6 +12,6 @@ class BuyableScrollAreaMain : public BuyableScrollArea{
 public:
     void Populate();
 
-    BuyableScrollAreaMain(QScrollArea *scrollArea, std::vector<std::shared_ptr<Buyable>> buyable);
+    BuyableScrollAreaMain(QScrollArea *scrollArea);
 };
 
