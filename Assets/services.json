@@ -5,9 +5,6 @@
         "image": "Assets\\Images\\Services\\boykisser.png",
         "name": "Slovenian discord e-boy",
         "price": {
-            "currency": {
-                "code": "PLN"
-            },
             "mainunit": 79,
             "subunit": 99
         },

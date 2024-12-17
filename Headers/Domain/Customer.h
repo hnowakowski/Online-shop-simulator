@@ -1,6 +1,7 @@
 #ifndef OOP_PROJECT_CUSTOMER_H
 #define OOP_PROJECT_CUSTOMER_H
 
+#include <string>
 #include <vector>
 #include <memory>
 #include "Wallet.h"

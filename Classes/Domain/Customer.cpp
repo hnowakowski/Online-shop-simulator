@@ -44,7 +44,7 @@ std::shared_ptr<Wallet> Customer::GetWallet() {
     return wallet;
 }
 
-Customer::Customer(std::string id, std::string name, std::string surname, std::string email, std::string phone) : wallet(std::make_shared<Wallet>(StoreSystem::GetInstance().GetBaseCurrency(), 0, 0)) {
+Customer::Customer(std::string id, std::string name, std::string surname, std::string email, std::string phone) : wallet(std::make_shared<Wallet>( 0, 0)) {
     this->id = id;
     this->name = name;
     this->surname = surname;

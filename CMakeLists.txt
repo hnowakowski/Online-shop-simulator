@@ -17,8 +17,6 @@ include_directories(.)
 include_directories(Classes)
 
 add_executable(OOP_project
-        Classes/Core/Currency.cpp
-        Headers/Core/Currency.h
         Classes/Core/Product.cpp
         Headers/Core/Product.h
         main.cpp

@@ -20,10 +20,6 @@ bool Buyable::GetPrice(uint32_t &mainunit, uint32_t &subunit) {
     return price->GetTotal(mainunit, subunit);
 }
 
-bool Buyable::GetPrice(uint32_t &mainunit, uint32_t &subunit, std::shared_ptr<Currency> &currency) {
-    return price->GetTotal(mainunit, subunit, currency);
-}
-
 uint32_t Buyable::GetMainUnitPrice() {
     return price->GetMainUnit();
 }

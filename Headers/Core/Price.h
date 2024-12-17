@@ -2,7 +2,6 @@
 #define OOP_PROJECT_PRICE_H
 
 
-#include "Currency.h"
 #include "Interfaces/MoneyPossesive.h"
 #include "Interfaces/Serializable.h"
 
@@ -16,7 +15,7 @@ public:
 
     Price &operator=(const Price &price);
 
-    Price(std::shared_ptr<Currency> currency, uint32_t mainunit, uint32_t subunit);
+    Price(uint32_t mainunit, uint32_t subunit);
 
     nlohmann::json toJSON() const override;
 

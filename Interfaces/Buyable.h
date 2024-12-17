@@ -27,8 +27,6 @@ public:
 
     virtual bool GetPrice(uint32_t &mainunit, uint32_t &subunit);
 
-    virtual bool GetPrice(uint32_t &mainunit, uint32_t &subunit, std::shared_ptr<Currency> &currency);
-
     virtual void UpdateMainUnitPrice(uint32_t newmainprice);
 
     virtual void UpdateSubUnitPrice(uint32_t newsubprice);

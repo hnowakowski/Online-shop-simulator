@@ -3,7 +3,6 @@
 
 
 #include <string>
-#include "Currency.h"
 #include "Price.h"
 #include "Interfaces/Buyable.h"
 

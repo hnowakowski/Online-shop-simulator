@@ -17,7 +17,7 @@ std::pair<uint32_t, uint32_t> Cart::GetTotalPrice(std::vector<std::shared_ptr<Bu
     for (auto &buyable: buyables) {
         uint32_t mainunit;
         uint32_t subunit;
-        if (buyable->GetPrice(mainunit, subunit, this->currency)) {
+        if (buyable->GetPrice(mainunit, subunit)) {
             unconvertable_buyables.push_back(buyable);
         } else {
             maintotal += mainunit;
@@ -29,22 +29,19 @@ std::pair<uint32_t, uint32_t> Cart::GetTotalPrice(std::vector<std::shared_ptr<Bu
 }
 
 Cart &Cart::operator=(const Cart &cart) {
-    this->currency = cart.currency;
     this->mainunit = cart.mainunit;
     this->subunit = cart.subunit;
     this->buyables = cart.buyables;
     return *this;
 }
 
-Cart::Cart(std::shared_ptr<Currency> currency) : MoneyPossesive(currency) {
-    this->currency = currency;
+Cart::Cart() {
     this->mainunit = 0;
     this->subunit = 0;
     this->buyables = std::vector<std::shared_ptr<Buyable>>();
 }
 
-Cart::Cart(std::shared_ptr<Currency> currency, std::vector<std::shared_ptr<Buyable>> & buyables) : MoneyPossesive(currency) {
-    this->currency = currency;
+Cart::Cart(std::vector<std::shared_ptr<Buyable>> & buyables){
     this->mainunit = 0;
     this->subunit = 0;
     this->buyables = buyables;

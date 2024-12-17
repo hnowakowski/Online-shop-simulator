@@ -5,9 +5,6 @@
         "image": "Assets\\Images\\Products\\blahaj.jpg",
         "name": "Blahaj",
         "price": {
-            "currency": {
-                "code": "PLN"
-            },
             "mainunit": 79,
             "subunit": 99
         },
@@ -19,9 +16,6 @@
         "image": "Assets\\Images\\Products\\creatine.jpg",
         "name": "Creatine",
         "price": {
-            "currency": {
-                "code": "PLN"
-            },
             "mainunit": 109,
             "subunit": 99
         },

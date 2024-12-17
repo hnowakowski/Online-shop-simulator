@@ -13,7 +13,6 @@ debug: DEFINES += DEBUG #comment this out when the project is finished
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    Classes/Core/Currency.cpp \
     Classes/Core/Price.cpp \
     Classes/Core/Product.cpp \
     Classes/Core/Service.cpp \
@@ -38,7 +37,6 @@ HEADERS += \
     Enums/BuyableSortedBy.h \
     Enums/Color.h \
     Enums/ServiceType.h \
-    Headers/Core/Currency.h \
     Headers/Core/Price.h \
     Headers/Core/Product.h \
     Headers/Core/Service.h \
