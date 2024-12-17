@@ -32,6 +32,7 @@ public:
     std::shared_ptr<Currency> GetBaseCurrency();
 
     bool GetBuyable(const std::string &id, std::shared_ptr<Buyable> &buyable);
+    bool GetBuyables(Listing<std::shared_ptr<Buyable>> &buyables); // this shit so ass but i need it to print everything on the main page :sob: :pray:
     bool GetCustomer(const std::string &id, std::shared_ptr<Customer> &customer);
     bool GetOrder(const std::string &id, std::shared_ptr<Order> &order);
     bool GetCurrency(const std::string &code, std::shared_ptr<Currency> &currency);
@@ -44,10 +45,8 @@ public:
     void SetBuyableDisplayedType(BuyableDisplayedType buyableDisplayedType);
     void SetBuyableSortedBy(BuyableSortedBy buyableSortedBy);
 
-    BuyableDisplayedType GetBuyableDisplayedType();
-    BuyableSortedBy GetBuyableSortedBy();
-
-    Listing<std::shared_ptr<Buyable>> GetBuyables(); //could make ui setup functions friends of this and make it private but idk if keeping this public isn't less bad tbh (it'd be ugly)
+    void GetBuyableDisplayedType(BuyableDisplayedType& e);
+    void GetBuyableSortedBy(BuyableSortedBy& e);
 
     bool RemoveBuyable(const std::string &id);
     bool RemoveCustomer(const std::string &id);

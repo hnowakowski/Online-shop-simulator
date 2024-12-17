@@ -11,6 +11,15 @@ bool StoreSystem::GetBuyable(const std::string &id, std::shared_ptr<Buyable> &bu
     return false;
 }
 
+bool StoreSystem::GetBuyables(Listing<std::shared_ptr<Buyable>> &buyables){
+    if (this->buyables.GetSize()) {
+        buyables = this->buyables;
+        return true;
+    }
+    return false;
+}
+
+
 bool StoreSystem::GetCustomer(const std::string &id, std::shared_ptr<Customer> &customer) {
     if (customers.GetItem(id, customer)) {
         return true;
@@ -35,24 +44,20 @@ bool StoreSystem::GetCurrency(const std::string &code, std::shared_ptr<Currency>
     return false;
 }
 
+void StoreSystem::GetBuyableDisplayedType(BuyableDisplayedType& e){
+    e = this->buyableDisplayedType;
+}
+
+void StoreSystem::GetBuyableSortedBy(BuyableSortedBy& e){
+    e = this->buyableSortedBy;
+}
+
 void StoreSystem::SetBuyableDisplayedType(BuyableDisplayedType buyableDisplayedType){
     this->buyableDisplayedType = buyableDisplayedType;
 }
 
 void StoreSystem::SetBuyableSortedBy(BuyableSortedBy buyableSortedBy){
     this->buyableSortedBy = buyableSortedBy;
-}
-
-BuyableDisplayedType StoreSystem::GetBuyableDisplayedType(){
-    return this->buyableDisplayedType;
-}
-
-BuyableSortedBy StoreSystem::GetBuyableSortedBy(){
-    return this->buyableSortedBy;
-}
-
-Listing<std::shared_ptr<Buyable>> StoreSystem::GetBuyables(){
-    return this->buyables;
 }
 
 void StoreSystem::AddBuyable(std::shared_ptr<Buyable> buyable) {
