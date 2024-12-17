@@ -4,13 +4,15 @@ QT       += widgets
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
+CONFIG += console
+
+debug: DEFINES += DEBUG #comment this out when the project is finished
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    Classes/Core/Currency.cpp \
     Classes/Core/Price.cpp \
     Classes/Core/Product.cpp \
     Classes/Core/Service.cpp \
@@ -19,19 +21,28 @@ SOURCES += \
     Classes/Domain/Customer.cpp \
     Classes/Domain/Order.cpp \
     Classes/Domain/Wallet.cpp \
+    Classes/CustomWidgets/AddressLineEdit.cpp \
+    Classes/CustomWidgets/BuyableScrollAreaMain.cpp \
+    Classes/CustomWidgets/RadioButtonList.cpp \
     Classes/System/StoreSystem.cpp \
     Interfaces/Buyable.cpp \
+    Interfaces/BuyableScrollArea.cpp \
     Interfaces/MoneyPossesive.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    Enums/BuyableDisplayedType.h \
+    Enums/BuyableSortedBy.h \
+    Enums/BuyableSortedBy.h \
     Enums/Color.h \
     Enums/ServiceType.h \
-    Headers/Core/Currency.h \
     Headers/Core/Price.h \
     Headers/Core/Product.h \
     Headers/Core/Service.h \
+    Headers/CustomWidgets/AddressLineEdit.h \
+    Headers/CustomWidgets/BuyableScrollAreaMain.h \
+    Headers/CustomWidgets/RadioButtonList.h \
     Headers/Domain/Cart.h \
     Headers/Domain/Clothing.h \
     Headers/Domain/Customer.h \
@@ -39,6 +50,8 @@ HEADERS += \
     Headers/Domain/Wallet.h \
     Headers/System/StoreSystem.h \
     Interfaces/Buyable.h \
+    Interfaces/BuyableScrollArea.h \
+    Interfaces/DynamicWidget.h \
     Interfaces/MoneyPossesive.h \
     Interfaces/Serializable.h \
     Templates/Listing.h \

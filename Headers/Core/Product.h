@@ -3,23 +3,26 @@
 
 
 #include <string>
-#include "Currency.h"
 #include "Price.h"
 #include "Interfaces/Buyable.h"
 
-class Product : public Buyable, virtual public Serializable {
+class Product : public Buyable{
 protected:
-    uint32_t quantity;
+    uint32_t quantity{};
 public:
     uint32_t GetQuantity();
 
     Product& operator=(const Product &other);
 
-    Product(std::string id, std::string name, std::string description, std::string image, uint32_t quantity, std::shared_ptr<Price> &price);
+    Product();
+
+    Product(std::string id, std::string name, std::string description, std::string image, uint32_t quantity, std::shared_ptr<Price> price);
 
     nlohmann::json toJSON() const override;
 
     void fromJSON(const nlohmann::json &json) override;
+
+    explicit Product(const nlohmann::json& json);
 };
 
 

@@ -49,6 +49,9 @@ public:
     size_t GetSize() {
         return items.size();
     }
+
+    auto begin() { return items.begin(); }
+    auto end() { return items.end(); }
 };
 
 

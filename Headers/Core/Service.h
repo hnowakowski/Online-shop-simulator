@@ -5,7 +5,7 @@
 #include "Interfaces/Buyable.h"
 #include "../../Enums/ServiceType.h"
 
-class Service : public Buyable, virtual public Serializable {
+class Service : public Buyable{
 private:
     ServiceType servicetype;
 public:
@@ -13,11 +13,15 @@ public:
 
     Service & operator=(const Service &other);
 
-    Service(std::string id, std::string name, std::string description, std::string image, std::shared_ptr<Price> &price, ServiceType type);
+    Service();
+
+    Service(std::string id, std::string name, std::string description, std::string image, std::shared_ptr<Price> price, ServiceType type);
 
     nlohmann::json toJSON() const override;
 
     void fromJSON(const nlohmann::json &json) override;
+
+    explicit Service(const nlohmann::json& json);
 
 };
 

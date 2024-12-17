@@ -36,3 +36,33 @@ Clothing &Clothing::operator=(const Clothing &other) {
 
     return *this;
 }
+
+nlohmann::json Clothing::toJSON() const {
+    return nlohmann::json{
+            {"id",          id},
+            {"name",        name},
+            {"description", description},
+            {"image", image},
+            {"quantity",     quantity},
+            {"price",       price->toJSON()},
+            {"color",       color},
+            {"clothing_type", clothing_type},
+            {"size",        size}
+    };
+}
+
+void Clothing::fromJSON(const nlohmann::json &json) {
+    id = json.at("id").get<std::string>();
+    name = json.at("name").get<std::string>();
+    description = json.at("description").get<std::string>();
+    image = json.at("image").get<std::string>();
+    quantity = json.at("quantity").get<uint32_t>();
+    price = std::make_shared<Price>(json.at("price"));
+    color = json.at("color").get<Color>();
+    clothing_type = json.at("clothing_type").get<std::string>();
+    size = json.at("size").get<uint32_t>();
+}
+
+Clothing::Clothing(const nlohmann::json &json) {
+    this->Clothing::fromJSON(json);
+}

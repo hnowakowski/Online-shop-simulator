@@ -5,8 +5,8 @@ void Wallet::AddMain(uint32_t amount) {
 }
 
 void Wallet::AddSub(uint32_t amount) {
-    mainunit += amount / currency->GetSubsIsMain();
-    subunit += amount % currency->GetSubsIsMain();
+    subunit += amount % 100;
+    mainunit += amount / 100;
 }
 
 void Wallet::RemoveMain(uint32_t amount) {
@@ -14,8 +14,8 @@ void Wallet::RemoveMain(uint32_t amount) {
 }
 
 void Wallet::RemoveSub(uint32_t amount) {
-    mainunit -= amount / currency->GetSubsIsMain();
-    subunit -= amount % currency->GetSubsIsMain();
+    mainunit -= amount / 100;
+    subunit -= amount % 100;
 }
 
 Wallet &Wallet::operator=(const Wallet &other) {
@@ -23,7 +23,6 @@ Wallet &Wallet::operator=(const Wallet &other) {
         return *this;
     }
 
-    this->currency = other.currency;
     this->mainunit = other.mainunit;
     this->subunit = other.subunit;
 
@@ -31,8 +30,7 @@ Wallet &Wallet::operator=(const Wallet &other) {
 
 }
 
-Wallet::Wallet(std::shared_ptr<Currency> &currency, uint32_t mainunit, uint32_t subunit) : MoneyPossesive(currency, mainunit, subunit) {
-    this->currency = currency;
+Wallet::Wallet(uint32_t mainunit, uint32_t subunit) : MoneyPossesive(mainunit, subunit) {
     this->mainunit = mainunit;
     this->subunit = subunit;
 }

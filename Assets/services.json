@@ -1,0 +1,13 @@
+[
+    {
+        "description": "I can play video games with you or just hang out in VC. Merry Kissmass!!!11 :3",
+        "id": "S1",
+        "image": "Assets\\Images\\Services\\boykisser.png",
+        "name": "Slovenian discord e-boy",
+        "price": {
+            "mainunit": 79,
+            "subunit": 99
+        },
+        "type": "ServiceType::DISCORDIAN"
+    }
+]

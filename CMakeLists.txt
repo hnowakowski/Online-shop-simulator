@@ -17,8 +17,6 @@ include_directories(.)
 include_directories(Classes)
 
 add_executable(OOP_project
-        Classes/Core/Currency.cpp
-        Headers/Core/Currency.h
         Classes/Core/Product.cpp
         Headers/Core/Product.h
         main.cpp
@@ -49,7 +47,6 @@ add_executable(OOP_project
         Classes/Core/Service.cpp
         Interfaces/Serializable.h
         ExternalLibs/nlohmann/json.hpp
-        Templates/LoaderSaver.h
         Templates/LoaderSaver.h
         Interfaces/MoneyPossesive.cpp
 )

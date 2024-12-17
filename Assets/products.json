@@ -1,0 +1,24 @@
+[
+    {
+        "description": "Haiiii :3",
+        "id": "P1",
+        "image": "Assets\\Images\\Products\\blahaj.jpg",
+        "name": "Blahaj",
+        "price": {
+            "mainunit": 79,
+            "subunit": 99
+        },
+        "quantity": 20
+    },
+    {
+        "description": "Creatine zyzz hardstyle we go jim sam sulek uuuu sigma winter arc",
+        "id": "P2",
+        "image": "Assets\\Images\\Products\\creatine.jpg",
+        "name": "Creatine",
+        "price": {
+            "mainunit": 109,
+            "subunit": 99
+        },
+        "quantity": 10
+    }
+]

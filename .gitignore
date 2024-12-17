@@ -8,4 +8,5 @@ debug/
 release/
 .qtc_clangd/
 .qmake.stash
-
+mainwindow
+ui_mainwindow.h

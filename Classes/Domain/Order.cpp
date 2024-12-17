@@ -5,11 +5,11 @@ std::string Order::GetId() {
     return id;
 }
 
-Customer &Order::GetCustomer() {
+std::shared_ptr<Customer> Order::GetCustomer() {
     return customer;
 }
 
-Cart &Order::GetCart() {
+std::shared_ptr<Cart> Order::GetCart() {
     return cart;
 }
 
@@ -25,7 +25,7 @@ Order &Order::operator=(const Order &other) {
     return *this;
 }
 
-Order::Order(std::string id, Customer &customer, Cart &cart) : customer(customer), cart(cart) {
+Order::Order(std::string id, std::shared_ptr<Customer> customer, std::shared_ptr<Cart> cart) : customer(customer), cart(cart) {
     this->id = id;
     this->customer = customer;
     this->cart = cart;
