@@ -49,6 +49,10 @@ void BuyableScrollAreaMain::Populate() {
         nameLabel->setFont(nameFont);
         infoLayout->addWidget(nameLabel);
 
+        QLabel *ratingLabel = new QLabel(QString::fromStdString(buyable->GetRating() + "/10"));
+        ratingLabel->setWordWrap(true);
+        infoLayout->addWidget(ratingLabel);
+
         QLabel *descriptionLabel = new QLabel(QString::fromStdString(buyable->GetDescription()));
         descriptionLabel->setWordWrap(true);
         infoLayout->addWidget(descriptionLabel);
@@ -61,22 +65,23 @@ void BuyableScrollAreaMain::Populate() {
         QWidget *buttonPanel = new QWidget();
         QVBoxLayout *buttonLayout = new QVBoxLayout(buttonPanel);
 
+        QSpacerItem *vButtonSpacerTop = new QSpacerItem(40, 20, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        buttonLayout->addItem(vButtonSpacerTop);
+
         QPushButton *addToCartButton = new QPushButton("Add to Cart");
         buttonLayout->addWidget(addToCartButton);
 
-
-        //ADD CURRENCY CODE HERE WHEN MONEYPOSSESIVE BECOMES USABLE
         uint32_t mainunit;
         uint32_t subunit;
-        //std::shared_ptr<Currency> currency;
-        if(!buyable->GetPrice(mainunit, subunit)){
-            qDebug() << "Error reading price!\n";
-        }
-        std::string priceText = std::to_string(mainunit) + "." + std::to_string(subunit);
+        buyable->GetPrice(mainunit, subunit);
+        std::string priceText = std::to_string(mainunit) + "." + std::to_string(subunit)+" ZŁ";
 
         QLabel *priceLabel = new QLabel(QString::fromStdString(priceText));
         priceLabel->setWordWrap(true);
         buttonLayout->addWidget(priceLabel);
+
+        QSpacerItem *vButtonSpacerBottom = new QSpacerItem(40, 20, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        buttonLayout->addItem(vButtonSpacerBottom);
 
         productLayout->addWidget(buttonPanel);
 

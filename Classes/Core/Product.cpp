@@ -8,14 +8,8 @@ uint32_t Product::GetQuantity() {
 Product::Product() {}
 
 
-Product::Product(std::string id, std::string name, std::string description, std::string image, uint32_t quantity, std::shared_ptr<Price> price) : Buyable(id, name, description, image, price) {
-    this->id = id;
-    this->name = name;
-    this->description = description;
-    this->image = image;
-    this->quantity = quantity;
-    this->price = price;
-}
+Product::Product(std::string id, std::string name, std::string description, std::string image, std::string rating,
+                 uint32_t quantity, std::shared_ptr<Price> price) : Buyable(id, name, description, image, rating, price), quantity(quantity) {}
 
 Product &Product::operator=(const Product &other) {
     if(this == &other) {
@@ -26,6 +20,7 @@ Product &Product::operator=(const Product &other) {
     this->name = other.name;
     this->description = other.description;
     this->image = other.image;
+    this->rating = other.rating;
     this->quantity = other.quantity;
     this->price = other.price;
 
@@ -49,6 +44,7 @@ void Product::fromJSON(const nlohmann::json &json) {
     name = json.at("name").get<std::string>();
     description = json.at("description").get<std::string>();
     image = json.at("image").get<std::string>();
+    rating = json.at("rating").get<std::string>();
     quantity = json.at("quantity").get<uint32_t>();
     price = std::make_shared<Price>(json.at("price"));
     std::cout<<"Product read\n";

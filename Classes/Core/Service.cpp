@@ -16,6 +16,7 @@ Service &Service::operator=(const Service &other) {
     this->name = other.name;
     this->description = other.description;
     this->image = other.image;
+    this->rating = other.rating;
     this->price = other.price;
     this->servicetype = other.servicetype;
 
@@ -26,15 +27,8 @@ Service::Service()
     : servicetype(ServiceType::OTHER) {
 }
 
-Service::Service(std::string id, std::string name, std::string description, std::string image,
-                 std::shared_ptr<Price> price, ServiceType type) : Buyable(id, name, description, image, price) {
-    this->id = id;
-    this->name = name;
-    this->description = description;
-    this->image = image;
-    this->price = price;
-    this->servicetype = type;
-}
+Service::Service(std::string id, std::string name, std::string description, std::string image, std::string rating,
+                 std::shared_ptr<Price> price, ServiceType type) : Buyable(id, name, description, image, rating, price), servicetype(type) {}
 
 nlohmann::json Service::toJSON() const {
     return nlohmann::json{
@@ -42,6 +36,7 @@ nlohmann::json Service::toJSON() const {
         {"name", name},
         {"description", description},
         {"image", image},
+        {"rating", rating},
         {"price", price->toJSON()},
         {"servicetype", servicetype}
     };
@@ -52,6 +47,7 @@ void Service::fromJSON(const nlohmann::json &json) {
     name = json.at("name").get<std::string>();
     description = json.at("description").get<std::string>();
     image = json.at("image").get<std::string>();
+    rating = json.at("rating").get<std::string>();
     price = std::make_shared<Price>(json.at("price"));
     servicetype = json.at("servicetype").get<ServiceType>();
 }
