@@ -30,6 +30,12 @@ private slots:
 
     void on_btnSearch_clicked();
 
+    void on_radioSortName_clicked();
+
+    void on_radioSortPrice_clicked();
+
+    void on_radioRating_clicked();
+
 private:
     Ui::MainWindow *ui;
     BuyableScrollAreaMain mainScrollArea;

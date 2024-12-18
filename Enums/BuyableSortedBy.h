@@ -4,7 +4,7 @@
 enum class BuyableSortedBy{
     NAME,
     PRICE,
-    RATING //TODO
+    RATING
 };
 
 #endif // OOP_PROJECT_BUYABLESORTEDBY_H

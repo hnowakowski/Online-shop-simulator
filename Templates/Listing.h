@@ -4,7 +4,8 @@
 #include <vector>
 #include <stdexcept>
 #include "../Headers/Domain/Customer.h"
-#include "algorithm"
+#include <algorithm>
+#include <functional>
 
 template <typename T>
 class Listing {
@@ -48,6 +49,10 @@ public:
 
     size_t GetSize() {
         return items.size();
+    }
+
+    void Sort(const std::function<bool(const T&, const T&)>& comparator) {
+        std::sort(items.begin(), items.end(), comparator);
     }
 
     auto begin() { return items.begin(); }

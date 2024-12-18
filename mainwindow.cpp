@@ -22,6 +22,8 @@ MainWindow::MainWindow(QWidget *parent)
         "Services"
     };
     ui->comboBoxSearch->addItems(comboBoxItems);
+
+    mainScrollArea.Populate();
 }
 
 MainWindow::~MainWindow()
@@ -57,7 +59,6 @@ void MainWindow::on_comboBoxSearch_currentIndexChanged(int index)
     case 3: type = BuyableDisplayedType::SERVICE; break;
     }
     system.SetBuyableDisplayedType(type);
-    this->mainScrollArea.Populate();
 }
 
 
@@ -67,5 +68,29 @@ void MainWindow::on_btnSearch_clicked()
     QString query = ui->lineEditSearch->text();
     system.SetBuyableSearchQuery(query.toStdString());
     this->mainScrollArea.Populate();
+}
+
+
+void MainWindow::on_radioSortName_clicked()
+{
+    StoreSystem& system = StoreSystem::GetInstance();
+    system.SetBuyableSortedBy(BuyableSortedBy::NAME);
+    mainScrollArea.Populate();
+}
+
+
+void MainWindow::on_radioSortPrice_clicked()
+{
+    StoreSystem& system = StoreSystem::GetInstance();
+    system.SetBuyableSortedBy(BuyableSortedBy::PRICE);
+    mainScrollArea.Populate();
+}
+
+
+void MainWindow::on_radioRating_clicked()
+{
+    StoreSystem& system = StoreSystem::GetInstance();
+    system.SetBuyableSortedBy(BuyableSortedBy::RATING);
+    mainScrollArea.Populate();
 }
 

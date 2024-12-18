@@ -47,6 +47,26 @@ void BuyableScrollAreaMain::Populate() {
     std::string query;
     system.GetBuyableSearchQuery(query);
 
+    BuyableSortedBy sortedBy;
+    system.GetBuyableSortedBy(sortedBy);
+
+    switch(sortedBy){
+    case BuyableSortedBy::NAME: buyables.Sort([](const std::shared_ptr<Buyable>& a, const std::shared_ptr<Buyable>& b)
+                    { return a->GetName() < b->GetName(); }); break;
+    case BuyableSortedBy::PRICE: buyables.Sort([](const std::shared_ptr<Buyable>& a, const std::shared_ptr<Buyable>& b) {
+                    uint32_t amainunit = a->GetMainUnitPrice();
+                    uint32_t asubunit = a->GetSubUnitPrice();
+                    uint32_t bmainunit = b->GetMainUnitPrice();
+                    uint32_t bsubunit = b->GetSubUnitPrice();
+                    if (amainunit != bmainunit) {
+                        return amainunit < bmainunit;
+                    }
+
+                    return asubunit < bsubunit; }); break;
+    case BuyableSortedBy::RATING: buyables.Sort([](const std::shared_ptr<Buyable>& a, const std::shared_ptr<Buyable>& b)
+                    { return std::stof(a->GetRating()) > std::stof(b->GetRating()); }); break;
+    }
+
     for (auto &buyable : buyables) {
         //filtering
         switch (displayedType) {
