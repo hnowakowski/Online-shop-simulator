@@ -4,6 +4,7 @@
 enum class BuyableDisplayedType{
     ALL,
     PRODUCT,
+    CLOTHING,
     SERVICE
 };
 

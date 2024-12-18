@@ -52,6 +52,8 @@ public:
 
     auto begin() { return items.begin(); }
     auto end() { return items.end(); }
+    auto begin() const { return items.cbegin(); }
+    auto end() const { return items.cend(); }
 };
 
 

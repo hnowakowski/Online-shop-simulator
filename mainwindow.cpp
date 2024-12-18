@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 #include "Templates/LoaderSaver.h"
 #include "Headers/System/StoreSystem.h"
-#include "Headers/Core/Product.h"
 #include "Headers/CustomWidgets/BuyableScrollAreaMain.h"
 
 void loadBuyables();
@@ -14,8 +13,15 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->stackedWidget->setCurrentWidget(ui->pageMain);
     loadBuyables();
-    BuyableScrollAreaMain test(ui->scrollAreaProducts);
-    test.Populate();
+    mainScrollArea = BuyableScrollAreaMain(ui->scrollAreaProducts);
+
+    QStringList comboBoxItems = {
+        "All",
+        "Products",
+        "Clothes",
+        "Services"
+    };
+    ui->comboBoxSearch->addItems(comboBoxItems);
 }
 
 MainWindow::~MainWindow()
@@ -37,5 +43,20 @@ void loadBuyables(){
             system.AddBuyable(buyable);
         }
     }
+}
+
+
+void MainWindow::on_comboBoxSearch_currentIndexChanged(int index)
+{
+    StoreSystem& system = StoreSystem::GetInstance();
+    BuyableDisplayedType type = BuyableDisplayedType::ALL;
+    switch (index) {
+    case 0: type = BuyableDisplayedType::ALL; break;
+    case 1: type = BuyableDisplayedType::PRODUCT; break;
+    case 2: type = BuyableDisplayedType::CLOTHING; break;
+    case 3: type = BuyableDisplayedType::SERVICE; break;
+    }
+    system.SetBuyableDisplayedType(type);
+    this->mainScrollArea.Populate();
 }
 

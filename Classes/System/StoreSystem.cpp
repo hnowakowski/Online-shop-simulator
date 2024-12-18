@@ -45,6 +45,14 @@ void StoreSystem::SetBuyableSortedBy(BuyableSortedBy buyableSortedBy) {
     this->buyableSortedBy = buyableSortedBy;
 }
 
+void StoreSystem::SetBuyableSearchQuery(std::string query){
+    this->buyableSearchQuery = query;
+}
+void StoreSystem::GetBuyableSearchQuery(std::string& query){
+    query = this->buyableSearchQuery;
+}
+
+
 void StoreSystem::AddBuyable(std::shared_ptr<Buyable> buyable) {
     buyables.AddItem(buyable);
 }

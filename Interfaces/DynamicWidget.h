@@ -1,9 +1,9 @@
-#ifndef DYNAMICWIDGET_H
-#define DYNAMICWIDGET_H
+#ifndef OOP_PROJECT_DYNAMICWIDGET_H
+#define OOP_PROJECT_DYNAMICWIDGET_H
 
 class DynamicWidget{
     //idk what to put here yeahgh
 };
 
 
-#endif // DYNAMICWIDGET_H
+#endif // OOP_PROJECT_DYNAMICWIDGET_H

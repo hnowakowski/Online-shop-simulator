@@ -1,3 +1,6 @@
+#ifndef OOP_PROJECT_BUYABLESCROLLAREA_H
+#define OOP_PROJECT_BUYABLESCROLLAREA_H
+
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QPushButton>
@@ -5,7 +8,6 @@
 #include <QWidget>
 #include <QImage>
 #include <QPixmap>
-#include "Buyable.h"
 #include "Interfaces/DynamicWidget.h"
 
 class BuyableScrollArea : public DynamicWidget{
@@ -16,4 +18,7 @@ public:
     virtual void Populate() = 0;
 
     BuyableScrollArea(QScrollArea *scrollArea);
+    BuyableScrollArea();
 };
+
+#endif // OOP_PROJECT_BUYABLESCROLLAREA_H

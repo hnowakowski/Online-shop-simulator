@@ -8,7 +8,7 @@
             "mainunit": 19,
             "subunit": 99
         },
-        "type": "ServiceType::DISCORDIAN",
+        "servicetype": "DISCORDIAN",
         "rating": "8.7"
     }
 ]

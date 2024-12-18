@@ -2,10 +2,8 @@
 #define OOP_PROJECT_STORESYSTEM_H
 
 
-#include <vector>
 #include "../Domain/Order.h"
 #include "../../Templates/Listing.h"
-#include "../Core/Service.h"
 #include "Enums/BuyableDisplayedType.h"
 #include "Enums/BuyableSortedBy.h"
 
@@ -16,6 +14,8 @@ class StoreSystem {
 
     BuyableDisplayedType buyableDisplayedType;
     BuyableSortedBy buyableSortedBy;
+
+    std::string buyableSearchQuery;
 
     StoreSystem() = default;
 
@@ -39,6 +39,9 @@ public:
 
     void GetBuyableDisplayedType(BuyableDisplayedType& e);
     void GetBuyableSortedBy(BuyableSortedBy& e);
+
+    void SetBuyableSearchQuery(std::string query);
+    void GetBuyableSearchQuery(std::string& query);
 
     bool RemoveBuyable(const std::string &id);
     bool RemoveCustomer(const std::string &id);
