@@ -23,7 +23,13 @@ MainWindow::MainWindow(QWidget *parent)
     };
     ui->comboBoxSearch->addItems(comboBoxItems);
 
+    QObject::connect(&StoreSystem::GetInstance().GetCart(), &Cart::CartChanged, this, &MainWindow::UpdateCartLabel);
+
+
+    // end of setup, final function calls
+    // KEEP THIS AT THE BOTTOM AT ALL TIMES
     mainScrollArea.Populate();
+    UpdateCartLabel();
 }
 
 MainWindow::~MainWindow()
@@ -92,5 +98,11 @@ void MainWindow::on_radioRating_clicked()
     StoreSystem& system = StoreSystem::GetInstance();
     system.SetBuyableSortedBy(BuyableSortedBy::RATING);
     mainScrollArea.Populate();
+}
+
+void MainWindow::UpdateCartLabel() {
+    uint32_t size = StoreSystem::GetInstance().GetCart().Size();
+    QString label = QString::fromStdString("Cart ("+std::to_string(size)+")");
+    ui->labelCart->setText(label);
 }
 

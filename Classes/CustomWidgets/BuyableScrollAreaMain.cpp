@@ -71,9 +71,12 @@ void BuyableScrollAreaMain::Populate() {
         //filtering
         switch (displayedType) {
         case BuyableDisplayedType::ALL: break;
-        case BuyableDisplayedType::PRODUCT: if(!std::dynamic_pointer_cast<Product>(buyable)) { qDebug()<<"Skipping non-product "<<buyable->GetName(); PrintType(buyable); continue; } break;
-        case BuyableDisplayedType::CLOTHING: if(!std::dynamic_pointer_cast<Clothing>(buyable)) { qDebug()<<"Skipping non-clothing "<<buyable->GetName(); PrintType(buyable); continue; } break;
-        case BuyableDisplayedType::SERVICE: if(!std::dynamic_pointer_cast<Service>(buyable)) { qDebug()<<"Skipping non-service "<<buyable->GetName(); PrintType(buyable); continue; } break;
+        case BuyableDisplayedType::PRODUCT: if(!std::dynamic_pointer_cast<Product>(buyable))
+            { qDebug()<<"Skipping non-product "<<buyable->GetName(); PrintType(buyable); continue; } break;
+        case BuyableDisplayedType::CLOTHING: if(!std::dynamic_pointer_cast<Clothing>(buyable))
+            { qDebug()<<"Skipping non-clothing "<<buyable->GetName(); PrintType(buyable); continue; } break;
+        case BuyableDisplayedType::SERVICE: if(!std::dynamic_pointer_cast<Service>(buyable))
+            { qDebug()<<"Skipping non-service "<<buyable->GetName(); PrintType(buyable); continue; } break;
         }
 
         if (!query.empty()) {
@@ -127,6 +130,14 @@ void BuyableScrollAreaMain::Populate() {
 
         QPushButton *addToCartButton = new QPushButton("Add to Cart");
         buttonLayout->addWidget(addToCartButton);
+
+        std::shared_ptr<Buyable> currentBuyable = buyable;
+        QObject::connect(addToCartButton, &QPushButton::clicked, [currentBuyable]() {
+            StoreSystem& system = StoreSystem::GetInstance();
+            qDebug() << "Adding " << currentBuyable->GetName() << " to cart.";
+            system.GetCart().AddBuyable(currentBuyable);
+            qDebug()<<system.GetCart().Size();
+        });
 
         uint32_t mainunit;
         uint32_t subunit;

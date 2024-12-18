@@ -3,12 +3,18 @@
 
 bool Cart::AddBuyable(std::shared_ptr<Buyable> buyable) {
     buyables.push_back(buyable);
+    emit CartChanged();
     return true;
 }
 
 bool Cart::RemoveBuyable(std::shared_ptr<Buyable> buyable) {
     buyables.erase(std::remove(buyables.begin(), buyables.end(), buyable), buyables.end());
+    emit CartChanged();
     return false;
+}
+
+uint32_t Cart::Size(){
+    return buyables.size();
 }
 
 std::pair<uint32_t, uint32_t> Cart::GetTotalPrice(std::vector<std::shared_ptr<Buyable>> &unconvertable_buyables) {

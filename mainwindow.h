@@ -36,6 +36,8 @@ private slots:
 
     void on_radioRating_clicked();
 
+    void UpdateCartLabel();
+
 private:
     Ui::MainWindow *ui;
     BuyableScrollAreaMain mainScrollArea;
