@@ -129,7 +129,7 @@ generate it from an array or smth</string>
             <item>
              <widget class="QLineEdit" name="lineEditSearch">
               <property name="text">
-               <string>search bar :)))</string>
+               <string/>
               </property>
              </widget>
             </item>

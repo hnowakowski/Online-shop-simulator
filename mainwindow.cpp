@@ -60,3 +60,12 @@ void MainWindow::on_comboBoxSearch_currentIndexChanged(int index)
     this->mainScrollArea.Populate();
 }
 
+
+void MainWindow::on_btnSearch_clicked()
+{
+    StoreSystem& system = StoreSystem::GetInstance();
+    QString query = ui->lineEditSearch->text();
+    system.SetBuyableSearchQuery(query.toStdString());
+    this->mainScrollArea.Populate();
+}
+

@@ -28,6 +28,8 @@ public:
 private slots:
     void on_comboBoxSearch_currentIndexChanged(int index);
 
+    void on_btnSearch_clicked();
+
 private:
     Ui::MainWindow *ui;
     BuyableScrollAreaMain mainScrollArea;

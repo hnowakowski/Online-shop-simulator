@@ -11,6 +11,7 @@
 #include "Headers/Core/Service.h"
 #include "Headers/CustomWidgets/BuyableScrollAreaMain.h"
 #include <memory>
+#include <string>
 #include <typeinfo>
 
 void PrintType(const std::shared_ptr<Buyable>& buyable) { //gpt ahh debug function, keep for now
@@ -43,13 +44,28 @@ void BuyableScrollAreaMain::Populate() {
     BuyableDisplayedType displayedType;
     system.GetBuyableDisplayedType(displayedType);
 
+    std::string query;
+    system.GetBuyableSearchQuery(query);
+
     for (auto &buyable : buyables) {
+        //filtering
         switch (displayedType) {
         case BuyableDisplayedType::ALL: break;
         case BuyableDisplayedType::PRODUCT: if(!std::dynamic_pointer_cast<Product>(buyable)) { qDebug()<<"Skipping non-product "<<buyable->GetName(); PrintType(buyable); continue; } break;
         case BuyableDisplayedType::CLOTHING: if(!std::dynamic_pointer_cast<Clothing>(buyable)) { qDebug()<<"Skipping non-clothing "<<buyable->GetName(); PrintType(buyable); continue; } break;
         case BuyableDisplayedType::SERVICE: if(!std::dynamic_pointer_cast<Service>(buyable)) { qDebug()<<"Skipping non-service "<<buyable->GetName(); PrintType(buyable); continue; } break;
         }
+
+        if (!query.empty()) {
+            QString qName = QString::fromStdString(buyable->GetName());
+            QString qQuery = QString::fromStdString(query);
+
+            if (!qName.contains(qQuery, Qt::CaseInsensitive)) {
+                continue;
+            }
+        }
+
+        //actual display
 
         QWidget *productPanel = new QWidget();
         QHBoxLayout *productLayout = new QHBoxLayout(productPanel);
