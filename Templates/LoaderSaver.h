@@ -7,6 +7,11 @@
 #include <fstream>
 #include <ExternalLibs/nlohmann/json.hpp>
 #include <iostream>
+#include "Headers/Core/Product.h"
+#include "Headers/Core/Service.h"
+#include "Headers/Domain/Clothing.h"
+#include "qlogging.h"
+#include "mainwindow.h"
 
 template <typename T>
 class LoaderSaver {
@@ -23,11 +28,22 @@ public:
         file.close();
 
         for (const auto &item : json) {
-            std::cout << "Processing item: " << item.dump() << std::endl;
-            std::cout<<item.contains("price")<<"\n";
-            auto object = std::make_shared<T>(item);
+            qDebug() << "Processing item: " << item.dump();
+            qDebug() <<item.contains("price");
+            std::shared_ptr<T> object;
+
+            if (item.contains("quantity")) {
+                object = std::make_shared<Product>(item);
+            } else if (item.contains("servicetype")) {
+                object = std::make_shared<Service>(item);
+            } else if (item.contains("color")) {
+                object = std::make_shared<Clothing>(item);
+            } else {
+                object = std::make_shared<T>(item);
+            }
+
             objects.push_back(object);
-            std::cout << "Object created successfully!" << std::endl;
+            qDebug() << "Object created successfully!\n";
         }
 
 

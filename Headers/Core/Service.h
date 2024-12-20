@@ -15,7 +15,7 @@ public:
 
     Service();
 
-    Service(std::string id, std::string name, std::string description, std::string image, std::shared_ptr<Price> price, ServiceType type);
+    Service(std::string id, std::string name, std::string description, std::string image, std::string rating, std::shared_ptr<Price> price, ServiceType type);
 
     nlohmann::json toJSON() const override;
 

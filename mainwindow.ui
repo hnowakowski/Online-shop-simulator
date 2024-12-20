@@ -76,7 +76,7 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>946</width>
+               <width>1048</width>
                <height>451</height>
               </rect>
              </property>
@@ -100,12 +100,26 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="btnTEMPRadioSort">
+             <widget class="QRadioButton" name="radioSortName">
               <property name="text">
-               <string>this will be radio buttons
-for sorting but rn its a
-button cause we can prob
-generate it from an array or smth</string>
+               <string>Name</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioSortPrice">
+              <property name="text">
+               <string>Price</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioRating">
+              <property name="text">
+               <string>Rating</string>
               </property>
              </widget>
             </item>
@@ -129,7 +143,7 @@ generate it from an array or smth</string>
             <item>
              <widget class="QLineEdit" name="lineEditSearch">
               <property name="text">
-               <string>search bar :)))</string>
+               <string/>
               </property>
              </widget>
             </item>

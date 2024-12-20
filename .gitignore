@@ -10,3 +10,4 @@ release/
 .qmake.stash
 mainwindow
 ui_mainwindow.h
+*.TMP

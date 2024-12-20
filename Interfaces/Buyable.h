@@ -11,6 +11,7 @@ protected:
     std::string name;
     std::string description;
     std::string image;
+    std::string rating;
     std::shared_ptr<Price> price;
 public:
     virtual std::string GetId();
@@ -20,6 +21,8 @@ public:
     virtual std::string GetDescription();
 
     virtual std::string GetImage();
+
+    virtual std::string GetRating();
 
     virtual uint32_t GetMainUnitPrice();
 
@@ -33,7 +36,7 @@ public:
 
     Buyable();
 
-    Buyable(std::string id, std::string name, std::string description, std::string image, std::shared_ptr<Price> price);
+    Buyable(std::string id, std::string name, std::string description, std::string image, std::string rating, std::shared_ptr<Price> price);
 
     virtual nlohmann::json toJSON() const override;
 

@@ -1,7 +1,6 @@
 #ifndef OOP_PROJECT_MONEYPOSSESIVE_H
 #define OOP_PROJECT_MONEYPOSSESIVE_H
 
-
 #include <cstdint>
 
 class MoneyPossesive {

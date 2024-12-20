@@ -8,6 +8,7 @@
             "mainunit": 79,
             "subunit": 99
         },
+        "rating": "11.0",
         "quantity": 20
     },
     {
@@ -19,6 +20,7 @@
             "mainunit": 109,
             "subunit": 99
         },
+        "rating": "9.9",
         "quantity": 10
     }
 ]

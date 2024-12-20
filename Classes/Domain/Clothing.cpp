@@ -1,11 +1,8 @@
 #include "../../Headers/Domain/Clothing.h"
 
-Clothing::Clothing(std::string id, std::string name, std::string description, std::string image, uint32_t quantity, std::shared_ptr<Price>& price, Color color, std::string clothing_type, uint32_t size)
-        : Product(id, name, description, image, quantity, price) {
-    this->color = color;
-    this->clothing_type = clothing_type;
-    this->size = size;
-}
+Clothing::Clothing(std::string id, std::string name, std::string description, std::string image,
+                   uint32_t quantity, std::shared_ptr<Price>& price, Color color, std::string clothing_type, uint32_t size)
+        : Product(id, name, description, image, rating, quantity, price), color(color), clothing_type(clothing_type), size(size) {}
 
 Color Clothing::GetColor() {
     return color;
@@ -28,6 +25,7 @@ Clothing &Clothing::operator=(const Clothing &other) {
     this->name = other.name;
     this->description = other.description;
     this->image = other.image;
+    this->rating = other.rating;
     this->quantity = other.quantity;
     this->price = other.price;
     this->color = other.color;
@@ -42,8 +40,9 @@ nlohmann::json Clothing::toJSON() const {
             {"id",          id},
             {"name",        name},
             {"description", description},
-            {"image", image},
-            {"quantity",     quantity},
+            {"image",       image},
+            {"rating",      rating},
+            {"quantity",    quantity},
             {"price",       price->toJSON()},
             {"color",       color},
             {"clothing_type", clothing_type},
@@ -56,6 +55,7 @@ void Clothing::fromJSON(const nlohmann::json &json) {
     name = json.at("name").get<std::string>();
     description = json.at("description").get<std::string>();
     image = json.at("image").get<std::string>();
+    rating = json.at("rating").get<std::string>();
     quantity = json.at("quantity").get<uint32_t>();
     price = std::make_shared<Price>(json.at("price"));
     color = json.at("color").get<Color>();

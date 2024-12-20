@@ -5,9 +5,10 @@
         "image": "Assets\\Images\\Services\\boykisser.png",
         "name": "Slovenian discord e-boy",
         "price": {
-            "mainunit": 79,
+            "mainunit": 19,
             "subunit": 99
         },
-        "type": "ServiceType::DISCORDIAN"
+        "servicetype": "DISCORDIAN",
+        "rating": "8.7"
     }
 ]

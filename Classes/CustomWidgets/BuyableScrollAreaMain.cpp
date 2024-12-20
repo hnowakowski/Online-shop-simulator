@@ -7,8 +7,20 @@
 #include <QPixmap>
 #include "mainwindow.h"
 #include "Headers/System/StoreSystem.h"
-#include "Headers/Core/Product.h"
+#include "Headers/Domain/Clothing.h"
+#include "Headers/Core/Service.h"
 #include "Headers/CustomWidgets/BuyableScrollAreaMain.h"
+#include <memory>
+#include <string>
+#include <typeinfo>
+
+void PrintType(const std::shared_ptr<Buyable>& buyable) { //gpt ahh debug function, keep for now
+    if (buyable) {
+        qDebug() << "Type: " << typeid(*buyable).name() << "\n";
+    } else {
+        qDebug() << "Null object" << "\n";
+    }
+}
 
 void BuyableScrollAreaMain::Populate() {
     QWidget *container = scrollArea->widget();
@@ -29,7 +41,55 @@ void BuyableScrollAreaMain::Populate() {
         delete item;
     }
 
+    BuyableDisplayedType displayedType;
+    system.GetBuyableDisplayedType(displayedType);
+
+    std::string query;
+    system.GetBuyableSearchQuery(query);
+
+    BuyableSortedBy sortedBy;
+    system.GetBuyableSortedBy(sortedBy);
+
+    switch(sortedBy){
+    case BuyableSortedBy::NAME: buyables.Sort([](const std::shared_ptr<Buyable>& a, const std::shared_ptr<Buyable>& b)
+                    { return a->GetName() < b->GetName(); }); break;
+    case BuyableSortedBy::PRICE: buyables.Sort([](const std::shared_ptr<Buyable>& a, const std::shared_ptr<Buyable>& b) {
+                    uint32_t amainunit = a->GetMainUnitPrice();
+                    uint32_t asubunit = a->GetSubUnitPrice();
+                    uint32_t bmainunit = b->GetMainUnitPrice();
+                    uint32_t bsubunit = b->GetSubUnitPrice();
+                    if (amainunit != bmainunit) {
+                        return amainunit < bmainunit;
+                    }
+
+                    return asubunit < bsubunit; }); break;
+    case BuyableSortedBy::RATING: buyables.Sort([](const std::shared_ptr<Buyable>& a, const std::shared_ptr<Buyable>& b)
+                    { return std::stof(a->GetRating()) > std::stof(b->GetRating()); }); break;
+    }
+
     for (auto &buyable : buyables) {
+        //filtering
+        switch (displayedType) {
+        case BuyableDisplayedType::ALL: break;
+        case BuyableDisplayedType::PRODUCT: if(!std::dynamic_pointer_cast<Product>(buyable))
+            { qDebug()<<"Skipping non-product "<<buyable->GetName(); PrintType(buyable); continue; } break;
+        case BuyableDisplayedType::CLOTHING: if(!std::dynamic_pointer_cast<Clothing>(buyable))
+            { qDebug()<<"Skipping non-clothing "<<buyable->GetName(); PrintType(buyable); continue; } break;
+        case BuyableDisplayedType::SERVICE: if(!std::dynamic_pointer_cast<Service>(buyable))
+            { qDebug()<<"Skipping non-service "<<buyable->GetName(); PrintType(buyable); continue; } break;
+        }
+
+        if (!query.empty()) {
+            QString qName = QString::fromStdString(buyable->GetName());
+            QString qQuery = QString::fromStdString(query);
+
+            if (!qName.contains(qQuery, Qt::CaseInsensitive)) {
+                continue;
+            }
+        }
+
+        //actual display
+
         QWidget *productPanel = new QWidget();
         QHBoxLayout *productLayout = new QHBoxLayout(productPanel);
 
@@ -49,6 +109,10 @@ void BuyableScrollAreaMain::Populate() {
         nameLabel->setFont(nameFont);
         infoLayout->addWidget(nameLabel);
 
+        QLabel *ratingLabel = new QLabel(QString::fromStdString(buyable->GetRating() + "/10"));
+        ratingLabel->setWordWrap(true);
+        infoLayout->addWidget(ratingLabel);
+
         QLabel *descriptionLabel = new QLabel(QString::fromStdString(buyable->GetDescription()));
         descriptionLabel->setWordWrap(true);
         infoLayout->addWidget(descriptionLabel);
@@ -61,22 +125,31 @@ void BuyableScrollAreaMain::Populate() {
         QWidget *buttonPanel = new QWidget();
         QVBoxLayout *buttonLayout = new QVBoxLayout(buttonPanel);
 
+        QSpacerItem *vButtonSpacerTop = new QSpacerItem(40, 20, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        buttonLayout->addItem(vButtonSpacerTop);
+
         QPushButton *addToCartButton = new QPushButton("Add to Cart");
         buttonLayout->addWidget(addToCartButton);
 
+        std::shared_ptr<Buyable> currentBuyable = buyable;
+        QObject::connect(addToCartButton, &QPushButton::clicked, [currentBuyable]() {
+            StoreSystem& system = StoreSystem::GetInstance();
+            qDebug() << "Adding " << currentBuyable->GetName() << " to cart.";
+            system.GetCart().AddBuyable(currentBuyable);
+            qDebug()<<system.GetCart().Size();
+        });
 
-        //ADD CURRENCY CODE HERE WHEN MONEYPOSSESIVE BECOMES USABLE
         uint32_t mainunit;
         uint32_t subunit;
-        //std::shared_ptr<Currency> currency;
-        if(!buyable->GetPrice(mainunit, subunit)){
-            qDebug() << "Error reading price!\n";
-        }
-        std::string priceText = std::to_string(mainunit) + "." + std::to_string(subunit);
+        buyable->GetPrice(mainunit, subunit);
+        std::string priceText = std::to_string(mainunit) + "." + std::to_string(subunit)+" ZŁ";
 
         QLabel *priceLabel = new QLabel(QString::fromStdString(priceText));
         priceLabel->setWordWrap(true);
         buttonLayout->addWidget(priceLabel);
+
+        QSpacerItem *vButtonSpacerBottom = new QSpacerItem(40, 20, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        buttonLayout->addItem(vButtonSpacerBottom);
 
         productLayout->addWidget(buttonPanel);
 
@@ -94,3 +167,6 @@ void BuyableScrollAreaMain::Populate() {
 
 BuyableScrollAreaMain::BuyableScrollAreaMain(QScrollArea *scrollArea)
     : BuyableScrollArea(scrollArea) {}
+
+BuyableScrollAreaMain::BuyableScrollAreaMain()
+    : BuyableScrollArea() {}
