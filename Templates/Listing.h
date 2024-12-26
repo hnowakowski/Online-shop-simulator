@@ -1,20 +1,25 @@
 #ifndef OOP_PROJECT_LISTING_H
 #define OOP_PROJECT_LISTING_H
 
-#include <vector>
-#include <stdexcept>
-#include "../Headers/Domain/Customer.h"
 #include <algorithm>
 #include <functional>
+#include <stdexcept>
+#include <vector>
 
-template <typename T>
-class Listing {
-private:
+#include "../Classes/Customer.h"
+
+template <typename T> class Listing
+{
+  private:
     std::vector<T> items;
-public:
-    bool GetItem(const std::string& id, T &item) {
-        for(int i = 0; i < items.size(); ++i) {
-            if(items[i]->GetId() == id) {
+
+  public:
+    bool GetItem(const std::string& id, T& item)
+    {
+        for (int i = 0; i < items.size(); ++i)
+        {
+            if (items[i]->GetId() == id)
+            {
                 item = items[i];
                 return true;
             }
@@ -22,14 +27,18 @@ public:
         return false;
     }
 
-    bool AddItem(T &item) {
+    bool AddItem(T& item)
+    {
         items.push_back(item);
         return true;
     }
 
-    bool RemoveItem(const std::string& id) {
-        for(int i = 0; i < items.size(); ++i) {
-            if(items[i]->GetId() == id) {
+    bool RemoveItem(const std::string& id)
+    {
+        for (int i = 0; i < items.size(); ++i)
+        {
+            if (items[i]->GetId() == id)
+            {
                 items.erase(items.begin() + i);
                 return true;
             }
@@ -37,21 +46,22 @@ public:
         return false;
     }
 
-    bool RemoveItem(T &item) {
+    bool RemoveItem(T& item)
+    {
         size_t size_before = items.size();
         items.erase(std::remove(items.begin(), items.end(), item), items.end());
-        if(size_before == items.size()) {
+        if (size_before == items.size())
+        {
             return false;
         }
 
         return true;
     }
 
-    size_t GetSize() {
-        return items.size();
-    }
+    size_t GetSize() { return items.size(); }
 
-    void Sort(const std::function<bool(const T&, const T&)>& comparator) {
+    void Sort(const std::function<bool(const T&, const T&)>& comparator)
+    {
         std::sort(items.begin(), items.end(), comparator);
     }
 
@@ -61,5 +71,4 @@ public:
     auto end() const { return items.cend(); }
 };
 
-
-#endif //OOP_PROJECT_LISTING_H
+#endif // OOP_PROJECT_LISTING_H
