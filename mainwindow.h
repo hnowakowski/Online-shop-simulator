@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 
+#include "Classes/BuyableScrollAreaCart.h"
 #include "Classes/BuyableScrollAreaMain.h"
 #include "ui_mainwindow.h"
 
@@ -49,5 +50,6 @@ class MainWindow : public QMainWindow
   private:
     Ui::MainWindow*       ui;
     BuyableScrollAreaMain mainScrollArea;
+    BuyableScrollAreaCart cartScrollArea;
 };
 #endif // MAINWINDOW_H

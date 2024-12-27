@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "Classes/BuyableScrollAreaCart.h"
 #include "Classes/BuyableScrollAreaMain.h"
 #include "Classes/StoreSystem.h"
 #include "Templates/LoaderSaver.h"
@@ -12,6 +13,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->stackedWidget->setCurrentWidget(ui->pageMain);
     loadBuyables();
     mainScrollArea = BuyableScrollAreaMain(ui->scrollAreaProducts);
+    cartScrollArea = BuyableScrollAreaCart(ui->scrollAreaCart);
 
     QStringList comboBoxItems = {"All", "Products", "Clothes", "Services"};
     ui->comboBoxSearch->addItems(comboBoxItems);
@@ -112,6 +114,7 @@ void MainWindow::UpdateCartLabel()
 void MainWindow::on_btnMainGotoCart_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->pageCart);
+    cartScrollArea.Populate();
 }
 
 

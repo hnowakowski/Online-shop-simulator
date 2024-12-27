@@ -40,6 +40,11 @@ std::pair<uint32_t, uint32_t> Cart::GetTotalPrice(std::vector<std::shared_ptr<Bu
     return std::make_pair(maintotal, subtotal);
 }
 
+std::vector<std::shared_ptr<Buyable>> Cart::GetBuyables()
+{
+    return buyables;
+}
+
 Cart& Cart::operator=(const Cart& cart)
 {
     this->mainunit = cart.mainunit;

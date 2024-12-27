@@ -13,6 +13,7 @@ debug: DEFINES += DEBUG #comment this out when the project is finished
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Classes/BuyableScrollAreaCart.cpp \
     Classes/Price.cpp \
     Classes/Product.cpp \
     Classes/Service.cpp \
@@ -31,6 +32,7 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    Classes/BuyableScrollAreaCart.h \
     Enums/BuyableDisplayedType.h \
     Enums/BuyableSortedBy.h \
     Enums/BuyableSortedBy.h \
