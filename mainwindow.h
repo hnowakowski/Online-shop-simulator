@@ -40,6 +40,12 @@ class MainWindow : public QMainWindow
 
     void UpdateCartLabel();
 
+    void on_btnMainGotoCart_clicked();
+
+    void on_btnCartGotoMain_clicked();
+
+    void on_btnCartGotoCheckout_clicked();
+
   private:
     Ui::MainWindow*       ui;
     BuyableScrollAreaMain mainScrollArea;

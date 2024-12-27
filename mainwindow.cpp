@@ -108,3 +108,21 @@ void MainWindow::UpdateCartLabel()
     QString  label = QString::fromStdString("Cart (" + std::to_string(size) + ")");
     ui->labelCart->setText(label);
 }
+
+void MainWindow::on_btnMainGotoCart_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->pageCart);
+}
+
+
+void MainWindow::on_btnCartGotoMain_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->pageMain);
+}
+
+
+void MainWindow::on_btnCartGotoCheckout_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->pageCheckout);
+}
+
