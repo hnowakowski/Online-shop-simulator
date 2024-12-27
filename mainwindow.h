@@ -2,17 +2,19 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+
+#include "Classes/BuyableScrollAreaMain.h"
 #include "ui_mainwindow.h"
-#include "Headers/CustomWidgets/BuyableScrollAreaMain.h"
 
 #ifdef DEBUG
-#define PATH (std::filesystem::current_path().string() + "\\..\\..\\")
+#    define PATH (std::filesystem::current_path().string() + "\\..\\..\\")
 #else
-#define PATH ""
+#    define PATH ""
 #endif
 
 QT_BEGIN_NAMESPACE
-namespace Ui {
+namespace Ui
+{
 class MainWindow;
 }
 QT_END_NAMESPACE
@@ -21,11 +23,11 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
-public:
-    MainWindow(QWidget *parent = nullptr);
+  public:
+    MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 
-private slots:
+  private slots:
     void on_comboBoxSearch_currentIndexChanged(int index);
 
     void on_btnSearch_clicked();
@@ -38,8 +40,8 @@ private slots:
 
     void UpdateCartLabel();
 
-private:
-    Ui::MainWindow *ui;
+  private:
+    Ui::MainWindow*       ui;
     BuyableScrollAreaMain mainScrollArea;
 };
 #endif // MAINWINDOW_H

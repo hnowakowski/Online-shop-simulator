@@ -17,38 +17,37 @@ include_directories(.)
 include_directories(Classes)
 
 add_executable(OOP_project
-        Classes/Core/Product.cpp
-        Headers/Core/Product.h
+        Classes/AddressLineEdit.cpp
+        Classes/BuyableScrollAreaMain.cpp
+        Classes/Cart.cpp
+        Classes/Clothing.cpp
+        Classes/Customer.cpp
+        Classes/Order.cpp
+        Classes/Price.cpp
+        Classes/Product.cpp
+        Classes/Service.cpp
+        Classes/StoreSystem.cpp
+        Classes/Wallet.cpp
+        Classes/BuyableScrollAreaMain.h
+        Classes/Cart.h
+        Classes/Clothing.h
+        Classes/Customer.h
+        Classes/Order.h
+        Classes/Price.h
+        Classes/Product.h
+        Classes/Service.h
+        Classes/StoreSystem.h
+        Classes/Wallet.h
+        Templates/Listing.h
+        Templates/LoaderSaver.h
+        Enums/BuyableDisplayedType.h
+        Enums/BuyableSortedBy.h
+        Enums/Color.h
+        Enums/ServiceType.h
+        ExternalLibs/nlohmann/json.hpp
         main.cpp
         mainwindow.cpp
         mainwindow.h
-        Headers/Domain/Wallet.h
-        Classes/Domain/Wallet.cpp
-        Headers/Domain/Clothing.h
-        Enums/Color.h
-        Classes/Domain/Clothing.cpp
-        Headers/Domain/Cart.h
-        Headers/Core/Price.h
-        Interfaces/MoneyPossesive.h
-        Interfaces/MoneyPossesive.cpp
-        Classes/Core/Price.cpp
-        Classes/Domain/Cart.cpp
-        Headers/Domain/Customer.h
-        Headers/Domain/Order.h
-        Classes/Domain/Order.cpp
-        Classes/Domain/Customer.cpp
-        Headers/System/StoreSystem.h
-        Classes/System/StoreSystem.cpp
-        Templates/Listing.h
-        Interfaces/Buyable.h
-        Interfaces/Buyable.cpp
-        Headers/Core/Service.h
-        Enums/ServiceType.h
-        Classes/Core/Service.cpp
-        Interfaces/Serializable.h
-        ExternalLibs/nlohmann/json.hpp
-        Templates/LoaderSaver.h
-        Interfaces/MoneyPossesive.cpp
 )
 
 if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)

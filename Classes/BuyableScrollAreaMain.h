@@ -1,20 +1,22 @@
 #ifndef OOP_PROJECT_BUYABLESCROLLAREAMAIN_H
 #define OOP_PROJECT_BUYABLESCROLLAREAMAIN_H
 
-#include <QVBoxLayout>
+#include <QImage>
 #include <QLabel>
+#include <QPixmap>
 #include <QPushButton>
 #include <QScrollArea>
+#include <QVBoxLayout>
 #include <QWidget>
-#include <QImage>
-#include <QPixmap>
-#include "../../Interfaces/BuyableScrollArea.h"
 
-class BuyableScrollAreaMain : public BuyableScrollArea{
-public:
+#include "../Interfaces/BuyableScrollArea.h"
+
+class BuyableScrollAreaMain : public BuyableScrollArea
+{
+  public:
     void Populate();
 
-    BuyableScrollAreaMain(QScrollArea *scrollArea);
+    BuyableScrollAreaMain(QScrollArea* scrollArea);
     BuyableScrollAreaMain();
 };
 
