@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 
-#include "../Classes/BuyableScrollAreaMain.h"
+#include "Classes/BuyableScrollAreaMain.h"
 #include "ui_mainwindow.h"
 
 #ifdef DEBUG
