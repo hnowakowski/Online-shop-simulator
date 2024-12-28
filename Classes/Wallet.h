@@ -4,6 +4,7 @@
 #include <cstdint>
 
 #include "../Interfaces/MoneyPossesive.h"
+#include "../Interfaces/Serializable.h"
 
 class Wallet : virtual public MoneyPossesive
 {
@@ -15,6 +16,14 @@ class Wallet : virtual public MoneyPossesive
 
     Wallet& operator=(const Wallet& other);
     Wallet(uint32_t mainunit, uint32_t subunit);
+
+    nlohmann::json toJSON() const;
+
+    void fromJSON(const nlohmann::json& json);
+
+    explicit Wallet(const nlohmann::json& json);
+
+    ~Wallet() = default;
 };
 
 #endif // OOP_PROJECT_WALLET_H

@@ -5,8 +5,9 @@
 #include <string>
 
 #include "Wallet.h"
+#include "../Interfaces/Serializable.h"
 
-class Customer
+class Customer : virtual public Serializable
 {
     std::string             id;
     std::string             name;
@@ -32,6 +33,14 @@ class Customer
              std::string             email,
              std::string             phone,
              std::shared_ptr<Wallet> wallet);
+
+    nlohmann::json toJSON() const;
+
+    void fromJSON(const nlohmann::json& json);
+
+    explicit Customer(const nlohmann::json& json);
+
+    ~Customer() = default;
 };
 
 #endif // OOP_PROJECT_CUSTOMER_H

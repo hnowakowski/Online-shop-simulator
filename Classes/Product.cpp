@@ -47,7 +47,6 @@ nlohmann::json Product::toJSON() const
 
 void Product::fromJSON(const nlohmann::json& json)
 {
-    std::cout << "Product is being read\n";
     id          = json.at("id").get<std::string>();
     name        = json.at("name").get<std::string>();
     description = json.at("description").get<std::string>();
@@ -55,7 +54,6 @@ void Product::fromJSON(const nlohmann::json& json)
     rating      = json.at("rating").get<std::string>();
     quantity    = json.at("quantity").get<uint32_t>();
     price       = std::make_shared<Price>(json.at("price"));
-    std::cout << "Product read\n";
 }
 
 Product::Product(const nlohmann::json& json) { this->Product::fromJSON(json); }

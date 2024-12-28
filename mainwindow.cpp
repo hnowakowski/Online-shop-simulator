@@ -34,8 +34,7 @@ MainWindow::~MainWindow() { delete ui; }
 
 void loadBuyables()
 {
-    std::vector<std::shared_ptr<Buyable>>
-        loadedBuyables; // this array is pointless, everything is taken care of in storesystem already on god 😭🙏
+    std::vector<std::shared_ptr<Buyable>> loadedBuyables; // this array is pointless, everything is taken care of in storesystem already on god 😭🙏
     StoreSystem& system = StoreSystem::GetInstance();
     if (!LoaderSaver<Buyable>::Load(PATH + "Assets\\products.json", loadedBuyables))
     {
@@ -50,6 +49,23 @@ void loadBuyables()
         if (!system.GetBuyable(buyable->GetId(), buyable))
         {
             system.AddBuyable(buyable);
+        }
+    }
+}
+
+void loadCustomers()
+{
+    std::vector<std::shared_ptr<Customer>> loadedCustomers;
+    StoreSystem& system = StoreSystem::GetInstance();
+    if (!LoaderSaver<Customer>::Load(PATH + "Assets\\customers.json", loadedCustomers))
+    {
+        qDebug() << "WARNING! - Loading customers.json failed!\n";
+    }
+    for (auto customer : loadedCustomers)
+    {
+        if (!system.GetCustomer(customer->GetId(), customer))
+        {
+            system.AddCustomer(customer);
         }
     }
 }

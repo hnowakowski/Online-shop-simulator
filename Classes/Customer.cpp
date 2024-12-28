@@ -58,3 +58,25 @@ Customer::Customer(std::string             id,
     this->phone   = phone;
     this->wallet  = wallet;
 }
+
+nlohmann::json Customer::toJSON() const
+{
+    return nlohmann::json {{"id", id},
+                           {"name", name},
+                           {"surname", surname},
+                           {"email", email},
+                           {"phone", phone},
+                           {"wallet", wallet->toJSON()}};
+}
+
+void Customer::fromJSON(const nlohmann::json& json)
+{
+    id      = json.at("id").get<std::string>();
+    name    = json.at("name").get<std::string>();
+    surname = json.at("surname").get<std::string>();
+    email   = json.at("email").get<std::string>();
+    phone   = json.at("phone").get<std::string>();
+    wallet  = std::make_shared<Wallet>(json.at("wallet"));
+}
+
+Customer::Customer(const nlohmann::json& json) { this->Customer::fromJSON(json); }
