@@ -1,4 +1,7 @@
+#include <string>
+
 #include "mainwindow.h"
+#include "Classes/BuyableScrollAreaCart.h"
 #include "Classes/BuyableScrollAreaMain.h"
 #include "Classes/StoreSystem.h"
 #include "Templates/LoaderSaver.h"
@@ -12,6 +15,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->stackedWidget->setCurrentWidget(ui->pageMain);
     loadBuyables();
     mainScrollArea = BuyableScrollAreaMain(ui->scrollAreaProducts);
+    cartScrollArea = BuyableScrollAreaCart(ui->scrollAreaCart);
 
     QStringList comboBoxItems = {"All", "Products", "Clothes", "Services"};
     ui->comboBoxSearch->addItems(comboBoxItems);
@@ -108,3 +112,26 @@ void MainWindow::UpdateCartLabel()
     QString  label = QString::fromStdString("Cart (" + std::to_string(size) + ")");
     ui->labelCart->setText(label);
 }
+
+void MainWindow::on_btnMainGotoCart_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->pageCart);
+    cartScrollArea.Populate();
+    std::pair<uint32_t, uint32_t> pricePair = StoreSystem::GetInstance().GetCart().GetTotalPrice();
+    std::string priceStr                    = "Total: " + std::to_string(pricePair.first) + "." + std::to_string(pricePair.second) + " ZŁ";
+    QString priceQStr                       = QString::fromStdString(priceStr);
+    ui->labelCartTotalPrice->setText(priceQStr);
+}
+
+
+void MainWindow::on_btnCartGotoMain_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->pageMain);
+}
+
+
+void MainWindow::on_btnCartGotoCheckout_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->pageCheckout);
+}
+
