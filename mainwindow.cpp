@@ -1,3 +1,5 @@
+#include <string>
+
 #include "mainwindow.h"
 #include "Classes/BuyableScrollAreaCart.h"
 #include "Classes/BuyableScrollAreaMain.h"
@@ -115,6 +117,10 @@ void MainWindow::on_btnMainGotoCart_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->pageCart);
     cartScrollArea.Populate();
+    std::pair<uint32_t, uint32_t> pricePair = StoreSystem::GetInstance().GetCart().GetTotalPrice();
+    std::string priceStr                    = "Total: " + std::to_string(pricePair.first) + "." + std::to_string(pricePair.second) + " ZŁ";
+    QString priceQStr                       = QString::fromStdString(priceStr);
+    ui->labelCartTotalPrice->setText(priceQStr);
 }
 
 

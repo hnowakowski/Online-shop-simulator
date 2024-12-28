@@ -41,7 +41,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="pageMain">
        <property name="sizePolicy">
@@ -1129,6 +1129,18 @@ BECOME A CONSUMER TODAY!!</string>
                 </property>
                 <property name="text">
                  <string>Proceed to checkout</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="labelCartTotalPrice">
+                <property name="font">
+                 <font>
+                  <pointsize>10</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Total: </string>
                 </property>
                </widget>
               </item>

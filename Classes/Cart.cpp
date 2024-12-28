@@ -18,7 +18,7 @@ bool Cart::RemoveBuyable(std::shared_ptr<Buyable> buyable)
 
 uint32_t Cart::Size() { return buyables.size(); }
 
-std::pair<uint32_t, uint32_t> Cart::GetTotalPrice(std::vector<std::shared_ptr<Buyable>>& unconvertable_buyables)
+std::pair<uint32_t, uint32_t> Cart::GetTotalPrice()
 {
     uint32_t maintotal = 0;
     uint32_t subtotal  = 0;
@@ -26,15 +26,13 @@ std::pair<uint32_t, uint32_t> Cart::GetTotalPrice(std::vector<std::shared_ptr<Bu
     {
         uint32_t mainunit;
         uint32_t subunit;
-        if (buyable->GetPrice(mainunit, subunit))
-        {
-            unconvertable_buyables.push_back(buyable);
-        }
-        else
-        {
-            maintotal += mainunit;
-            subtotal += subunit;
-        }
+        buyable->GetPrice(mainunit, subunit);
+        maintotal += mainunit;
+        subtotal  += subunit;
+    }
+    while(subtotal > 99){
+        maintotal += (subtotal / 100);
+        subtotal %= 100;
     }
 
     return std::make_pair(maintotal, subtotal);

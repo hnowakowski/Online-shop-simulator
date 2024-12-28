@@ -56,20 +56,10 @@ void BuyableScrollAreaCart::Populate()
 
         QLabel* nameLabel = new QLabel(QString::fromStdString(buyable->GetName()));
         QFont   nameFont  = nameLabel->font();
-        nameFont.setPointSize(12);
+        nameFont.setPointSize(14);
         nameFont.setBold(true);
         nameLabel->setFont(nameFont);
         infoLayout->addWidget(nameLabel);
-
-        QLabel* ratingLabel = new QLabel(QString::fromStdString(buyable->GetRating() + "/10"));
-        ratingLabel->setWordWrap(true);
-        infoLayout->addWidget(ratingLabel);
-
-        QLabel* descriptionLabel = new QLabel(QString::fromStdString(buyable->GetDescription()));
-        descriptionLabel->setWordWrap(true);
-        infoLayout->addWidget(descriptionLabel);
-
-        productLayout->addWidget(infoPanel);
 
         uint32_t mainunit;
         uint32_t subunit;
@@ -77,8 +67,16 @@ void BuyableScrollAreaCart::Populate()
         std::string priceText = std::to_string(mainunit) + "." + std::to_string(subunit) + " ZŁ";
 
         QLabel* priceLabel = new QLabel(QString::fromStdString(priceText));
+        QFont   priceFont  = priceLabel->font();
+        priceFont.setPointSize(12);
+        priceLabel->setFont(priceFont);
         priceLabel->setWordWrap(true);
-        productLayout->addWidget(priceLabel);
+        infoLayout->addWidget(priceLabel);
+
+        productLayout->addWidget(infoPanel);
+
+        QSpacerItem* horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding);
+        productLayout->addItem(horizontalSpacer);
 
         layout->addWidget(productPanel);
 
