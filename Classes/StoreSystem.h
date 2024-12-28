@@ -52,6 +52,8 @@ class StoreSystem
     void SetCurrentCustomerId(std::string id);
     void GetCurrentCustomerId(std::string& id);
 
+    void GetCurrentCustomer(std::shared_ptr<Customer>& customer);
+
     Cart& GetCart();
 
     bool RemoveBuyable(const std::string& id);

@@ -61,6 +61,20 @@ void StoreSystem::SetBuyableSortedBy(BuyableSortedBy buyableSortedBy) { this->bu
 void StoreSystem::SetBuyableSearchQuery(std::string query) { this->buyableSearchQuery = query; }
 void StoreSystem::GetBuyableSearchQuery(std::string& query) { query = this->buyableSearchQuery; }
 
+void StoreSystem::SetCurrentCustomerId(std::string id)
+{
+    currentCustomerId = id;
+}
+void StoreSystem::GetCurrentCustomerId(std::string& id)
+{
+    id = currentCustomerId;
+}
+
+void StoreSystem::GetCurrentCustomer(Customer& customer)
+{
+    GetCustomer()
+}
+
 Cart& StoreSystem::GetCart() { return cart; }
 
 void StoreSystem::AddBuyable(std::shared_ptr<Buyable> buyable) { buyables.AddItem(buyable); }

@@ -8,12 +8,15 @@
 #include "ui_mainwindow.h"
 
 void loadBuyables();
+void loadCustomers();
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     ui->stackedWidget->setCurrentWidget(ui->pageMain);
     loadBuyables();
+    loadCustomers();
+    StoreSystem::GetInstance().SetCurrentCustomerId("U1"); //for testing, later on we can start off as logged out and then make the user log in/register
     mainScrollArea     = BuyableScrollAreaMain(ui->scrollAreaProducts);
     cartScrollArea     = BuyableScrollAreaCart(ui->scrollAreaCart);
     checkoutScrollArea = BuyableScrollAreaCart(ui->scrollAreaCheckout);
