@@ -1,4 +1,5 @@
 #include <string>
+#include <QMessageBox>
 
 #include "mainwindow.h"
 #include "Classes/BuyableScrollAreaCart.h"
@@ -9,6 +10,23 @@
 
 void loadBuyables();
 void loadCustomers();
+
+//put this somewhere else later but this is useful
+void showInfo(QWidget* parent, std::string title, std::string text)
+{
+    QMessageBox::information(parent, QString::fromStdString(title), QString::fromStdString(text));
+}
+
+void showWarning(QWidget* parent, std::string title, std::string text)
+{
+    QMessageBox::warning(parent, QString::fromStdString(title), QString::fromStdString(text));
+}
+
+void showError(QWidget* parent, std::string title, std::string text)
+{
+    QMessageBox::critical(parent, QString::fromStdString(title), QString::fromStdString(text));
+}
+
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -161,6 +179,13 @@ void MainWindow::on_btnCartGotoCheckout_clicked()
     ui->labelCheckout->setText(priceQStr);
 }
 
+//where do i put this
+bool operator>=(const std::shared_ptr<Wallet> wallet, const Price& price)
+{
+    if (wallet->mainunit < price.mainunit) return false;
+    else if (wallet->mainunit == price.mainunit && wallet->subunit < price.subunit) return false;
+    return true;
+}
 
 void MainWindow::on_btnCheckout_clicked()
 {
@@ -198,7 +223,21 @@ void MainWindow::on_btnCheckout_clicked()
     else
     {
         ui->labelFieldsNotFilled->setVisible(false);
-        // do stuff idk
+        std::pair<uint32_t, uint32_t> pricePair = StoreSystem::GetInstance().GetCart().GetTotalPrice();
+        Price priceObj(pricePair.first, pricePair.second);
+        std::shared_ptr<Customer> currCustomer;
+        StoreSystem::GetInstance().GetCurrentCustomer(currCustomer);
+        if (currCustomer->GetWallet() >= priceObj)
+        {
+            showInfo(ui->pageCheckout, "Yipee!", "Products successfully consumed!");
+            currCustomer->GetWallet()->RemoveMain(pricePair.first);
+            currCustomer->GetWallet()->RemoveSub(pricePair.second);
+        }
+        else
+        {
+            showWarning(ui->pageCheckout, "Cannot consume", "Not enough funds in your account! :(");
+        }
+
     }
 
 

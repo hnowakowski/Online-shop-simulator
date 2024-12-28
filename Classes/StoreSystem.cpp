@@ -70,9 +70,9 @@ void StoreSystem::GetCurrentCustomerId(std::string& id)
     id = currentCustomerId;
 }
 
-void StoreSystem::GetCurrentCustomer(Customer& customer)
+void StoreSystem::GetCurrentCustomer(std::shared_ptr<Customer>& customer)
 {
-    GetCustomer()
+    GetCustomer(currentCustomerId, customer);
 }
 
 Cart& StoreSystem::GetCart() { return cart; }

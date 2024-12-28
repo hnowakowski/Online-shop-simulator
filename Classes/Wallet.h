@@ -6,6 +6,8 @@
 #include "../Interfaces/MoneyPossesive.h"
 #include "../Interfaces/Serializable.h"
 
+class Price;
+
 class Wallet : virtual public MoneyPossesive
 {
   public:
@@ -24,6 +26,8 @@ class Wallet : virtual public MoneyPossesive
     explicit Wallet(const nlohmann::json& json);
 
     ~Wallet() = default;
+
+    friend bool operator>=(const std::shared_ptr<Wallet> wallet, const Price& price);
 };
 
 #endif // OOP_PROJECT_WALLET_H

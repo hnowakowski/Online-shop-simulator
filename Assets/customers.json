@@ -6,7 +6,7 @@
         "phone": "111222333",
         "surname": "Kowalski",
         "wallet": {
-            "mainunit": 9999,
+            "mainunit": 200,
             "subunit": 99
         }
     }
