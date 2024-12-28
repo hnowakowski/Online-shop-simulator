@@ -14,8 +14,9 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->setupUi(this);
     ui->stackedWidget->setCurrentWidget(ui->pageMain);
     loadBuyables();
-    mainScrollArea = BuyableScrollAreaMain(ui->scrollAreaProducts);
-    cartScrollArea = BuyableScrollAreaCart(ui->scrollAreaCart);
+    mainScrollArea     = BuyableScrollAreaMain(ui->scrollAreaProducts);
+    cartScrollArea     = BuyableScrollAreaCart(ui->scrollAreaCart);
+    checkoutScrollArea = BuyableScrollAreaCart(ui->scrollAreaCheckout);
 
     QStringList comboBoxItems = {"All", "Products", "Clothes", "Services"};
     ui->comboBoxSearch->addItems(comboBoxItems);
@@ -24,6 +25,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     // end of setup, final function calls
     // KEEP THIS AT THE BOTTOM AT ALL TIMES
+    ui->labelFieldsNotFilled->setVisible(false);
     mainScrollArea.Populate();
     UpdateCartLabel();
 }
@@ -133,5 +135,53 @@ void MainWindow::on_btnCartGotoMain_clicked()
 void MainWindow::on_btnCartGotoCheckout_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->pageCheckout);
+    checkoutScrollArea.Populate();
+    std::pair<uint32_t, uint32_t> pricePair = StoreSystem::GetInstance().GetCart().GetTotalPrice();
+    std::string priceStr                    = "Checkout (Total: " + std::to_string(pricePair.first) + "." + std::to_string(pricePair.second) + " ZŁ)";
+    QString priceQStr                       = QString::fromStdString(priceStr);
+    ui->labelCheckout->setText(priceQStr);
+}
+
+
+void MainWindow::on_btnCheckout_clicked()
+{
+    // if you have a better idea how to do this then i'd be welcome to hear it
+    bool all_filled = true;
+    if (ui->lineEditCardNum->text().isEmpty())
+    {
+        all_filled = false;
+    }
+    else if (ui->lineEditPin->text().isEmpty())
+    {
+        all_filled = false;
+    }
+    else if (ui->lineEditExpiryDate->text().isEmpty())
+    {
+        all_filled = false;
+    }
+    else if (ui->lineEditNumOnBack->text().isEmpty())
+    {
+        all_filled = false;
+    }
+    else if (!ui->checkBoxCheckoutAgree1->isChecked())
+    {
+        all_filled = false;
+    }
+    else if (!ui->checkBoxCheckoutAgree2->isChecked())
+    {
+        all_filled = false;
+    }
+
+    if (!all_filled)
+    {
+        ui->labelFieldsNotFilled->setVisible(true);
+    }
+    else
+    {
+        ui->labelFieldsNotFilled->setVisible(false);
+        // do stuff idk
+    }
+
+
 }
 

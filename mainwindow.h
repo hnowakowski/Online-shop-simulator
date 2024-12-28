@@ -47,9 +47,12 @@ class MainWindow : public QMainWindow
 
     void on_btnCartGotoCheckout_clicked();
 
+    void on_btnCheckout_clicked();
+
   private:
     Ui::MainWindow*       ui;
     BuyableScrollAreaMain mainScrollArea;
     BuyableScrollAreaCart cartScrollArea;
+    BuyableScrollAreaCart checkoutScrollArea;
 };
 #endif // MAINWINDOW_H

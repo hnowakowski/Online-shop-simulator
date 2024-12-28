@@ -41,7 +41,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>4</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="pageMain">
        <property name="sizePolicy">
@@ -717,7 +717,7 @@ BECOME A CONSUMER TODAY!!</string>
            </widget>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_12" stretch="0,0,15,1,1,1,0,1">
+           <layout class="QVBoxLayout" name="verticalLayout_12" stretch="0,0,15,1,1,1,0,0,1">
             <item>
              <widget class="QLabel" name="labelCheckout">
               <property name="sizePolicy">
@@ -749,7 +749,7 @@ BECOME A CONSUMER TODAY!!</string>
               </property>
               <property name="minimumSize">
                <size>
-                <width>75</width>
+                <width>200</width>
                 <height>0</height>
                </size>
               </property>
@@ -778,7 +778,7 @@ BECOME A CONSUMER TODAY!!</string>
                  <x>0</x>
                  <y>0</y>
                  <width>953</width>
-                 <height>162</height>
+                 <height>141</height>
                 </rect>
                </property>
               </widget>
@@ -914,20 +914,36 @@ BECOME A CONSUMER TODAY!!</string>
             <item>
              <layout class="QFormLayout" name="formLayout_5">
               <item row="0" column="0">
-               <widget class="QCheckBox" name="checkBoxCheckout1">
+               <widget class="QCheckBox" name="checkBoxCheckoutAgree1">
                 <property name="text">
                  <string>I agree to the terms and conditions</string>
                 </property>
                </widget>
               </item>
               <item row="1" column="0">
-               <widget class="QCheckBox" name="checkBoxCheckout2">
+               <widget class="QCheckBox" name="checkBoxCheckoutAgree2">
                 <property name="text">
                  <string>I hereby forfeit my bank account, all consumer rights, and soul to Drip Shop™ ltd.</string>
                 </property>
                </widget>
               </item>
              </layout>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelFieldsNotFilled">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color: red;</string>
+              </property>
+              <property name="text">
+               <string>Some fields were not filled in or selected!</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignmentFlag::AlignCenter</set>
+              </property>
+             </widget>
             </item>
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_10">
