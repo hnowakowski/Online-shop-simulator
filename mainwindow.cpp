@@ -243,3 +243,9 @@ void MainWindow::on_btnCheckout_clicked()
 
 }
 
+
+void MainWindow::on_btnCheckoutGotoCart_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->pageCart);
+}
+

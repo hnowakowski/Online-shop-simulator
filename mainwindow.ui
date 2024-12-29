@@ -76,8 +76,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>1048</width>
-               <height>451</height>
+               <width>18</width>
+               <height>18</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_13"/>
@@ -778,7 +778,7 @@ BECOME A CONSUMER TODAY!!</string>
                  <x>0</x>
                  <y>0</y>
                  <width>953</width>
-                 <height>141</height>
+                 <height>133</height>
                 </rect>
                </property>
               </widget>
@@ -864,6 +864,36 @@ BECOME A CONSUMER TODAY!!</string>
                  <enum>Qt::Orientation::Horizontal</enum>
                 </property>
                </widget>
+              </item>
+              <item row="0" column="1">
+               <layout class="QHBoxLayout" name="horizontalLayout_12">
+                <item>
+                 <widget class="QPushButton" name="btnCheckoutGotoCart">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                    <bold>false</bold>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Nevermind go back</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_9">
+                  <property name="orientation">
+                   <enum>Qt::Orientation::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
               </item>
              </layout>
             </item>
@@ -1120,8 +1150,8 @@ BECOME A CONSUMER TODAY!!</string>
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>953</width>
-                 <height>297</height>
+                 <width>16</width>
+                 <height>16</height>
                 </rect>
                </property>
               </widget>
