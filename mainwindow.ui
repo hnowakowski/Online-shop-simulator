@@ -219,9 +219,9 @@
                </sizepolicy>
               </property>
               <property name="currentIndex">
-               <number>1</number>
+               <number>0</number>
               </property>
-              <widget class="QWidget" name="page">
+              <widget class="QWidget" name="pageLoginLoggedOut">
                <layout class="QHBoxLayout" name="horizontalLayout_2">
                 <item>
                  <widget class="QLabel" name="labelUserLogIn">
@@ -249,7 +249,7 @@
                 </item>
                </layout>
               </widget>
-              <widget class="QWidget" name="page_2">
+              <widget class="QWidget" name="pageLoginLoggedIn">
                <layout class="QHBoxLayout" name="horizontalLayout_13">
                 <item>
                  <layout class="QVBoxLayout" name="verticalLayout_14">
@@ -683,7 +683,7 @@ BECOME A CONSUMER TODAY!!</string>
               <item row="5" column="1">
                <widget class="QLineEdit" name="lineEditAddress">
                 <property name="text">
-                 <string>not sure how we'll do it yet if address is going to be a class, maybe seperate inputs stuck together idk</string>
+                 <string/>
                 </property>
                </widget>
               </item>

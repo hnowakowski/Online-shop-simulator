@@ -8,6 +8,10 @@
         "wallet": {
             "mainunit": 200,
             "subunit": 99
-        }
+        },
+        "city": "Poznań",
+        "address": "Piotrowo 4",
+        "PESEL": "12345678901",
+        "password": "a"
     }
 ]
