@@ -30,12 +30,17 @@ void showError(QWidget* parent, std::string title, std::string text)
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
+    StoreSystem& system = StoreSystem::GetInstance();
     ui->setupUi(this);
     ui->stackedWidget->setCurrentWidget(ui->pageMain);
-    ui->stackedWidget_login->setCurrentWidget(ui->pageLoginLoggedOut); //temp for testing, could start off as a logged in user for ease of use
     loadBuyables();
     loadCustomers();
+
     StoreSystem::GetInstance().SetCurrentCustomerId("U1"); //for testing, later on we can start off as logged out and then make the user log in/register
+    ui->stackedWidget_login->setCurrentWidget(ui->pageLoginLoggedIn); //temp for testing, could start off as a logged in user for ease of use
+    displayAccountInfo();
+
+
     mainScrollArea     = BuyableScrollAreaMain(ui->scrollAreaProducts);
     cartScrollArea     = BuyableScrollAreaCart(ui->scrollAreaCart);
     checkoutScrollArea = BuyableScrollAreaCart(ui->scrollAreaCheckout);
@@ -43,7 +48,11 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     QStringList comboBoxItems = {"All", "Products", "Clothes", "Services"};
     ui->comboBoxSearch->addItems(comboBoxItems);
 
-    QObject::connect(&StoreSystem::GetInstance().GetCart(), &Cart::CartChanged, this, &MainWindow::UpdateCartLabel);
+    QObject::connect(&system.GetCart(), &Cart::CartChanged, this, &MainWindow::UpdateCartLabel);
+
+
+
+
 
     // end of setup, final function calls
     // KEEP THIS AT THE BOTTOM AT ALL TIMES
@@ -53,6 +62,18 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
 }
 
 MainWindow::~MainWindow() { delete ui; }
+
+void MainWindow::displayAccountInfo()
+{
+    StoreSystem& system = StoreSystem::GetInstance();
+    std::shared_ptr<Customer> currCustomer;
+    system.GetCurrentCustomer(currCustomer);
+    ui->labelUserLogin->setText(QString::fromStdString(currCustomer->GetName() + " " + currCustomer->GetSurname()));
+    uint32_t walletFirst   = currCustomer->GetWallet()->GetMainUnit();
+    uint32_t walletSecond  = currCustomer->GetWallet()->GetSubUnit();
+    std::string walletStr  = "Wallet: " + std::to_string(walletFirst) + "." + std::to_string(walletSecond) + " ZŁ";
+    ui->labelWalletStatus->setText(QString::fromStdString(walletStr));
+}
 
 void loadBuyables()
 {
@@ -190,6 +211,14 @@ bool operator>=(const std::shared_ptr<Wallet> wallet, const Price& price)
 
 void MainWindow::on_btnCheckout_clicked()
 {
+    std::string id;
+    StoreSystem::GetInstance().GetCurrentCustomerId(id);
+    if (id == "U0")
+    {
+        showWarning(ui->pageCheckout, "Cannot consume", "You are not logged in!");
+        return;
+    }
+
     // if you have a better idea how to do this then i'd be welcome to hear it
     bool all_filled = true;
     if (ui->lineEditCardNum->text().isEmpty())
@@ -272,5 +301,12 @@ void MainWindow::on_btnLoginGotoMain_clicked()
 void MainWindow::on_btnSignUpGotoLogin_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->pageLogIn);
+}
+
+
+void MainWindow::on_btnLogout_clicked()
+{
+    ui->stackedWidget_login->setCurrentWidget(ui->pageLoginLoggedOut);
+    StoreSystem::GetInstance().SetCurrentCustomerId("U0");
 }
 

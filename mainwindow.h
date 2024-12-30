@@ -59,10 +59,14 @@ class MainWindow : public QMainWindow
 
     void on_btnSignUpGotoLogin_clicked();
 
+    void on_btnLogout_clicked();
+
   private:
     Ui::MainWindow*       ui;
     BuyableScrollAreaMain mainScrollArea;
     BuyableScrollAreaCart cartScrollArea;
     BuyableScrollAreaCart checkoutScrollArea;
+
+    void displayAccountInfo();
 };
 #endif // MAINWINDOW_H
