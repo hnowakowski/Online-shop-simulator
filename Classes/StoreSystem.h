@@ -36,7 +36,6 @@ class StoreSystem
     void AddCustomer(std::shared_ptr<Customer> customer);
     void AddOrder(std::shared_ptr<Order> order);
 
-    //for loading stuff only, maybe do some encapsulation with them later idk
     bool GetBuyables(Listing<std::shared_ptr<Buyable>>& buyables);
     bool GetCustomers(Listing<std::shared_ptr<Customer>>& customers);
 

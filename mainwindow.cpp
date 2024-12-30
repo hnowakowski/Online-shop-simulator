@@ -56,6 +56,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     // end of setup, final function calls
     // KEEP THIS AT THE BOTTOM AT ALL TIMES
+    ui->labelSignUpBadData->setVisible(false);
     ui->labelFieldsNotFilled->setVisible(false);
     ui->labelLoginBadData->setVisible(false);
     mainScrollArea.Populate();
@@ -221,33 +222,33 @@ void MainWindow::on_btnCheckout_clicked()
     }
 
     // if you have a better idea how to do this then i'd be welcome to hear it
-    bool all_filled = true;
+    bool allFilled = true;
     if (ui->lineEditCardNum->text().isEmpty())
     {
-        all_filled = false;
+        allFilled = false;
     }
     else if (ui->lineEditPin->text().isEmpty())
     {
-        all_filled = false;
+        allFilled = false;
     }
     else if (ui->lineEditExpiryDate->text().isEmpty())
     {
-        all_filled = false;
+        allFilled = false;
     }
     else if (ui->lineEditNumOnBack->text().isEmpty())
     {
-        all_filled = false;
+        allFilled = false;
     }
     else if (!ui->checkBoxCheckoutAgree1->isChecked())
     {
-        all_filled = false;
+        allFilled = false;
     }
     else if (!ui->checkBoxCheckoutAgree2->isChecked())
     {
-        all_filled = false;
+        allFilled = false;
     }
 
-    if (!all_filled)
+    if (!allFilled)
     {
         ui->labelFieldsNotFilled->setVisible(true);
     }
@@ -263,6 +264,9 @@ void MainWindow::on_btnCheckout_clicked()
             showInfo(ui->pageCheckout, "Yipee!", "Products successfully consumed!");
             currCustomer->GetWallet()->RemoveMain(pricePair.first);
             currCustomer->GetWallet()->RemoveSub(pricePair.second);
+            StoreSystem::GetInstance().GetCart().GetBuyables().clear();
+            emit StoreSystem::GetInstance().GetCart().CartChanged();
+            displayAccountInfo();
         }
         else
         {
@@ -270,8 +274,6 @@ void MainWindow::on_btnCheckout_clicked()
         }
 
     }
-
-
 }
 
 
@@ -345,5 +347,75 @@ void MainWindow::on_btnLogIn_clicked()
         ui->labelLoginBadData->setText(QString::fromStdString("Email or password are incorrect!"));
         ui->labelLoginBadData->setVisible(true);
     }
+}
+
+
+void MainWindow::on_pushButtonSignUp_clicked()
+{
+    bool allFilled = true;
+
+    QList<QLineEdit*> lineEdits = ui->pageSignUp->findChildren<QLineEdit*>();
+    for (QLineEdit* lineEdit : lineEdits) {
+        if (lineEdit->text().isEmpty()) {
+            allFilled = false;
+            break;
+        }
+    }
+
+    if(!allFilled)
+    {
+        ui->labelSignUpBadData->setText("Some fields have not been filled in!");
+        ui->labelSignUpBadData->setVisible(true);
+    }
+    else
+    {
+        Listing<std::shared_ptr<Customer>> customers;
+        StoreSystem::GetInstance().GetCustomers(customers);
+        QString formEmail     = ui->lineEditEmail->text();
+        QString formPassword  = ui->lineEditPassword->text();
+        QString formPasswordR = ui->lineEditRepeatPassword->text();
+
+        if (formPassword != formPasswordR)
+        {
+            ui->labelSignUpBadData->setText("Passwords do not match!");
+            ui->labelSignUpBadData->setVisible(true);
+            return;
+        }
+
+        if (customers.GetSize())
+        {
+            for (const auto& customer : customers)
+            {
+                QString qEmail = QString::fromStdString(customer->GetEmail());
+                if (qEmail == formEmail)
+                {
+                    ui->labelSignUpBadData->setText("A user with this email already exists!");
+                    ui->labelSignUpBadData->setVisible(true);
+                    return;
+                }
+            }
+        }
+
+        std::string newId       = "U"+std::to_string(customers.GetSize()+1);
+        std::string newName     = ui->lineEditFName->text().toStdString();
+        std::string newSurname   = ui->lineEditLName->text().toStdString();
+        std::string newEmail    = formEmail.toStdString();
+        std::string newPhone    = ui->lineEditPhoneNum->text().toStdString();
+        std::string newCity     = ui->lineEditCity->text().toStdString();
+        std::string newAddress  = ui->lineEditAddress->text().toStdString();
+        std::string newPESEL    = ui->lineEditPesel->text().toStdString();
+        std::string newPassword = formPassword.toStdString();
+
+        std::shared_ptr<Customer> newCustomer = std::make_shared<Customer>(newId, newName, newSurname, newEmail, newPhone, newCity, newAddress, newPESEL, newPassword);
+        StoreSystem::GetInstance().AddCustomer(newCustomer);
+        StoreSystem::GetInstance().SetCurrentCustomerId(newId);
+        ui->labelSignUpBadData->setVisible(false);
+        displayAccountInfo();
+        //save to file
+        ui->stackedWidgetLogin->setCurrentWidget(ui->pageLoginLoggedIn);
+        ui->stackedWidget->setCurrentWidget(ui->pageMain);
+
+    }
+
 }
 
