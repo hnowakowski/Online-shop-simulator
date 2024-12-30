@@ -32,6 +32,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
 {
     ui->setupUi(this);
     ui->stackedWidget->setCurrentWidget(ui->pageMain);
+    ui->stackedWidget_login->setCurrentWidget(ui->pageLoginLoggedOut); //temp for testing, could start off as a logged in user for ease of use
     loadBuyables();
     loadCustomers();
     StoreSystem::GetInstance().SetCurrentCustomerId("U1"); //for testing, later on we can start off as logged out and then make the user log in/register
@@ -247,5 +248,29 @@ void MainWindow::on_btnCheckout_clicked()
 void MainWindow::on_btnCheckoutGotoCart_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->pageCart);
+}
+
+
+void MainWindow::on_btnLoginGotoSignUp_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->pageSignUp);
+}
+
+
+void MainWindow::on_btnMainGotoLogin_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->pageLogIn);
+}
+
+
+void MainWindow::on_btnLoginGotoMain_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->pageMain);
+}
+
+
+void MainWindow::on_btnSignUpGotoLogin_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->pageLogIn);
 }
 

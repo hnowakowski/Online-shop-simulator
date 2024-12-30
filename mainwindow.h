@@ -51,6 +51,14 @@ class MainWindow : public QMainWindow
 
     void on_btnCheckoutGotoCart_clicked();
 
+    void on_btnLoginGotoSignUp_clicked();
+
+    void on_btnMainGotoLogin_clicked();
+
+    void on_btnLoginGotoMain_clicked();
+
+    void on_btnSignUpGotoLogin_clicked();
+
   private:
     Ui::MainWindow*       ui;
     BuyableScrollAreaMain mainScrollArea;
