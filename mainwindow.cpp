@@ -37,7 +37,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     loadCustomers();
 
     StoreSystem::GetInstance().SetCurrentCustomerId("U1"); //for testing, later on we can start off as logged out and then make the user log in/register
-    ui->stackedWidget_login->setCurrentWidget(ui->pageLoginLoggedIn); //temp for testing, could start off as a logged in user for ease of use
+    ui->stackedWidgetLogin->setCurrentWidget(ui->pageLoginLoggedIn); //temp for testing, could start off as a logged in user for ease of use
     displayAccountInfo();
 
 
@@ -57,6 +57,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     // end of setup, final function calls
     // KEEP THIS AT THE BOTTOM AT ALL TIMES
     ui->labelFieldsNotFilled->setVisible(false);
+    ui->labelLoginBadData->setVisible(false);
     mainScrollArea.Populate();
     UpdateCartLabel();
 }
@@ -306,7 +307,43 @@ void MainWindow::on_btnSignUpGotoLogin_clicked()
 
 void MainWindow::on_btnLogout_clicked()
 {
-    ui->stackedWidget_login->setCurrentWidget(ui->pageLoginLoggedOut);
+    ui->stackedWidgetLogin->setCurrentWidget(ui->pageLoginLoggedOut);
     StoreSystem::GetInstance().SetCurrentCustomerId("U0");
+}
+
+
+void MainWindow::on_btnLogIn_clicked()
+{
+    if(ui->lineEditLoginEmail->text().isEmpty() || ui->lineEditLoginPassword->text().isEmpty())
+    {
+        ui->labelLoginBadData->setText(QString::fromStdString("Some fields have not been filled in!"));
+        ui->labelLoginBadData->setVisible(true);
+    }
+    else
+    {
+        Listing<std::shared_ptr<Customer>> customers;
+        StoreSystem::GetInstance().GetCustomers(customers);
+        QString formEmail = ui->lineEditLoginEmail->text();
+        QString formPassword = ui->lineEditLoginPassword->text();
+        if (customers.GetSize())
+        {
+            for (const auto& customer : customers)
+            {
+                QString qEmail = QString::fromStdString(customer->GetEmail());
+                QString qPassword = QString::fromStdString(customer->GetPassword());
+                if (qEmail == formEmail && qPassword == formPassword)
+                {
+                    ui->labelLoginBadData->setVisible(false);
+                    StoreSystem::GetInstance().SetCurrentCustomerId(customer->GetId());
+                    displayAccountInfo();
+                    ui->stackedWidgetLogin->setCurrentWidget(ui->pageLoginLoggedIn);
+                    ui->stackedWidget->setCurrentWidget(ui->pageMain);
+                    return;
+                }
+            }
+        }
+        ui->labelLoginBadData->setText(QString::fromStdString("Email or password are incorrect!"));
+        ui->labelLoginBadData->setVisible(true);
+    }
 }
 
