@@ -3,14 +3,11 @@
 
 #include "../ExternalLibs/nlohmann/json.hpp"
 #include <fstream>
-#include <iostream>
 #include <memory>
 #include <string>
 #include <vector>
 
-#include "../Classes/Clothing.h"
-#include "../Classes/Product.h"
-#include "../Classes/Service.h"
+#include "../Interfaces/Buyable.h"
 #include "mainwindow.h"
 
 template <typename T> class LoaderSaver
@@ -18,13 +15,11 @@ template <typename T> class LoaderSaver
   public:
     static bool Load(const std::string& filename, std::vector<std::shared_ptr<T>>& objects)
     {
-        std::cout << "Load inside LoaderSaver called\n";
         std::ifstream file(filename);
         if (!file.is_open())
         {
             return false;
         }
-        std::cout << "File found\n";
         nlohmann::json json;
         file >> json;
         file.close();
@@ -33,25 +28,13 @@ template <typename T> class LoaderSaver
         {
             std::shared_ptr<T> object;
 
-            if (item.contains("quantity"))
-            {
-                object = std::make_shared<Product>(item);
-            }
-            else if (item.contains("servicetype"))
-            {
-                object = std::make_shared<Service>(item);
-            }
-            else if (item.contains("color"))
-            {
-                object = std::make_shared<Clothing>(item);
-            }
-            else
-            {
+            if constexpr (std::is_same_v<T, Buyable>) {
+                object = std::static_pointer_cast<T>(Buyable::CreateFromJSON(item));
+            } else {
                 object = std::make_shared<T>(item);
             }
 
             objects.push_back(object);
-            qDebug() << "Object created successfully!\n";
         }
 
         return true;

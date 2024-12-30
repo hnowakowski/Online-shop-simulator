@@ -4,6 +4,8 @@
 #include "../Interfaces/MoneyPossesive.h"
 #include "../Interfaces/Serializable.h"
 
+class Wallet;
+
 class Price : virtual public MoneyPossesive, virtual public Serializable
 {
   public:
@@ -22,6 +24,8 @@ class Price : virtual public MoneyPossesive, virtual public Serializable
     void fromJSON(const nlohmann::json& json) override;
 
     Price(const nlohmann::json& json);
+
+    friend bool operator>=(const std::shared_ptr<Wallet> wallet, const Price& price);
 };
 
 #endif // OOP_PROJECT_PRICE_H

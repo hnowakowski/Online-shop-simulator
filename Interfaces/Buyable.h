@@ -4,6 +4,10 @@
 #include "../Classes/Price.h"
 #include "Serializable.h"
 
+class Product;
+class Service;
+class Clothing;
+
 class Buyable : virtual public Serializable
 {
   protected:
@@ -43,6 +47,8 @@ class Buyable : virtual public Serializable
             std::string            image,
             std::string            rating,
             std::shared_ptr<Price> price);
+
+    static std::shared_ptr<Buyable> CreateFromJSON(const nlohmann::json& json);
 
     virtual nlohmann::json toJSON() const override;
 

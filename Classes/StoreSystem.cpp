@@ -9,16 +9,6 @@ bool StoreSystem::GetBuyable(const std::string& id, std::shared_ptr<Buyable>& bu
     return false;
 }
 
-bool StoreSystem::GetBuyables(Listing<std::shared_ptr<Buyable>>& buyables)
-{
-    if (this->buyables.GetSize())
-    {
-        buyables = this->buyables;
-        return true;
-    }
-    return false;
-}
-
 bool StoreSystem::GetCustomer(const std::string& id, std::shared_ptr<Customer>& customer)
 {
     if (customers.GetItem(id, customer))
@@ -31,6 +21,26 @@ bool StoreSystem::GetCustomer(const std::string& id, std::shared_ptr<Customer>& 
 bool StoreSystem::GetOrder(const std::string& id, std::shared_ptr<Order>& order)
 {
     if (orders.GetItem(id, order))
+    {
+        return true;
+    }
+    return false;
+}
+
+bool StoreSystem::GetBuyables(Listing<std::shared_ptr<Buyable>>& buyables)
+{
+    if (this->buyables.GetSize())
+    {
+        buyables = this->buyables;
+        return true;
+    }
+    return false;
+}
+
+bool StoreSystem::GetCustomers(Listing<std::shared_ptr<Customer>>& customers)
+{
+    customers = this->customers;
+    if (this->customers.GetSize())
     {
         return true;
     }
@@ -50,6 +60,20 @@ void StoreSystem::SetBuyableSortedBy(BuyableSortedBy buyableSortedBy) { this->bu
 
 void StoreSystem::SetBuyableSearchQuery(std::string query) { this->buyableSearchQuery = query; }
 void StoreSystem::GetBuyableSearchQuery(std::string& query) { query = this->buyableSearchQuery; }
+
+void StoreSystem::SetCurrentCustomerId(std::string id)
+{
+    currentCustomerId = id;
+}
+void StoreSystem::GetCurrentCustomerId(std::string& id)
+{
+    id = currentCustomerId;
+}
+
+void StoreSystem::GetCurrentCustomer(std::shared_ptr<Customer>& customer)
+{
+    GetCustomer(currentCustomerId, customer);
+}
 
 Cart& StoreSystem::GetCart() { return cart; }
 

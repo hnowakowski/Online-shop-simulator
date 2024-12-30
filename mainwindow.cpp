@@ -1,4 +1,5 @@
 #include <string>
+#include <QMessageBox>
 
 #include "mainwindow.h"
 #include "Classes/BuyableScrollAreaCart.h"
@@ -8,14 +9,35 @@
 #include "ui_mainwindow.h"
 
 void loadBuyables();
+void loadCustomers();
+
+//put this somewhere else later but this is useful
+void showInfo(QWidget* parent, std::string title, std::string text)
+{
+    QMessageBox::information(parent, QString::fromStdString(title), QString::fromStdString(text));
+}
+
+void showWarning(QWidget* parent, std::string title, std::string text)
+{
+    QMessageBox::warning(parent, QString::fromStdString(title), QString::fromStdString(text));
+}
+
+void showError(QWidget* parent, std::string title, std::string text)
+{
+    QMessageBox::critical(parent, QString::fromStdString(title), QString::fromStdString(text));
+}
+
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     ui->stackedWidget->setCurrentWidget(ui->pageMain);
     loadBuyables();
-    mainScrollArea = BuyableScrollAreaMain(ui->scrollAreaProducts);
-    cartScrollArea = BuyableScrollAreaCart(ui->scrollAreaCart);
+    loadCustomers();
+    StoreSystem::GetInstance().SetCurrentCustomerId("U1"); //for testing, later on we can start off as logged out and then make the user log in/register
+    mainScrollArea     = BuyableScrollAreaMain(ui->scrollAreaProducts);
+    cartScrollArea     = BuyableScrollAreaCart(ui->scrollAreaCart);
+    checkoutScrollArea = BuyableScrollAreaCart(ui->scrollAreaCheckout);
 
     QStringList comboBoxItems = {"All", "Products", "Clothes", "Services"};
     ui->comboBoxSearch->addItems(comboBoxItems);
@@ -24,6 +46,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     // end of setup, final function calls
     // KEEP THIS AT THE BOTTOM AT ALL TIMES
+    ui->labelFieldsNotFilled->setVisible(false);
     mainScrollArea.Populate();
     UpdateCartLabel();
 }
@@ -32,8 +55,7 @@ MainWindow::~MainWindow() { delete ui; }
 
 void loadBuyables()
 {
-    std::vector<std::shared_ptr<Buyable>>
-        loadedBuyables; // this array is pointless, everything is taken care of in storesystem already on god 😭🙏
+    std::vector<std::shared_ptr<Buyable>> loadedBuyables; // this array is pointless, everything is taken care of in storesystem already on god 😭🙏
     StoreSystem& system = StoreSystem::GetInstance();
     if (!LoaderSaver<Buyable>::Load(PATH + "Assets\\products.json", loadedBuyables))
     {
@@ -48,6 +70,23 @@ void loadBuyables()
         if (!system.GetBuyable(buyable->GetId(), buyable))
         {
             system.AddBuyable(buyable);
+        }
+    }
+}
+
+void loadCustomers()
+{
+    std::vector<std::shared_ptr<Customer>> loadedCustomers;
+    StoreSystem& system = StoreSystem::GetInstance();
+    if (!LoaderSaver<Customer>::Load(PATH + "Assets\\customers.json", loadedCustomers))
+    {
+        qDebug() << "WARNING! - Loading customers.json failed!\n";
+    }
+    for (auto customer : loadedCustomers)
+    {
+        if (!system.GetCustomer(customer->GetId(), customer))
+        {
+            system.AddCustomer(customer);
         }
     }
 }
@@ -133,5 +172,74 @@ void MainWindow::on_btnCartGotoMain_clicked()
 void MainWindow::on_btnCartGotoCheckout_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->pageCheckout);
+    checkoutScrollArea.Populate();
+    std::pair<uint32_t, uint32_t> pricePair = StoreSystem::GetInstance().GetCart().GetTotalPrice();
+    std::string priceStr                    = "Checkout (Total: " + std::to_string(pricePair.first) + "." + std::to_string(pricePair.second) + " ZŁ)";
+    QString priceQStr                       = QString::fromStdString(priceStr);
+    ui->labelCheckout->setText(priceQStr);
+}
+
+//where do i put this
+bool operator>=(const std::shared_ptr<Wallet> wallet, const Price& price)
+{
+    if (wallet->mainunit < price.mainunit) return false;
+    else if (wallet->mainunit == price.mainunit && wallet->subunit < price.subunit) return false;
+    return true;
+}
+
+void MainWindow::on_btnCheckout_clicked()
+{
+    // if you have a better idea how to do this then i'd be welcome to hear it
+    bool all_filled = true;
+    if (ui->lineEditCardNum->text().isEmpty())
+    {
+        all_filled = false;
+    }
+    else if (ui->lineEditPin->text().isEmpty())
+    {
+        all_filled = false;
+    }
+    else if (ui->lineEditExpiryDate->text().isEmpty())
+    {
+        all_filled = false;
+    }
+    else if (ui->lineEditNumOnBack->text().isEmpty())
+    {
+        all_filled = false;
+    }
+    else if (!ui->checkBoxCheckoutAgree1->isChecked())
+    {
+        all_filled = false;
+    }
+    else if (!ui->checkBoxCheckoutAgree2->isChecked())
+    {
+        all_filled = false;
+    }
+
+    if (!all_filled)
+    {
+        ui->labelFieldsNotFilled->setVisible(true);
+    }
+    else
+    {
+        ui->labelFieldsNotFilled->setVisible(false);
+        std::pair<uint32_t, uint32_t> pricePair = StoreSystem::GetInstance().GetCart().GetTotalPrice();
+        Price priceObj(pricePair.first, pricePair.second);
+        std::shared_ptr<Customer> currCustomer;
+        StoreSystem::GetInstance().GetCurrentCustomer(currCustomer);
+        if (currCustomer->GetWallet() >= priceObj)
+        {
+            showInfo(ui->pageCheckout, "Yipee!", "Products successfully consumed!");
+            currCustomer->GetWallet()->RemoveMain(pricePair.first);
+            currCustomer->GetWallet()->RemoveSub(pricePair.second);
+        }
+        else
+        {
+            showWarning(ui->pageCheckout, "Cannot consume", "Not enough funds in your account! :(");
+        }
+
+    }
+
+
 }
 

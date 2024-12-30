@@ -1,4 +1,7 @@
 #include "Buyable.h"
+#include "../Classes/Product.h"
+#include "../Classes/Service.h"
+#include "../Classes/Clothing.h"
 
 std::string Buyable::GetId() { return id; }
 
@@ -36,6 +39,18 @@ Buyable::Buyable(std::string            id,
     this->image       = image;
     this->rating      = rating;
     this->price       = price;
+}
+
+std::shared_ptr<Buyable> Buyable::CreateFromJSON(const nlohmann::json& json) {
+    if (json.contains("quantity")) {
+        return std::make_shared<Product>(json);
+    } else if (json.contains("servicetype")) {
+        return std::make_shared<Service>(json);
+    } else if (json.contains("color")) {
+        return std::make_shared<Clothing>(json);
+    } else {
+        return std::make_shared<Buyable>(json);
+    }
 }
 
 nlohmann::json Buyable::toJSON() const
