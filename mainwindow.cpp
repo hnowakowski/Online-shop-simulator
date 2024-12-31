@@ -4,6 +4,7 @@
 #include "mainwindow.h"
 #include "Classes/BuyableScrollAreaCart.h"
 #include "Classes/BuyableScrollAreaMain.h"
+#include "Classes/BuyableScrollAreaCheckout.h"
 #include "Classes/StoreSystem.h"
 #include "Templates/LoaderSaver.h"
 #include "ui_mainwindow.h"
@@ -42,7 +43,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     mainScrollArea     = BuyableScrollAreaMain(ui->scrollAreaProducts);
     cartScrollArea     = BuyableScrollAreaCart(ui->scrollAreaCart);
-    checkoutScrollArea = BuyableScrollAreaCart(ui->scrollAreaCheckout);
+    checkoutScrollArea = BuyableScrollAreaCheckout(ui->scrollAreaCheckout);
 
     QStringList comboBoxItems = {"All", "Products", "Clothes", "Services"};
     ui->comboBoxSearch->addItems(comboBoxItems);

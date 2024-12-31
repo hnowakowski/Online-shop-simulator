@@ -5,6 +5,7 @@
 
 #include "Classes/BuyableScrollAreaCart.h"
 #include "Classes/BuyableScrollAreaMain.h"
+#include "Classes/BuyableScrollAreaCheckout.h"
 #include "ui_mainwindow.h"
 
 #ifdef DEBUG
@@ -71,10 +72,10 @@ class MainWindow : public QMainWindow
     void on_btnCheckoutCard_clicked();
 
   private:
-    Ui::MainWindow*       ui;
-    BuyableScrollAreaMain mainScrollArea;
-    BuyableScrollAreaCart cartScrollArea;
-    BuyableScrollAreaCart checkoutScrollArea;
+    Ui::MainWindow*           ui;
+    BuyableScrollAreaMain     mainScrollArea;
+    BuyableScrollAreaCart     cartScrollArea;
+    BuyableScrollAreaCheckout checkoutScrollArea;
 
     void displayAccountInfo();
 };

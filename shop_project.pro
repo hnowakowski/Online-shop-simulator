@@ -14,6 +14,7 @@ debug: DEFINES += DEBUG #comment this out when the project is finished
 
 SOURCES += \
     Classes/BuyableScrollAreaCart.cpp \
+    Classes/BuyableScrollAreaCheckout.cpp \
     Classes/Price.cpp \
     Classes/Product.cpp \
     Classes/Service.cpp \
@@ -33,6 +34,7 @@ SOURCES += \
 
 HEADERS += \
     Classes/BuyableScrollAreaCart.h \
+    Classes/BuyableScrollAreaCheckout.h \
     Enums/BuyableDisplayedType.h \
     Enums/BuyableSortedBy.h \
     Enums/BuyableSortedBy.h \
