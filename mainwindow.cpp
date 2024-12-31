@@ -265,8 +265,13 @@ void MainWindow::on_btnCheckout_clicked()
             currCustomer->GetWallet()->RemoveMain(pricePair.first);
             currCustomer->GetWallet()->RemoveSub(pricePair.second);
             StoreSystem::GetInstance().GetCart().GetBuyables().clear();
+            qDebug() << StoreSystem::GetInstance().GetCart().Size();
             emit StoreSystem::GetInstance().GetCart().CartChanged();
             displayAccountInfo();
+            cartScrollArea.Populate();
+            checkoutScrollArea.Populate();
+            ui->labelCartTotalPrice->setText("Total: 0.0 ZŁ");
+            ui->labelCheckout->setText("Checkout (Total: 0.0 ZŁ)");
         }
         else
         {
@@ -411,7 +416,16 @@ void MainWindow::on_pushButtonSignUp_clicked()
         StoreSystem::GetInstance().SetCurrentCustomerId(newId);
         ui->labelSignUpBadData->setVisible(false);
         displayAccountInfo();
-        //save to file
+        StoreSystem::GetInstance().GetCustomers(customers);
+        std::vector<std::shared_ptr<Customer>> customersVec;
+        for (const auto& customer : customers)
+        {
+            customersVec.push_back(customer);
+        }
+        if (!LoaderSaver<Customer>::Save(PATH + "Assets\\customers.json", customersVec))
+        {
+            qDebug() << "WARNING! - Saving customers.json failed!\n";
+        }
         ui->stackedWidgetLogin->setCurrentWidget(ui->pageLoginLoggedIn);
         ui->stackedWidget->setCurrentWidget(ui->pageMain);
 
