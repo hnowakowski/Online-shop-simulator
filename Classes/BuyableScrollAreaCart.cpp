@@ -9,11 +9,12 @@
 #include <string>
 #include <typeinfo>
 
-#include "../mainwindow.h"
 #include "BuyableScrollAreaCart.h"
 #include "Clothing.h"
 #include "Service.h"
 #include "StoreSystem.h"
+#include "../mainwindow.h"
+
 
 void BuyableScrollAreaCart::Populate()
 {
@@ -86,6 +87,7 @@ void BuyableScrollAreaCart::Populate()
         layout->addWidget(sepLine);
     }
 }
+
 
 BuyableScrollAreaCart::BuyableScrollAreaCart(QScrollArea* scrollArea) : BuyableScrollArea(scrollArea) {}
 

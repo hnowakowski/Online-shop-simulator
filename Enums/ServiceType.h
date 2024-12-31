@@ -1,6 +1,6 @@
 #ifndef OOP_PROJECT_SERVICETYPE_H
 #define OOP_PROJECT_SERVICETYPE_H
-#include "../ExternalLibs/nlohmann/json.hpp"
+#include "ExternalLibs/nlohmann/json.hpp"
 
 enum class ServiceType
 {

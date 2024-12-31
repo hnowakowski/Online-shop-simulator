@@ -35,7 +35,11 @@ Wallet::Wallet(uint32_t mainunit, uint32_t subunit) : MoneyPossesive(mainunit, s
     this->subunit  = subunit;
 }
 
-nlohmann::json Wallet::toJSON() const { return nlohmann::json {{"mainunit", mainunit}, {"subunit", subunit}}; }
+nlohmann::json Wallet::toJSON() const
+{
+    return nlohmann::json {{"mainunit", mainunit},
+                           {"subunit", subunit}};
+}
 
 void Wallet::fromJSON(const nlohmann::json& json)
 {

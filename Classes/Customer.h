@@ -4,8 +4,8 @@
 #include <memory>
 #include <string>
 
-#include "../Interfaces/Serializable.h"
 #include "Wallet.h"
+#include "../Interfaces/Serializable.h"
 
 class Customer : virtual public Serializable
 {

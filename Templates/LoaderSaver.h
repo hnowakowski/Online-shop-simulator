@@ -28,12 +28,9 @@ template <typename T> class LoaderSaver
         {
             std::shared_ptr<T> object;
 
-            if constexpr (std::is_same_v<T, Buyable>)
-            {
+            if constexpr (std::is_same_v<T, Buyable>) {
                 object = std::static_pointer_cast<T>(Buyable::CreateFromJSON(item));
-            }
-            else
-            {
+            } else {
                 object = std::make_shared<T>(item);
             }
 

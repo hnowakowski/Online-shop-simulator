@@ -28,10 +28,9 @@ std::pair<uint32_t, uint32_t> Cart::GetTotalPrice()
         uint32_t subunit;
         buyable->GetPrice(mainunit, subunit);
         maintotal += mainunit;
-        subtotal += subunit;
+        subtotal  += subunit;
     }
-    while (subtotal > 99)
-    {
+    while(subtotal > 99){
         maintotal += (subtotal / 100);
         subtotal %= 100;
     }
@@ -39,14 +38,29 @@ std::pair<uint32_t, uint32_t> Cart::GetTotalPrice()
     return std::make_pair(maintotal, subtotal);
 }
 
-std::vector<std::shared_ptr<Buyable>> Cart::GetBuyables() { return buyables; }
+std::vector<std::shared_ptr<Buyable>> Cart::GetBuyables()
+{
+    return buyables;
+}
 
 Cart& Cart::operator=(const Cart& cart)
 {
+    this->mainunit = cart.mainunit;
+    this->subunit  = cart.subunit;
     this->buyables = cart.buyables;
     return *this;
 }
 
-Cart::Cart() { this->buyables = std::vector<std::shared_ptr<Buyable>>(); }
+Cart::Cart()
+{
+    this->mainunit = 0;
+    this->subunit  = 0;
+    this->buyables = std::vector<std::shared_ptr<Buyable>>();
+}
 
-Cart::Cart(std::vector<std::shared_ptr<Buyable>>& buyables) { this->buyables = buyables; }
+Cart::Cart(std::vector<std::shared_ptr<Buyable>>& buyables)
+{
+    this->mainunit = 0;
+    this->subunit  = 0;
+    this->buyables = buyables;
+}

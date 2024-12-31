@@ -20,4 +20,5 @@ class BuyableScrollAreaCart : public BuyableScrollArea
     BuyableScrollAreaCart();
 };
 
+
 #endif // BUYABLESCROLLAREACART_H
