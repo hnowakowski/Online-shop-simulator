@@ -1,5 +1,6 @@
 #include <string>
 #include <QMessageBox>
+#include <QPixmap>
 
 #include "mainwindow.h"
 #include "Classes/BuyableScrollAreaCart.h"
@@ -34,7 +35,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     loadBuyables();
     loadCustomers();
 
-    StoreSystem::GetInstance().SetCurrentCustomerId("U1"); //for testing, later on we can start off as logged out and then make the user log in/register
+    StoreSystem::GetInstance().SetCurrentCustomerId("U1");
     ui->stackedWidgetLogin->setCurrentWidget(ui->pageLoginLoggedIn);
     displayAccountInfo();
 
@@ -48,7 +49,21 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     QObject::connect(&system.GetCart(), &Cart::CartChanged, this, &MainWindow::UpdateCartLabel);
     QObject::connect(&system.GetCart(), &Cart::CartChanged, this, &MainWindow::UpdateCartTotalPrice);
 
+    QPixmap pixmapLogo((PATH + "Assets\\Images\\UI\\logo.png").c_str());
+    QPixmap pixmapAd1((PATH + "Assets\\Images\\UI\\ad1.png").c_str());
+    QPixmap pixmapAd2((PATH + "Assets\\Images\\UI\\ad2.png").c_str());
+    QPixmap pixmapAd3((PATH + "Assets\\Images\\UI\\ad3.png").c_str());
+    QPixmap pixmapAd4((PATH + "Assets\\Images\\UI\\ad4.png").c_str());
 
+
+    ui->labelLogoImage->setPixmap(pixmapLogo.scaled(125, 125));
+    ui->labelMainAd1->setPixmap(pixmapAd1.scaled(125, 450));
+    ui->labelCartAd1->setPixmap(pixmapAd2.scaled(200, 720));
+    ui->labelCheckoutAd1->setPixmap(pixmapAd3.scaled(200, 720));
+    ui->labelLoginAd1->setPixmap(pixmapAd2.scaled(200, 720));
+    ui->labelLoginAd2->setPixmap(pixmapAd4.scaled(200, 720));
+    ui->labelSingUpAd1->setPixmap(pixmapAd3.scaled(200, 720));
+    ui->labelSignUpAd2->setPixmap(pixmapAd1.scaled(200, 720));
 
     // end of setup, final function calls
     // KEEP THIS AT THE BOTTOM AT ALL TIMES
