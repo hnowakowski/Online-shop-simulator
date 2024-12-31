@@ -28,7 +28,6 @@ class MainWindow : public QMainWindow
   public:
     MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
-    static void populateCartScrollArea();
 
   private slots:
     void on_comboBoxSearch_currentIndexChanged(int index);
@@ -65,7 +64,7 @@ class MainWindow : public QMainWindow
 
     void on_btnLogIn_clicked();
 
-    void on_pushButtonSignUp_clicked();
+    void on_btnSignUp_clicked();
 
     void on_btnCheckoutWallet_clicked();
 
@@ -77,6 +76,11 @@ class MainWindow : public QMainWindow
     BuyableScrollAreaCart     cartScrollArea;
     BuyableScrollAreaCheckout checkoutScrollArea;
 
+    void showInfo(QWidget* parent, std::string title, std::string text);
+    void showWarning(QWidget* parent, std::string title, std::string text);
+    void showError(QWidget* parent, std::string title, std::string text);
     void displayAccountInfo();
+    void loadBuyables();
+    void loadCustomers();
 };
 #endif // MAINWINDOW_H
