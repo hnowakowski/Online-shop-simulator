@@ -47,8 +47,6 @@ class MainWindow : public QMainWindow
 
     void on_btnCartGotoCheckout_clicked();
 
-    void on_btnCheckout_clicked();
-
     void on_btnCheckoutGotoCart_clicked();
 
     void on_btnLoginGotoSignUp_clicked();
@@ -64,6 +62,10 @@ class MainWindow : public QMainWindow
     void on_btnLogIn_clicked();
 
     void on_pushButtonSignUp_clicked();
+
+    void on_btnCheckoutWallet_clicked();
+
+    void on_btnCheckoutCard_clicked();
 
   private:
     Ui::MainWindow*       ui;
