@@ -22,5 +22,78 @@
         },
         "rating": "9.9",
         "quantity": 10
+    },
+    {
+        "description": "I REJECT MY MORTAL FLESH",
+        "id": "P3",
+        "image": "Assets\\Images\\Products\\transShirt.png",
+        "name": "Sick trans shirt wow",
+        "price": {
+            "mainunit": 89,
+            "subunit": 99
+        },
+        "rating": "8.6",
+        "quantity": 30,
+        "color": "BLACK",
+        "clothing_type": "shirt",
+        "size": 2
+    },
+    {
+        "description": "boingboingboingboingboingboingboingboingboingboingboingboing",
+        "id": "P4",
+        "image": "Assets\\Images\\Products\\superSneaker.png",
+        "name": "Subway surfers super sneakers",
+        "price": {
+            "mainunit": 159,
+            "subunit": 99
+        },
+        "rating": "5.3",
+        "quantity": 5,
+        "color": "YELLOW",
+        "clothing_type": "shoes",
+        "size": 10
+    },
+    {
+        "description": "300 km/h left lane on the autobahn let's go",
+        "id": "P5",
+        "image": "Assets\\Images\\Products\\goofyCar.jpg",
+        "name": "Bulbous ahh automobile",
+        "price": {
+            "mainunit": 1499,
+            "subunit": 99
+        },
+        "rating": "8.5",
+        "quantity": 2
+    },
+    {
+        "description": "dlaczego taki poważny? 🤡🤡🤡🤡 <- (what does this mean i dont speak polish)",
+        "id": "P6",
+        "image": "Assets\\Images\\Products\\jokerZFartem.jpg",
+        "name": "Epic joker shirt",
+        "price": {
+            "mainunit": 89,
+            "subunit": 99
+        },
+        "rating": "7.6",
+        "quantity": 3,
+        "color": "BLACK",
+        "clothing_type": "shirt",
+        "size": 3
+    },
+    {
+        "description": "SCREAM IF YOU LOVE POZNAŃ",
+        "id": "P7",
+        "image": "Assets\\Images\\Products\\jokerLech.jpg",
+        "name": "Lech poznań joker shirt",
+        "price": {
+            "mainunit": 89,
+            "subunit": 99
+        },
+        "rating": "7.8",
+        "quantity": 3,
+        "color": "BLUE",
+        "clothing_type": "shirt",
+        "size": 3
     }
+
 ]
