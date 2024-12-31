@@ -41,6 +41,7 @@ nlohmann::json Product::toJSON() const
                            {"name", name},
                            {"description", description},
                            {"image", image},
+                           {"rating", rating},
                            {"quantity", quantity},
                            {"price", price->toJSON()}};
 }
