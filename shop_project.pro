@@ -6,7 +6,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 CONFIG += c++17
 CONFIG += console
 
-debug: DEFINES += DEBUG #comment this out when the project is finished
+#debug: DEFINES += DEBUG #comment this out when the project is finished
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.

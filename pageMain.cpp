@@ -65,8 +65,6 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->labelSingUpAd1->setPixmap(pixmapAd3.scaled(200, 720));
     ui->labelSignUpAd2->setPixmap(pixmapAd1.scaled(200, 720));
 
-    // end of setup, final function calls
-    // KEEP THIS AT THE BOTTOM AT ALL TIMES
     ui->labelCheckoutLoggedInStatus->setVisible(false);
     ui->labelSignUpBadData->setVisible(false);
     ui->labelFieldsNotFilled->setVisible(false);
@@ -92,7 +90,7 @@ void MainWindow::displayAccountInfo()
 
 void MainWindow::loadBuyables()
 {
-    std::vector<std::shared_ptr<Buyable>> loadedBuyables; // this array is pointless, everything is taken care of in storesystem already on god 😭🙏
+    std::vector<std::shared_ptr<Buyable>> loadedBuyables;
     StoreSystem& system = StoreSystem::GetInstance();
     if (!LoaderSaver<Buyable>::Load(PATH + "Assets\\products.json", loadedBuyables))
     {

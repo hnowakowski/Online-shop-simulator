@@ -10,8 +10,8 @@
         "phone": "111222333",
         "surname": "Kowalski",
         "wallet": {
-            "mainunit": 299,
-            "subunit": 99
+            "mainunit": 60,
+            "subunit": 2
         }
     }
 ]

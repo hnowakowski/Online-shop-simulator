@@ -8,11 +8,9 @@
 #include "Classes/BuyableScrollAreaCheckout.h"
 #include "ui_mainwindow.h"
 
-#ifdef DEBUG
-#    define PATH (std::filesystem::current_path().string() + "\\..\\..\\")
-#else
-#    define PATH ""
-#endif
+
+#define PATH (std::filesystem::current_path().string() + "\\..\\..\\..\\")
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui
