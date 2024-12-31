@@ -6,7 +6,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 CONFIG += c++17
 CONFIG += console
 
-debug: DEFINES += DEBUG #comment this out when the project is finished
+#debug: DEFINES += DEBUG #comment this out when the project is finished
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -14,6 +14,7 @@ debug: DEFINES += DEBUG #comment this out when the project is finished
 
 SOURCES += \
     Classes/BuyableScrollAreaCart.cpp \
+    Classes/BuyableScrollAreaCheckout.cpp \
     Classes/Price.cpp \
     Classes/Product.cpp \
     Classes/Service.cpp \
@@ -29,10 +30,15 @@ SOURCES += \
     Interfaces/BuyableScrollArea.cpp \
     Interfaces/MoneyPossesive.cpp \
     main.cpp \
-    mainwindow.cpp
+    pageCart.cpp \
+    pageCheckout.cpp \
+    pageLogin.cpp \
+    pageMain.cpp \
+    pageSignUp.cpp
 
 HEADERS += \
     Classes/BuyableScrollAreaCart.h \
+    Classes/BuyableScrollAreaCheckout.h \
     Enums/BuyableDisplayedType.h \
     Enums/BuyableSortedBy.h \
     Enums/BuyableSortedBy.h \

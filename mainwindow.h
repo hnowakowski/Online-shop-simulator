@@ -5,13 +5,12 @@
 
 #include "Classes/BuyableScrollAreaCart.h"
 #include "Classes/BuyableScrollAreaMain.h"
+#include "Classes/BuyableScrollAreaCheckout.h"
 #include "ui_mainwindow.h"
 
-#ifdef DEBUG
-#    define PATH (std::filesystem::current_path().string() + "\\..\\..\\")
-#else
-#    define PATH ""
-#endif
+
+#define PATH (std::filesystem::current_path().string() + "\\..\\..\\..\\")
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -41,6 +40,8 @@ class MainWindow : public QMainWindow
 
     void UpdateCartLabel();
 
+    void UpdateCartTotalPrice();
+
     void on_btnMainGotoCart_clicked();
 
     void on_btnCartGotoMain_clicked();
@@ -61,18 +62,23 @@ class MainWindow : public QMainWindow
 
     void on_btnLogIn_clicked();
 
-    void on_pushButtonSignUp_clicked();
+    void on_btnSignUp_clicked();
 
     void on_btnCheckoutWallet_clicked();
 
     void on_btnCheckoutCard_clicked();
 
   private:
-    Ui::MainWindow*       ui;
-    BuyableScrollAreaMain mainScrollArea;
-    BuyableScrollAreaCart cartScrollArea;
-    BuyableScrollAreaCart checkoutScrollArea;
+    Ui::MainWindow*           ui;
+    BuyableScrollAreaMain     mainScrollArea;
+    BuyableScrollAreaCart     cartScrollArea;
+    BuyableScrollAreaCheckout checkoutScrollArea;
 
+    void showInfo(QWidget* parent, std::string title, std::string text);
+    void showWarning(QWidget* parent, std::string title, std::string text);
+    void showError(QWidget* parent, std::string title, std::string text);
     void displayAccountInfo();
+    void loadBuyables();
+    void loadCustomers();
 };
 #endif // MAINWINDOW_H

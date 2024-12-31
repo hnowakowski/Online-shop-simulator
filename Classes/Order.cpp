@@ -1,7 +1,7 @@
 #include "Order.h"
 #include "Customer.h"
 
-std::string Order::GetId() { return id; }
+char* Order::GetId() { return id; }
 
 std::shared_ptr<Customer> Order::GetCustomer() { return customer; }
 
@@ -9,22 +9,26 @@ std::shared_ptr<Cart> Order::GetCart() { return cart; }
 
 Order& Order::operator=(const Order& other)
 {
-    if (this == &other)
+    if (this != &other)
     {
-        return *this;
+        delete[] id;
+        this->id = new char[strlen(other.id) + 1];
+        strcpy(this->id, other.id);
+        this->customer = other.customer;
+        this->cart = other.cart;
     }
-
-    this->id       = other.id;
-    this->customer = other.customer;
-    this->cart     = other.cart;
-
     return *this;
 }
 
-Order::Order(std::string id, std::shared_ptr<Customer> customer, std::shared_ptr<Cart> cart)
+Order::Order(char id[], std::shared_ptr<Customer> customer, std::shared_ptr<Cart> cart)
     : customer(customer), cart(cart)
 {
-    this->id       = id;
-    this->customer = customer;
-    this->cart     = cart;
+    this->id = new char[strlen(id) + 1];
+    strcpy(this->id, id);
+}
+
+
+Order::~Order()
+{
+    delete[] id;
 }

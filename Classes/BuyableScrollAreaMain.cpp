@@ -15,19 +15,6 @@
 #include "StoreSystem.h"
 #include "../mainwindow.h"
 
-void PrintType(const std::shared_ptr<Buyable>& buyable)
-{ // gpt ahh debug function, keep for now
-    if (buyable)
-    {
-        qDebug() << "Type: " << typeid(*buyable).name() << "\n";
-    }
-    else
-    {
-        qDebug() << "Null object"
-                 << "\n";
-    }
-}
-
 void BuyableScrollAreaMain::Populate()
 {
     QWidget*                          container = scrollArea->widget();
@@ -98,24 +85,18 @@ void BuyableScrollAreaMain::Populate()
             case BuyableDisplayedType::PRODUCT:
                 if (!std::dynamic_pointer_cast<Product>(buyable))
                 {
-                    qDebug() << "Skipping non-product " << buyable->GetName();
-                    PrintType(buyable);
                     continue;
                 }
                 break;
             case BuyableDisplayedType::CLOTHING:
                 if (!std::dynamic_pointer_cast<Clothing>(buyable))
                 {
-                    qDebug() << "Skipping non-clothing " << buyable->GetName();
-                    PrintType(buyable);
                     continue;
                 }
                 break;
             case BuyableDisplayedType::SERVICE:
                 if (!std::dynamic_pointer_cast<Service>(buyable))
                 {
-                    qDebug() << "Skipping non-service " << buyable->GetName();
-                    PrintType(buyable);
                     continue;
                 }
                 break;

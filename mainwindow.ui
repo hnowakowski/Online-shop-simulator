@@ -22,13 +22,6 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QPushButton" name="btTEMPTopAd">
-      <property name="text">
-       <string>Top Ad</string>
-      </property>
-     </widget>
-    </item>
-    <item>
      <widget class="Line" name="line_12">
       <property name="frameShadow">
        <enum>QFrame::Shadow::Plain</enum>
@@ -41,7 +34,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="pageMain">
        <property name="sizePolicy">
@@ -53,19 +46,6 @@
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
          <layout class="QGridLayout" name="gridLayout_4">
-          <item row="0" column="0">
-           <widget class="QPushButton" name="btnTEMPLogo">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>Logo here</string>
-            </property>
-           </widget>
-          </item>
           <item row="2" column="2">
            <widget class="QScrollArea" name="scrollAreaProducts">
             <property name="widgetResizable">
@@ -76,8 +56,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>18</width>
-               <height>18</height>
+               <width>1069</width>
+               <height>480</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_13"/>
@@ -124,15 +104,9 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="btnTEMPLeftAd">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
+             <widget class="QLabel" name="labelMainAd1">
               <property name="text">
-               <string>Left Ad</string>
+               <string>TextLabel</string>
               </property>
              </widget>
             </item>
@@ -322,6 +296,13 @@
             </property>
            </widget>
           </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="labelLogoImage">
+            <property name="text">
+             <string>Logo here</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
        </layout>
@@ -331,15 +312,9 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_7">
           <item>
-           <widget class="QPushButton" name="btnTEMPLeftAd_3">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
+           <widget class="QLabel" name="labelLoginAd1">
             <property name="text">
-             <string>LeftAd</string>
+             <string>TextLabel</string>
             </property>
            </widget>
           </item>
@@ -561,18 +536,9 @@ Sign up instead!</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="btnTEMPRightAd_2">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="font">
-             <font/>
-            </property>
+           <widget class="QLabel" name="labelLoginAd2">
             <property name="text">
-             <string>RightAd</string>
+             <string>TextLabel</string>
             </property>
            </widget>
           </item>
@@ -585,15 +551,9 @@ Sign up instead!</string>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
-           <widget class="QPushButton" name="btnTEMPLeftAd_2">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
+           <widget class="QLabel" name="labelSingUpAd1">
             <property name="text">
-             <string>LeftAd</string>
+             <string>TextLabel</string>
             </property>
            </widget>
           </item>
@@ -761,7 +721,7 @@ BECOME A CONSUMER TODAY!!</string>
                </spacer>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButtonSignUp">
+               <widget class="QPushButton" name="btnSignUp">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                   <horstretch>0</horstretch>
@@ -850,15 +810,9 @@ BECOME A CONSUMER TODAY!!</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="btnTEMPRightAd">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
+           <widget class="QLabel" name="labelSignUpAd2">
             <property name="text">
-             <string>RightAd</string>
+             <string>TextLabel</string>
             </property>
            </widget>
           </item>
@@ -870,19 +824,6 @@ BECOME A CONSUMER TODAY!!</string>
        <layout class="QVBoxLayout" name="verticalLayout_11">
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_9">
-          <item>
-           <widget class="QPushButton" name="btnTEMPLeftAd_5">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>Left ad</string>
-            </property>
-           </widget>
-          </item>
           <item>
            <widget class="Line" name="line_17">
             <property name="frameShape">
@@ -954,8 +895,8 @@ BECOME A CONSUMER TODAY!!</string>
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>953</width>
-                 <height>133</height>
+                 <width>1070</width>
+                 <height>161</height>
                 </rect>
                </property>
               </widget>
@@ -1255,15 +1196,9 @@ BECOME A CONSUMER TODAY!!</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="btnTEMPRightAd_4">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
+           <widget class="QLabel" name="labelCheckoutAd1">
             <property name="text">
-             <string>right ad</string>
+             <string>TextLabel</string>
             </property>
            </widget>
           </item>
@@ -1275,19 +1210,6 @@ BECOME A CONSUMER TODAY!!</string>
        <layout class="QVBoxLayout" name="verticalLayout_9">
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_4">
-          <item>
-           <widget class="QPushButton" name="btnTEMPLeftAd_4">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>Left Ad</string>
-            </property>
-           </widget>
-          </item>
           <item>
            <widget class="Line" name="line_15">
             <property name="frameShape">
@@ -1356,8 +1278,8 @@ BECOME A CONSUMER TODAY!!</string>
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>16</width>
-                 <height>16</height>
+                 <width>1070</width>
+                 <height>316</height>
                 </rect>
                </property>
               </widget>
@@ -1473,15 +1395,9 @@ BECOME A CONSUMER TODAY!!</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="btnTEMPRightAd_3">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
+           <widget class="QLabel" name="labelCartAd1">
             <property name="text">
-             <string>Right ad</string>
+             <string>TextLabel</string>
             </property>
            </widget>
           </item>
