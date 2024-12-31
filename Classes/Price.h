@@ -17,6 +17,18 @@ class Price : virtual public MoneyPossesive, virtual public Serializable
 
     Price& operator=(const Price& price);
 
+    Price operator+(const Price& price);
+
+    Price operator-(const Price& price);
+
+    bool operator>(const Price& price);
+
+    bool operator<(const Price& price);
+
+    bool operator>=(const Price& price);
+
+    bool operator<=(const Price& price);
+
     Price(uint32_t mainunit, uint32_t subunit);
 
     nlohmann::json toJSON() const override;
