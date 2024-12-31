@@ -27,7 +27,6 @@ void showError(QWidget* parent, std::string title, std::string text)
     QMessageBox::critical(parent, QString::fromStdString(title), QString::fromStdString(text));
 }
 
-
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     StoreSystem& system = StoreSystem::GetInstance();
@@ -49,6 +48,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->comboBoxSearch->addItems(comboBoxItems);
 
     QObject::connect(&system.GetCart(), &Cart::CartChanged, this, &MainWindow::UpdateCartLabel);
+    QObject::connect(&system.GetCart(), &Cart::CartChanged, this, &MainWindow::UpdateCartTotalPrice);
 
 
 
@@ -62,6 +62,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->labelLoginBadData->setVisible(false);
     mainScrollArea.Populate();
     UpdateCartLabel();
+    UpdateCartTotalPrice();
 }
 
 MainWindow::~MainWindow() { delete ui; }
@@ -177,14 +178,19 @@ void MainWindow::UpdateCartLabel()
     ui->labelCart->setText(label);
 }
 
-void MainWindow::on_btnMainGotoCart_clicked()
+void MainWindow::UpdateCartTotalPrice()
 {
-    ui->stackedWidget->setCurrentWidget(ui->pageCart);
-    cartScrollArea.Populate();
     std::pair<uint32_t, uint32_t> pricePair = StoreSystem::GetInstance().GetCart().GetTotalPrice();
     std::string priceStr                    = "Total: " + std::to_string(pricePair.first) + "." + std::to_string(pricePair.second) + " ZŁ";
     QString priceQStr                       = QString::fromStdString(priceStr);
     ui->labelCartTotalPrice->setText(priceQStr);
+}
+
+void MainWindow::on_btnMainGotoCart_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->pageCart);
+    cartScrollArea.Populate();
+    UpdateCartTotalPrice();
 }
 
 
@@ -426,7 +432,7 @@ void MainWindow::on_btnCheckoutWallet_clicked()
             displayAccountInfo();
             cartScrollArea.Populate();
             checkoutScrollArea.Populate();
-            ui->labelCartTotalPrice->setText("Total: 0.0 ZŁ");
+            UpdateCartTotalPrice();
             ui->labelCheckout->setText("Checkout (Total: 0.0 ZŁ)");
             uint32_t walletFirst   = currCustomer->GetWallet()->GetMainUnit();
             uint32_t walletSecond  = currCustomer->GetWallet()->GetSubUnit();
@@ -483,7 +489,7 @@ void MainWindow::on_btnCheckoutCard_clicked()
         emit StoreSystem::GetInstance().GetCart().CartChanged();
         cartScrollArea.Populate();
         checkoutScrollArea.Populate();
-        ui->labelCartTotalPrice->setText("Total: 0.0 ZŁ");
+        UpdateCartTotalPrice();
         ui->labelCheckout->setText("Checkout (Total: 0.0 ZŁ)");
     }
 }

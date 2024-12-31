@@ -41,7 +41,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="pageMain">
        <property name="sizePolicy">
@@ -76,8 +76,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>18</width>
-               <height>18</height>
+               <width>1048</width>
+               <height>450</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_13"/>
@@ -1356,8 +1356,8 @@ BECOME A CONSUMER TODAY!!</string>
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>16</width>
-                 <height>16</height>
+                 <width>953</width>
+                 <height>297</height>
                 </rect>
                </property>
               </widget>

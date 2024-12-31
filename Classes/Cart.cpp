@@ -11,10 +11,22 @@ bool Cart::AddBuyable(std::shared_ptr<Buyable> buyable)
 
 bool Cart::RemoveBuyable(std::shared_ptr<Buyable> buyable)
 {
-    buyables.erase(std::remove(buyables.begin(), buyables.end(), buyable), buyables.end());
-    emit CartChanged();
+    auto it = std::find_if(buyables.begin(), buyables.end(),
+                           [&buyable](const std::shared_ptr<Buyable>& item)
+                           {
+                               return item == buyable;
+                           });
+
+    if (it != buyables.end())
+    {
+        buyables.erase(it);
+        emit CartChanged();
+        return true;
+    }
+
     return false;
 }
+
 
 uint32_t Cart::Size() { return buyables.size(); }
 

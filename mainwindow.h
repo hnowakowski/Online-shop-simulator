@@ -27,6 +27,7 @@ class MainWindow : public QMainWindow
   public:
     MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
+    static void populateCartScrollArea();
 
   private slots:
     void on_comboBoxSearch_currentIndexChanged(int index);
@@ -40,6 +41,8 @@ class MainWindow : public QMainWindow
     void on_radioRating_clicked();
 
     void UpdateCartLabel();
+
+    void UpdateCartTotalPrice();
 
     void on_btnMainGotoCart_clicked();
 

@@ -78,6 +78,21 @@ void BuyableScrollAreaCart::Populate()
         QSpacerItem* horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding);
         productLayout->addItem(horizontalSpacer);
 
+        QPushButton* removeFromCartButton = new QPushButton("Remove from cart");
+        productLayout->addWidget(removeFromCartButton);
+
+        std::shared_ptr<Buyable> currentBuyable = buyable;
+        QObject::connect(removeFromCartButton,
+                         &QPushButton::clicked,
+                         [currentBuyable, this]()
+                         {
+                             StoreSystem& system = StoreSystem::GetInstance();
+                             qDebug() << "Removing " << currentBuyable->GetName() << " from cart.";
+                             system.GetCart().RemoveBuyable(currentBuyable);
+                             qDebug() << system.GetCart().Size();
+                             this->Populate();
+                         });
+
         layout->addWidget(productPanel);
 
         QFrame* sepLine = new QFrame();
