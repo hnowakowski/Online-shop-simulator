@@ -1,6 +1,6 @@
 #ifndef OOP_PROJECT_COLOR_H
 #define OOP_PROJECT_COLOR_H
-#include "ExternalLibs/nlohmann/json.hpp"
+#include "../ExternalLibs/nlohmann/json.hpp"
 
 enum class Color
 {
@@ -72,20 +72,18 @@ inline void to_json(nlohmann::json& j, const Color& color)
 
 inline void from_json(const nlohmann::json& j, Color& color)
 {
-    static const std::unordered_map<std::string, Color> colorMap = {
-        {"RED", Color::RED},
-        {"GREEN", Color::GREEN},
-        {"BLUE", Color::BLUE},
-        {"YELLOW", Color::YELLOW},
-        {"PURPLE", Color::PURPLE},
-        {"PINK", Color::PINK},
-        {"ORANGE", Color::ORANGE},
-        {"GREY", Color::GREY},
-        {"WHITE", Color::WHITE},
-        {"BLACK", Color::BLACK},
-        {"CYAN", Color::CYAN}
-    };
-    std::string colorStr = j.get<std::string>();
+    static const std::unordered_map<std::string, Color> colorMap = {{"RED", Color::RED},
+                                                                    {"GREEN", Color::GREEN},
+                                                                    {"BLUE", Color::BLUE},
+                                                                    {"YELLOW", Color::YELLOW},
+                                                                    {"PURPLE", Color::PURPLE},
+                                                                    {"PINK", Color::PINK},
+                                                                    {"ORANGE", Color::ORANGE},
+                                                                    {"GREY", Color::GREY},
+                                                                    {"WHITE", Color::WHITE},
+                                                                    {"BLACK", Color::BLACK},
+                                                                    {"CYAN", Color::CYAN}};
+    std::string                                         colorStr = j.get<std::string>();
 
     auto it = colorMap.find(colorStr);
     if (it != colorMap.end())

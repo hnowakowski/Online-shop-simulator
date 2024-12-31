@@ -1,17 +1,17 @@
-#include <string>
 #include <QMessageBox>
+#include <string>
 
-#include "mainwindow.h"
 #include "Classes/BuyableScrollAreaCart.h"
 #include "Classes/BuyableScrollAreaMain.h"
 #include "Classes/StoreSystem.h"
 #include "Templates/LoaderSaver.h"
+#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 void loadBuyables();
 void loadCustomers();
 
-//put this somewhere else later but this is useful
+// put this somewhere else later but this is useful
 void showInfo(QWidget* parent, std::string title, std::string text)
 {
     QMessageBox::information(parent, QString::fromStdString(title), QString::fromStdString(text));
@@ -27,14 +27,14 @@ void showError(QWidget* parent, std::string title, std::string text)
     QMessageBox::critical(parent, QString::fromStdString(title), QString::fromStdString(text));
 }
 
-
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     ui->stackedWidget->setCurrentWidget(ui->pageMain);
     loadBuyables();
     loadCustomers();
-    StoreSystem::GetInstance().SetCurrentCustomerId("U1"); //for testing, later on we can start off as logged out and then make the user log in/register
+    StoreSystem::GetInstance().SetCurrentCustomerId(
+        "U1"); // for testing, later on we can start off as logged out and then make the user log in/register
     mainScrollArea     = BuyableScrollAreaMain(ui->scrollAreaProducts);
     cartScrollArea     = BuyableScrollAreaCart(ui->scrollAreaCart);
     checkoutScrollArea = BuyableScrollAreaCart(ui->scrollAreaCheckout);
@@ -55,7 +55,8 @@ MainWindow::~MainWindow() { delete ui; }
 
 void loadBuyables()
 {
-    std::vector<std::shared_ptr<Buyable>> loadedBuyables; // this array is pointless, everything is taken care of in storesystem already on god 😭🙏
+    std::vector<std::shared_ptr<Buyable>>
+        loadedBuyables; // this array is pointless, everything is taken care of in storesystem already on god 😭🙏
     StoreSystem& system = StoreSystem::GetInstance();
     if (!LoaderSaver<Buyable>::Load(PATH + "Assets\\products.json", loadedBuyables))
     {
@@ -77,7 +78,7 @@ void loadBuyables()
 void loadCustomers()
 {
     std::vector<std::shared_ptr<Customer>> loadedCustomers;
-    StoreSystem& system = StoreSystem::GetInstance();
+    StoreSystem&                           system = StoreSystem::GetInstance();
     if (!LoaderSaver<Customer>::Load(PATH + "Assets\\customers.json", loadedCustomers))
     {
         qDebug() << "WARNING! - Loading customers.json failed!\n";
@@ -157,33 +158,31 @@ void MainWindow::on_btnMainGotoCart_clicked()
     ui->stackedWidget->setCurrentWidget(ui->pageCart);
     cartScrollArea.Populate();
     std::pair<uint32_t, uint32_t> pricePair = StoreSystem::GetInstance().GetCart().GetTotalPrice();
-    std::string priceStr                    = "Total: " + std::to_string(pricePair.first) + "." + std::to_string(pricePair.second) + " ZŁ";
-    QString priceQStr                       = QString::fromStdString(priceStr);
+    std::string priceStr = "Total: " + std::to_string(pricePair.first) + "." + std::to_string(pricePair.second) + " ZŁ";
+    QString     priceQStr = QString::fromStdString(priceStr);
     ui->labelCartTotalPrice->setText(priceQStr);
 }
 
-
-void MainWindow::on_btnCartGotoMain_clicked()
-{
-    ui->stackedWidget->setCurrentWidget(ui->pageMain);
-}
-
+void MainWindow::on_btnCartGotoMain_clicked() { ui->stackedWidget->setCurrentWidget(ui->pageMain); }
 
 void MainWindow::on_btnCartGotoCheckout_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->pageCheckout);
     checkoutScrollArea.Populate();
     std::pair<uint32_t, uint32_t> pricePair = StoreSystem::GetInstance().GetCart().GetTotalPrice();
-    std::string priceStr                    = "Checkout (Total: " + std::to_string(pricePair.first) + "." + std::to_string(pricePair.second) + " ZŁ)";
-    QString priceQStr                       = QString::fromStdString(priceStr);
+    std::string                   priceStr =
+        "Checkout (Total: " + std::to_string(pricePair.first) + "." + std::to_string(pricePair.second) + " ZŁ)";
+    QString priceQStr = QString::fromStdString(priceStr);
     ui->labelCheckout->setText(priceQStr);
 }
 
-//where do i put this
+// where do i put this
 bool operator>=(const std::shared_ptr<Wallet> wallet, const Price& price)
 {
-    if (wallet->mainunit < price.mainunit) return false;
-    else if (wallet->mainunit == price.mainunit && wallet->subunit < price.subunit) return false;
+    if (wallet->mainunit < price.mainunit)
+        return false;
+    else if (wallet->mainunit == price.mainunit && wallet->subunit < price.subunit)
+        return false;
     return true;
 }
 
@@ -224,8 +223,8 @@ void MainWindow::on_btnCheckout_clicked()
     {
         ui->labelFieldsNotFilled->setVisible(false);
         std::pair<uint32_t, uint32_t> pricePair = StoreSystem::GetInstance().GetCart().GetTotalPrice();
-        Price priceObj(pricePair.first, pricePair.second);
-        std::shared_ptr<Customer> currCustomer;
+        Price                         priceObj(pricePair.first, pricePair.second);
+        std::shared_ptr<Customer>     currCustomer;
         StoreSystem::GetInstance().GetCurrentCustomer(currCustomer);
         if (currCustomer->GetWallet() >= priceObj)
         {
@@ -237,9 +236,5 @@ void MainWindow::on_btnCheckout_clicked()
         {
             showWarning(ui->pageCheckout, "Cannot consume", "Not enough funds in your account! :(");
         }
-
     }
-
-
 }
-

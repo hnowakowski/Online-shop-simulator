@@ -7,7 +7,7 @@
 
 #include "Product.h"
 
-class Cart : public QObject, public MoneyPossesive
+class Cart : public QObject
 {
     Q_OBJECT
 

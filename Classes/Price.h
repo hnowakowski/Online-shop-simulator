@@ -3,8 +3,7 @@
 
 #include "../Interfaces/MoneyPossesive.h"
 #include "../Interfaces/Serializable.h"
-
-class Wallet;
+#include "Wallet.h"
 
 class Price : virtual public MoneyPossesive, virtual public Serializable
 {
@@ -16,6 +15,18 @@ class Price : virtual public MoneyPossesive, virtual public Serializable
     void UpdatePrice(uint32_t newmainprice, uint32_t newsubprice);
 
     Price& operator=(const Price& price);
+
+    Price operator+(const Price& price);
+
+    Price operator-(const Price& price);
+
+    bool operator>(const Price& price);
+
+    bool operator<(const Price& price);
+
+    bool operator>=(const Price& price);
+
+    bool operator<=(const Price& price);
 
     Price(uint32_t mainunit, uint32_t subunit);
 

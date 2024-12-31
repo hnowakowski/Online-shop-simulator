@@ -9,11 +9,11 @@
 #include <string>
 #include <typeinfo>
 
+#include "../mainwindow.h"
 #include "BuyableScrollAreaMain.h"
 #include "Clothing.h"
 #include "Service.h"
 #include "StoreSystem.h"
-#include "../mainwindow.h"
 
 void PrintType(const std::shared_ptr<Buyable>& buyable)
 { // gpt ahh debug function, keep for now

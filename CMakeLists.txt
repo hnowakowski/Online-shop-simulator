@@ -44,6 +44,14 @@ add_executable(OOP_project
         Enums/BuyableSortedBy.h
         Enums/Color.h
         Enums/ServiceType.h
+        Interfaces/Buyable.cpp
+        Interfaces/Buyable.h
+        Interfaces/BuyableScrollArea.cpp
+        Interfaces/BuyableScrollArea.h
+        Interfaces/DynamicWidget.h
+        Interfaces/MoneyPossesive.cpp
+        Interfaces/MoneyPossesive.h
+        Interfaces/Serializable.h
         ExternalLibs/nlohmann/json.hpp
         main.cpp
         mainwindow.cpp
