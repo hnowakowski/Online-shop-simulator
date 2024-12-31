@@ -14,6 +14,10 @@ class Customer : virtual public Serializable
     std::string             surname;
     std::string             email;
     std::string             phone;
+    std::string             city;
+    std::string             address;
+    std::string             PESEL;
+    std::string             password;
     std::shared_ptr<Wallet> wallet;
 
   public:
@@ -22,16 +26,26 @@ class Customer : virtual public Serializable
     std::string             GetSurname();
     std::string             GetEmail();
     std::string             GetPhone();
+    std::string             GetCity();
+    std::string             GetAddress();
+    std::string             GetPESEL();
+    std::string             GetPassword();
     std::shared_ptr<Wallet> GetWallet();
 
     Customer& operator=(const Customer& other);
 
-    Customer(std::string id, std::string name, std::string surname, std::string email, std::string phone);
+    Customer(std::string id, std::string name, std::string surname, std::string email, std::string phone, std::string city,
+             std::string address, std::string PESEL, std::string password);
+
     Customer(std::string             id,
              std::string             name,
              std::string             surname,
              std::string             email,
              std::string             phone,
+             std::string             city,
+             std::string             address,
+             std::string             PESEL,
+             std::string             password,
              std::shared_ptr<Wallet> wallet);
 
     nlohmann::json toJSON() const;

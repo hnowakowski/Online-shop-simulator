@@ -30,11 +30,17 @@ void showError(QWidget* parent, std::string title, std::string text)
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
+    StoreSystem& system = StoreSystem::GetInstance();
     ui->setupUi(this);
     ui->stackedWidget->setCurrentWidget(ui->pageMain);
     loadBuyables();
     loadCustomers();
+
     StoreSystem::GetInstance().SetCurrentCustomerId("U1"); //for testing, later on we can start off as logged out and then make the user log in/register
+    ui->stackedWidgetLogin->setCurrentWidget(ui->pageLoginLoggedIn); //temp for testing, could start off as a logged in user for ease of use
+    displayAccountInfo();
+
+
     mainScrollArea     = BuyableScrollAreaMain(ui->scrollAreaProducts);
     cartScrollArea     = BuyableScrollAreaCart(ui->scrollAreaCart);
     checkoutScrollArea = BuyableScrollAreaCart(ui->scrollAreaCheckout);
@@ -42,16 +48,35 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     QStringList comboBoxItems = {"All", "Products", "Clothes", "Services"};
     ui->comboBoxSearch->addItems(comboBoxItems);
 
-    QObject::connect(&StoreSystem::GetInstance().GetCart(), &Cart::CartChanged, this, &MainWindow::UpdateCartLabel);
+    QObject::connect(&system.GetCart(), &Cart::CartChanged, this, &MainWindow::UpdateCartLabel);
+
+
+
+
 
     // end of setup, final function calls
     // KEEP THIS AT THE BOTTOM AT ALL TIMES
+    ui->labelCheckoutLoggedInStatus->setVisible(false);
+    ui->labelSignUpBadData->setVisible(false);
     ui->labelFieldsNotFilled->setVisible(false);
+    ui->labelLoginBadData->setVisible(false);
     mainScrollArea.Populate();
     UpdateCartLabel();
 }
 
 MainWindow::~MainWindow() { delete ui; }
+
+void MainWindow::displayAccountInfo()
+{
+    StoreSystem& system = StoreSystem::GetInstance();
+    std::shared_ptr<Customer> currCustomer;
+    system.GetCurrentCustomer(currCustomer);
+    ui->labelUserLogin->setText(QString::fromStdString(currCustomer->GetName() + " " + currCustomer->GetSurname()));
+    uint32_t walletFirst   = currCustomer->GetWallet()->GetMainUnit();
+    uint32_t walletSecond  = currCustomer->GetWallet()->GetSubUnit();
+    std::string walletStr  = "Wallet: " + std::to_string(walletFirst) + "." + std::to_string(walletSecond) + " ZŁ";
+    ui->labelWalletStatus->setText(QString::fromStdString(walletStr));
+}
 
 void loadBuyables()
 {
@@ -177,6 +202,25 @@ void MainWindow::on_btnCartGotoCheckout_clicked()
     std::string priceStr                    = "Checkout (Total: " + std::to_string(pricePair.first) + "." + std::to_string(pricePair.second) + " ZŁ)";
     QString priceQStr                       = QString::fromStdString(priceStr);
     ui->labelCheckout->setText(priceQStr);
+
+    std::string currentId;
+    StoreSystem::GetInstance().GetCurrentCustomerId(currentId);
+    if (currentId == "U0")
+    {
+        ui->labelCheckoutLoggedInStatus->setVisible(true);
+        ui->labelCheckoutWalletStatus->setText("Not logged in, wallet not available!");
+    }
+    else
+    {
+        ui->labelCheckoutLoggedInStatus->setVisible(false);
+        ui->labelCheckoutWalletStatus->setText("Not logged in, wallet not available!");
+        std::shared_ptr<Customer> currCustomer;
+        StoreSystem::GetInstance().GetCurrentCustomer(currCustomer);
+        uint32_t walletFirst   = currCustomer->GetWallet()->GetMainUnit();
+        uint32_t walletSecond  = currCustomer->GetWallet()->GetSubUnit();
+        std::string walletStr  = "Wallet: " + std::to_string(walletFirst) + "." + std::to_string(walletSecond) + " ZŁ";
+        ui->labelCheckoutWalletStatus->setText(QString::fromStdString(walletStr));
+    }
 }
 
 //where do i put this
@@ -187,37 +231,181 @@ bool operator>=(const std::shared_ptr<Wallet> wallet, const Price& price)
     return true;
 }
 
-void MainWindow::on_btnCheckout_clicked()
+void MainWindow::on_btnCheckoutGotoCart_clicked()
 {
-    // if you have a better idea how to do this then i'd be welcome to hear it
-    bool all_filled = true;
-    if (ui->lineEditCardNum->text().isEmpty())
+    ui->stackedWidget->setCurrentWidget(ui->pageCart);
+}
+
+
+void MainWindow::on_btnLoginGotoSignUp_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->pageSignUp);
+}
+
+
+void MainWindow::on_btnMainGotoLogin_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->pageLogIn);
+}
+
+
+void MainWindow::on_btnLoginGotoMain_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->pageMain);
+}
+
+
+void MainWindow::on_btnSignUpGotoLogin_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->pageLogIn);
+}
+
+
+void MainWindow::on_btnLogout_clicked()
+{
+    ui->stackedWidgetLogin->setCurrentWidget(ui->pageLoginLoggedOut);
+    StoreSystem::GetInstance().SetCurrentCustomerId("U0");
+}
+
+
+void MainWindow::on_btnLogIn_clicked()
+{
+    if(ui->lineEditLoginEmail->text().isEmpty() || ui->lineEditLoginPassword->text().isEmpty())
     {
-        all_filled = false;
+        ui->labelLoginBadData->setText(QString::fromStdString("Some fields have not been filled in!"));
+        ui->labelLoginBadData->setVisible(true);
     }
-    else if (ui->lineEditPin->text().isEmpty())
+    else
     {
-        all_filled = false;
+        Listing<std::shared_ptr<Customer>> customers;
+        StoreSystem::GetInstance().GetCustomers(customers);
+        QString formEmail = ui->lineEditLoginEmail->text();
+        QString formPassword = ui->lineEditLoginPassword->text();
+        if (customers.GetSize())
+        {
+            for (const auto& customer : customers)
+            {
+                QString qEmail = QString::fromStdString(customer->GetEmail());
+                QString qPassword = QString::fromStdString(customer->GetPassword());
+                if (qEmail == formEmail && qPassword == formPassword)
+                {
+                    ui->labelLoginBadData->setVisible(false);
+                    StoreSystem::GetInstance().SetCurrentCustomerId(customer->GetId());
+                    displayAccountInfo();
+                    ui->stackedWidgetLogin->setCurrentWidget(ui->pageLoginLoggedIn);
+                    ui->stackedWidget->setCurrentWidget(ui->pageMain);
+                    return;
+                }
+            }
+        }
+        ui->labelLoginBadData->setText(QString::fromStdString("Email or password are incorrect!"));
+        ui->labelLoginBadData->setVisible(true);
     }
-    else if (ui->lineEditExpiryDate->text().isEmpty())
-    {
-        all_filled = false;
+}
+
+
+void MainWindow::on_pushButtonSignUp_clicked()
+{
+    bool allFilled = true;
+
+    QList<QLineEdit*> lineEdits = ui->pageSignUp->findChildren<QLineEdit*>();
+    for (QLineEdit* lineEdit : lineEdits) {
+        if (lineEdit->text().isEmpty()) {
+            allFilled = false;
+            break;
+        }
     }
-    else if (ui->lineEditNumOnBack->text().isEmpty())
+
+    if(!allFilled)
     {
-        all_filled = false;
+        ui->labelSignUpBadData->setText("Some fields have not been filled in!");
+        ui->labelSignUpBadData->setVisible(true);
     }
-    else if (!ui->checkBoxCheckoutAgree1->isChecked())
+    else
     {
-        all_filled = false;
+        Listing<std::shared_ptr<Customer>> customers;
+        StoreSystem::GetInstance().GetCustomers(customers);
+        QString formEmail     = ui->lineEditEmail->text();
+        QString formPassword  = ui->lineEditPassword->text();
+        QString formPasswordR = ui->lineEditRepeatPassword->text();
+
+        if (formPassword != formPasswordR)
+        {
+            ui->labelSignUpBadData->setText("Passwords do not match!");
+            ui->labelSignUpBadData->setVisible(true);
+            return;
+        }
+
+        if (customers.GetSize())
+        {
+            for (const auto& customer : customers)
+            {
+                QString qEmail = QString::fromStdString(customer->GetEmail());
+                if (qEmail == formEmail)
+                {
+                    ui->labelSignUpBadData->setText("A user with this email already exists!");
+                    ui->labelSignUpBadData->setVisible(true);
+                    return;
+                }
+            }
+        }
+
+        std::string newId       = "U"+std::to_string(customers.GetSize()+1);
+        std::string newName     = ui->lineEditFName->text().toStdString();
+        std::string newSurname   = ui->lineEditLName->text().toStdString();
+        std::string newEmail    = formEmail.toStdString();
+        std::string newPhone    = ui->lineEditPhoneNum->text().toStdString();
+        std::string newCity     = ui->lineEditCity->text().toStdString();
+        std::string newAddress  = ui->lineEditAddress->text().toStdString();
+        std::string newPESEL    = ui->lineEditPesel->text().toStdString();
+        std::string newPassword = formPassword.toStdString();
+
+        std::shared_ptr<Customer> newCustomer = std::make_shared<Customer>(newId, newName, newSurname, newEmail, newPhone, newCity, newAddress, newPESEL, newPassword);
+        StoreSystem::GetInstance().AddCustomer(newCustomer);
+        StoreSystem::GetInstance().SetCurrentCustomerId(newId);
+        ui->labelSignUpBadData->setVisible(false);
+        displayAccountInfo();
+        StoreSystem::GetInstance().GetCustomers(customers);
+        std::vector<std::shared_ptr<Customer>> customersVec;
+        for (const auto& customer : customers)
+        {
+            customersVec.push_back(customer);
+        }
+        if (!LoaderSaver<Customer>::Save(PATH + "Assets\\customers.json", customersVec))
+        {
+            qDebug() << "WARNING! - Saving customers.json failed!\n";
+        }
+        ui->stackedWidgetLogin->setCurrentWidget(ui->pageLoginLoggedIn);
+        ui->stackedWidget->setCurrentWidget(ui->pageMain);
+
+    }
+
+}
+
+
+void MainWindow::on_btnCheckoutWallet_clicked()
+{
+    std::string id;
+    StoreSystem::GetInstance().GetCurrentCustomerId(id);
+    if (id == "U0")
+    {
+        showWarning(ui->pageCheckout, "Cannot consume", "You are not logged in!");
+        return;
+    }
+
+    bool allFilled = true;
+    if (!ui->checkBoxCheckoutAgree1->isChecked())
+    {
+        allFilled = false;
     }
     else if (!ui->checkBoxCheckoutAgree2->isChecked())
     {
-        all_filled = false;
+        allFilled = false;
     }
 
-    if (!all_filled)
+    if (!allFilled)
     {
+        ui->labelFieldsNotFilled->setText("Some fields were not selected!");
         ui->labelFieldsNotFilled->setVisible(true);
     }
     else
@@ -232,6 +420,18 @@ void MainWindow::on_btnCheckout_clicked()
             showInfo(ui->pageCheckout, "Yipee!", "Products successfully consumed!");
             currCustomer->GetWallet()->RemoveMain(pricePair.first);
             currCustomer->GetWallet()->RemoveSub(pricePair.second);
+            StoreSystem::GetInstance().GetCart().GetBuyables().clear();
+            qDebug() << StoreSystem::GetInstance().GetCart().Size();
+            emit StoreSystem::GetInstance().GetCart().CartChanged();
+            displayAccountInfo();
+            cartScrollArea.Populate();
+            checkoutScrollArea.Populate();
+            ui->labelCartTotalPrice->setText("Total: 0.0 ZŁ");
+            ui->labelCheckout->setText("Checkout (Total: 0.0 ZŁ)");
+            uint32_t walletFirst   = currCustomer->GetWallet()->GetMainUnit();
+            uint32_t walletSecond  = currCustomer->GetWallet()->GetSubUnit();
+            std::string walletStr  = "Wallet: " + std::to_string(walletFirst) + "." + std::to_string(walletSecond) + " ZŁ";
+            ui->labelCheckoutWalletStatus->setText(QString::fromStdString(walletStr));
         }
         else
         {
@@ -239,7 +439,52 @@ void MainWindow::on_btnCheckout_clicked()
         }
 
     }
+}
 
 
+void MainWindow::on_btnCheckoutCard_clicked()
+{
+    bool allFilled = true;
+    if (ui->lineEditCardNum->text().isEmpty())
+    {
+        allFilled = false;
+    }
+    else if (ui->lineEditPin->text().isEmpty())
+    {
+        allFilled = false;
+    }
+    else if (ui->lineEditExpiryDate->text().isEmpty())
+    {
+        allFilled = false;
+    }
+    else if (ui->lineEditNumOnBack->text().isEmpty())
+    {
+        allFilled = false;
+    }
+    else if (!ui->checkBoxCheckoutAgree1->isChecked())
+    {
+        allFilled = false;
+    }
+    else if (!ui->checkBoxCheckoutAgree2->isChecked())
+    {
+        allFilled = false;
+    }
+
+    if (!allFilled)
+    {
+        ui->labelFieldsNotFilled->setText("Some fields were not filled in or selected!");
+        ui->labelFieldsNotFilled->setVisible(true);
+    }
+    else
+    {
+        showInfo(ui->pageCheckout, "Yipee!", "Products successfully consumed!");
+        StoreSystem::GetInstance().GetCart().GetBuyables().clear();
+        qDebug() << StoreSystem::GetInstance().GetCart().Size();
+        emit StoreSystem::GetInstance().GetCart().CartChanged();
+        cartScrollArea.Populate();
+        checkoutScrollArea.Populate();
+        ui->labelCartTotalPrice->setText("Total: 0.0 ZŁ");
+        ui->labelCheckout->setText("Checkout (Total: 0.0 ZŁ)");
+    }
 }
 
