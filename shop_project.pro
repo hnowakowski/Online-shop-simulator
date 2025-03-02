@@ -29,11 +29,11 @@ SOURCES += \
     Interfaces/BuyableScrollArea.cpp \
     Interfaces/MoneyPossesive.cpp \
     main.cpp \
-    pageCart.cpp \
-    pageCheckout.cpp \
-    pageLogin.cpp \
-    pageMain.cpp \
-    pageSignUp.cpp
+    Pages/pageCart.cpp \
+    Pages/pageCheckout.cpp \
+    Pages/pageLogin.cpp \
+    Pages/pageMain.cpp \
+    Pages/pageSignUp.cpp
 
 HEADERS += \
     Classes/BuyableScrollAreaCart.h \

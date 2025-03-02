@@ -1,9 +1,9 @@
 #include <string>
 #include <QMessageBox>
 
-#include "mainwindow.h"
-#include "Classes/StoreSystem.h"
-#include "ui_mainwindow.h"
+#include "../mainwindow.h"
+#include "../Classes/StoreSystem.h"
+#include "../ui_mainwindow.h"
 
 
 

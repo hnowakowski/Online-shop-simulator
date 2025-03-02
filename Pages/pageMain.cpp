@@ -2,13 +2,13 @@
 #include <QMessageBox>
 #include <QPixmap>
 
-#include "mainwindow.h"
-#include "Classes/BuyableScrollAreaCart.h"
-#include "Classes/BuyableScrollAreaMain.h"
-#include "Classes/BuyableScrollAreaCheckout.h"
-#include "Classes/StoreSystem.h"
-#include "Templates/LoaderSaver.h"
-#include "ui_mainwindow.h"
+#include "../mainwindow.h"
+#include "../Classes/BuyableScrollAreaCart.h"
+#include "../Classes/BuyableScrollAreaMain.h"
+#include "../Classes/BuyableScrollAreaCheckout.h"
+#include "../Classes/StoreSystem.h"
+#include "../Templates/LoaderSaver.h"
+#include "../ui_mainwindow.h"
 
 
 void MainWindow::showInfo(QWidget* parent, std::string title, std::string text)

@@ -1,10 +1,10 @@
 #include <string>
 #include <QMessageBox>
 
-#include "mainwindow.h"
-#include "Classes/StoreSystem.h"
-#include "Templates/LoaderSaver.h"
-#include "ui_mainwindow.h"
+#include "../mainwindow.h"
+#include "../Classes/StoreSystem.h"
+#include "../Templates/LoaderSaver.h"
+#include "../ui_mainwindow.h"
 
 
 void MainWindow::on_btnSignUpGotoLogin_clicked()

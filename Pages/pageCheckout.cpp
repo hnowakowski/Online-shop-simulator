@@ -1,11 +1,11 @@
 #include <string>
 #include <QMessageBox>
 
-#include "mainwindow.h"
-#include "Classes/BuyableScrollAreaCart.h"
-#include "Classes/BuyableScrollAreaCheckout.h"
-#include "Classes/StoreSystem.h"
-#include "ui_mainwindow.h"
+#include "../mainwindow.h"
+#include "../Classes/BuyableScrollAreaCart.h"
+#include "../Classes/BuyableScrollAreaCheckout.h"
+#include "../Classes/StoreSystem.h"
+#include "../ui_mainwindow.h"
 
 
 void MainWindow::on_btnCheckoutGotoCart_clicked()
