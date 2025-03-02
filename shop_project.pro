@@ -21,7 +21,6 @@ SOURCES += \
     Classes/Cart.cpp \
     Classes/Clothing.cpp \
     Classes/Customer.cpp \
-    Classes/Order.cpp \
     Classes/Wallet.cpp \
     Classes/AddressLineEdit.cpp \
     Classes/BuyableScrollAreaMain.cpp \
@@ -52,7 +51,6 @@ HEADERS += \
     Classes/Cart.h \
     Classes/Clothing.h \
     Classes/Customer.h \
-    Classes/Order.h \
     Classes/Wallet.h \
     Classes/StoreSystem.h \
     Interfaces/Buyable.h \

@@ -18,15 +18,6 @@ bool StoreSystem::GetCustomer(const std::string& id, std::shared_ptr<Customer>& 
     return false;
 }
 
-bool StoreSystem::GetOrder(const std::string& id, std::shared_ptr<Order>& order)
-{
-    if (orders.GetItem(id, order))
-    {
-        return true;
-    }
-    return false;
-}
-
 bool StoreSystem::GetBuyables(Listing<std::shared_ptr<Buyable>>& buyables)
 {
     if (this->buyables.GetSize())
@@ -81,8 +72,6 @@ void StoreSystem::AddBuyable(std::shared_ptr<Buyable> buyable) { buyables.AddIte
 
 void StoreSystem::AddCustomer(std::shared_ptr<Customer> customer) { customers.AddItem(customer); }
 
-void StoreSystem::AddOrder(std::shared_ptr<Order> order) { orders.AddItem(order); }
-
 bool StoreSystem::RemoveBuyable(const std::string& id)
 {
     if (buyables.RemoveItem(id))
@@ -95,15 +84,6 @@ bool StoreSystem::RemoveBuyable(const std::string& id)
 bool StoreSystem::RemoveCustomer(const std::string& id)
 {
     if (customers.RemoveItem(id))
-    {
-        return true;
-    }
-    return false;
-}
-
-bool StoreSystem::RemoveOrder(const std::string& id)
-{
-    if (orders.RemoveItem(id))
     {
         return true;
     }

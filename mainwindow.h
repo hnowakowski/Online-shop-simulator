@@ -9,7 +9,7 @@
 #include "ui_mainwindow.h"
 
 
-#define PATH (std::filesystem::current_path().string() + "\\..\\..\\..\\")
+#define PATH (std::filesystem::current_path().string() + "\\..\\..\\")
 
 
 QT_BEGIN_NAMESPACE

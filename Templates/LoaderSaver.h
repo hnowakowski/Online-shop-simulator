@@ -16,8 +16,10 @@ template <typename T> class LoaderSaver
     static bool Load(const std::string& filename, std::vector<std::shared_ptr<T>>& objects)
     {
         std::ifstream file(filename);
+
         if (!file.is_open())
         {
+            qDebug()<<filename<<" <-- Could not open\n";
             return false;
         }
         nlohmann::json json;
