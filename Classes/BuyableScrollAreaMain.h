@@ -13,10 +13,10 @@
 
 class BuyableScrollAreaMain : public BuyableScrollArea
 {
-  public:
+public:
     void Populate();
 
-    BuyableScrollAreaMain(QScrollArea* scrollArea);
+    BuyableScrollAreaMain(QScrollArea *scrollArea);
     BuyableScrollAreaMain();
 };
 

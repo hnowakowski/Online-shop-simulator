@@ -13,13 +13,13 @@
 
 class BuyableScrollArea : public DynamicWidget
 {
-  protected:
-    QScrollArea* scrollArea;
+protected:
+    QScrollArea *scrollArea;
 
-  public:
+public:
     virtual void Populate() = 0;
 
-    BuyableScrollArea(QScrollArea* scrollArea);
+    BuyableScrollArea(QScrollArea *scrollArea);
     BuyableScrollArea();
 };
 

@@ -8,29 +8,29 @@
 
 class Product : public Buyable
 {
-  protected:
-    uint32_t quantity {};
+protected:
+    uint32_t quantity{};
 
-  public:
+public:
     uint32_t GetQuantity();
 
-    Product& operator=(const Product& other);
+    Product &operator=(const Product &other);
 
     Product();
 
-    Product(std::string            id,
-            std::string            name,
-            std::string            description,
-            std::string            image,
-            std::string            rating,
-            uint32_t               quantity,
+    Product(std::string id,
+            std::string name,
+            std::string description,
+            std::string image,
+            std::string rating,
+            uint32_t quantity,
             std::shared_ptr<Price> price);
 
     nlohmann::json toJSON() const override;
 
-    void fromJSON(const nlohmann::json& json) override;
+    void fromJSON(const nlohmann::json &json) override;
 
-    explicit Product(const nlohmann::json& json);
+    explicit Product(const nlohmann::json &json);
 };
 
 #endif // OOP_PROJECT_PRODUCT_H

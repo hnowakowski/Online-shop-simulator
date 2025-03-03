@@ -10,24 +10,23 @@
 #include "../Interfaces/Buyable.h"
 #include "mainwindow.h"
 
-template <typename T> class LoaderSaver
+template<typename T>
+class LoaderSaver
 {
-  public:
-    static bool Load(const std::string& filename, std::vector<std::shared_ptr<T>>& objects)
+public:
+    static bool Load(const std::string &filename, std::vector<std::shared_ptr<T>> &objects)
     {
         std::ifstream file(filename);
 
-        if (!file.is_open())
-        {
-            qDebug()<<filename<<" <-- Could not open\n";
+        if (!file.is_open()) {
+            qDebug() << filename << " <-- Could not open\n";
             return false;
         }
         nlohmann::json json;
         file >> json;
         file.close();
 
-        for (const auto& item : json)
-        {
+        for (const auto &item : json) {
             std::shared_ptr<T> object;
 
             if constexpr (std::is_same_v<T, Buyable>) {
@@ -42,17 +41,15 @@ template <typename T> class LoaderSaver
         return true;
     }
 
-    static bool Save(const std::string& filename, const std::vector<std::shared_ptr<T>>& objects)
+    static bool Save(const std::string &filename, const std::vector<std::shared_ptr<T>> &objects)
     {
         nlohmann::json json;
-        for (const auto& object : objects)
-        {
+        for (const auto &object : objects) {
             json.push_back(object->toJSON());
         }
 
         std::ofstream file(filename);
-        if (!file.is_open())
-        {
+        if (!file.is_open()) {
             return false;
         }
 

@@ -13,12 +13,11 @@
 
 class BuyableScrollAreaCart : public BuyableScrollArea
 {
-  public:
+public:
     void Populate();
 
-    BuyableScrollAreaCart(QScrollArea* scrollArea);
+    BuyableScrollAreaCart(QScrollArea *scrollArea);
     BuyableScrollAreaCart();
 };
-
 
 #endif // BUYABLESCROLLAREACART_H

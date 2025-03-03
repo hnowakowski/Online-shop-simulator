@@ -1,7 +1,7 @@
 #include "Buyable.h"
+#include "../Classes/Clothing.h"
 #include "../Classes/Product.h"
 #include "../Classes/Service.h"
-#include "../Classes/Clothing.h"
 
 std::string Buyable::GetId() { return id; }
 
@@ -13,72 +13,83 @@ std::string Buyable::GetImage() { return image; }
 
 std::string Buyable::GetRating() { return rating; }
 
-bool Buyable::GetPrice(uint32_t& mainunit, uint32_t& subunit) { return price->GetTotal(mainunit, subunit); }
+bool Buyable::GetPrice(uint32_t &mainunit, uint32_t &subunit)
+{
+    return price->GetTotal(mainunit, subunit);
+}
 
 uint32_t Buyable::GetMainUnitPrice() { return price->GetMainUnit(); }
 
 uint32_t Buyable::GetSubUnitPrice() { return price->GetSubUnit(); }
 
-void Buyable::UpdateMainUnitPrice(uint32_t newmainprice) { price->UpdateMainUnit(newmainprice); }
+void Buyable::UpdateMainUnitPrice(uint32_t newmainprice)
+{
+    price->UpdateMainUnit(newmainprice);
+}
 
-void Buyable::UpdateSubUnitPrice(uint32_t newsubprice) { price->UpdateSubUnit(newsubprice); }
+void Buyable::UpdateSubUnitPrice(uint32_t newsubprice)
+{
+    price->UpdateSubUnit(newsubprice);
+}
 
-Buyable::Buyable() : id(""), name(""), description(""), image(""), price(nullptr) {}
+Buyable::Buyable()
+    : id("")
+    , name("")
+    , description("")
+    , image("")
+    , price(nullptr)
+{}
 
-Buyable::Buyable(std::string            id,
-                 std::string            name,
-                 std::string            description,
-                 std::string            image,
-                 std::string            rating,
+Buyable::Buyable(std::string id,
+                 std::string name,
+                 std::string description,
+                 std::string image,
+                 std::string rating,
                  std::shared_ptr<Price> price)
     : price(price)
 {
-    this->id          = id;
-    this->name        = name;
+    this->id = id;
+    this->name = name;
     this->description = description;
-    this->image       = image;
-    this->rating      = rating;
-    this->price       = price;
+    this->image = image;
+    this->rating = rating;
+    this->price = price;
 }
 
-std::shared_ptr<Buyable> Buyable::CreateFromJSON(const nlohmann::json& json)
+std::shared_ptr<Buyable> Buyable::CreateFromJSON(const nlohmann::json &json)
 {
-    if (json.contains("color"))
-    {
+    if (json.contains("color")) {
         return std::make_shared<Clothing>(json);
-    }
-    else if (json.contains("servicetype"))
-    {
+    } else if (json.contains("servicetype")) {
         return std::make_shared<Service>(json);
-    }
-    else if (json.contains("quantity"))
-    {
+    } else if (json.contains("quantity")) {
         return std::make_shared<Product>(json);
-    }
-    else
-    {
+    } else {
         return std::make_shared<Buyable>(json);
     }
 }
 
 nlohmann::json Buyable::toJSON() const
 {
-    return nlohmann::json {{"id", id},
-                           {"name", name},
-                           {"description", description},
-                           {"image", image},
-                           {"rating", rating},
-                           {"price", price->toJSON()}};
+    return nlohmann::json{{"id", id},
+                          {"name", name},
+                          {"description", description},
+                          {"image", image},
+                          {"rating", rating},
+                          {"price", price->toJSON()}};
 }
 
-void Buyable::fromJSON(const nlohmann::json& json)
+void Buyable::fromJSON(const nlohmann::json &json)
 {
-    id          = json.at("id").get<std::string>();
-    name        = json.at("name").get<std::string>();
+    id = json.at("id").get<std::string>();
+    name = json.at("name").get<std::string>();
     description = json.at("description").get<std::string>();
-    image       = json.at("image").get<std::string>();
-    rating      = json.at("rating").get<std::string>();
-    price       = std::make_shared<Price>(json.at("price"));
+    image = json.at("image").get<std::string>();
+    rating = json.at("rating").get<std::string>();
+    price = std::make_shared<Price>(json.at("price"));
 }
 
-Buyable::Buyable(const nlohmann::json& json) { this->Buyable::fromJSON(json); }
+Buyable::Buyable(const nlohmann::json &json)
+{
+    this->Buyable::fromJSON(json);
+}

@@ -5,12 +5,12 @@
 
 class MoneyPossesive
 {
-  protected:
+protected:
     uint32_t mainunit;
     uint32_t subunit;
 
-  public:
-    virtual bool     GetTotal(uint32_t& mainunit, uint32_t& subunit);
+public:
+    virtual bool GetTotal(uint32_t &mainunit, uint32_t &subunit);
     virtual uint32_t GetMainUnit();
     virtual uint32_t GetSubUnit();
 

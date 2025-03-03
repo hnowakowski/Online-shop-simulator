@@ -2,10 +2,10 @@
 
 #include "MoneyPossesive.h"
 
-bool MoneyPossesive::GetTotal(uint32_t& mainunit, uint32_t& subunit)
+bool MoneyPossesive::GetTotal(uint32_t &mainunit, uint32_t &subunit)
 {
     mainunit = this->mainunit;
-    subunit  = this->subunit;
+    subunit = this->subunit;
     return true;
 }
 
@@ -16,11 +16,11 @@ uint32_t MoneyPossesive::GetSubUnit() { return subunit; }
 MoneyPossesive::MoneyPossesive(uint32_t mainunit, uint32_t subunit)
 {
     this->mainunit = mainunit;
-    this->subunit  = subunit;
+    this->subunit = subunit;
 }
 
 MoneyPossesive::MoneyPossesive()
 {
     this->mainunit = 0;
-    this->subunit  = 0;
+    this->subunit = 0;
 }

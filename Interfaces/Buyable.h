@@ -10,15 +10,15 @@ class Clothing;
 
 class Buyable : virtual public Serializable
 {
-  protected:
-    std::string            id;
-    std::string            name;
-    std::string            description;
-    std::string            image;
-    std::string            rating;
+protected:
+    std::string id;
+    std::string name;
+    std::string description;
+    std::string image;
+    std::string rating;
     std::shared_ptr<Price> price;
 
-  public:
+public:
     virtual std::string GetId();
 
     virtual std::string GetName();
@@ -33,7 +33,7 @@ class Buyable : virtual public Serializable
 
     virtual uint32_t GetSubUnitPrice();
 
-    virtual bool GetPrice(uint32_t& mainunit, uint32_t& subunit);
+    virtual bool GetPrice(uint32_t &mainunit, uint32_t &subunit);
 
     virtual void UpdateMainUnitPrice(uint32_t newmainprice);
 
@@ -41,20 +41,20 @@ class Buyable : virtual public Serializable
 
     Buyable();
 
-    Buyable(std::string            id,
-            std::string            name,
-            std::string            description,
-            std::string            image,
-            std::string            rating,
+    Buyable(std::string id,
+            std::string name,
+            std::string description,
+            std::string image,
+            std::string rating,
             std::shared_ptr<Price> price);
 
-    static std::shared_ptr<Buyable> CreateFromJSON(const nlohmann::json& json);
+    static std::shared_ptr<Buyable> CreateFromJSON(const nlohmann::json &json);
 
     virtual nlohmann::json toJSON() const override;
 
-    virtual void fromJSON(const nlohmann::json& json) override;
+    virtual void fromJSON(const nlohmann::json &json) override;
 
-    Buyable(const nlohmann::json& json);
+    Buyable(const nlohmann::json &json);
 
     virtual ~Buyable() = default;
 };
