@@ -3,13 +3,14 @@
 
 #include "../Enums/BuyableDisplayedType.h"
 #include "../Enums/BuyableSortedBy.h"
-#include "../Templates/Listing.h"
 #include "Cart.h"
+#include "Customer.h"
+#include <memory>
 
 class StoreSystem
 {
-    Listing<std::shared_ptr<Buyable>> buyables;
-    Listing<std::shared_ptr<Customer>> customers;
+    std::vector<std::shared_ptr<Buyable>> buyables;
+    std::vector<std::shared_ptr<Customer>> customers;
 
     Cart cart;
 
@@ -26,33 +27,35 @@ class StoreSystem
     StoreSystem &operator=(StoreSystem &other) = delete;
 
 public:
-    bool GetBuyable(const std::string &id, std::shared_ptr<Buyable> &buyable);
-    bool GetCustomer(const std::string &id, std::shared_ptr<Customer> &customer);
+    std::shared_ptr<Buyable> GetBuyable(const std::string &id);
+    std::shared_ptr<Customer> GetCustomer(const std::string &id);
 
-    void AddBuyable(std::shared_ptr<Buyable> buyable);
-    void AddCustomer(std::shared_ptr<Customer> customer);
+    bool AddBuyable(std::shared_ptr<Buyable> &buyable);
+    bool AddCustomer(std::shared_ptr<Customer> &customer);
 
-    bool GetBuyables(Listing<std::shared_ptr<Buyable>> &buyables);
-    bool GetCustomers(Listing<std::shared_ptr<Customer>> &customers);
+    std::shared_ptr<std::vector<std::shared_ptr<Buyable>>> GetBuyables();
+    std::shared_ptr<std::vector<std::shared_ptr<Customer>>> GetCustomers();
 
-    void SetBuyableDisplayedType(BuyableDisplayedType buyableDisplayedType);
-    void SetBuyableSortedBy(BuyableSortedBy buyableSortedBy);
+    void SetBuyableDisplayedType(const BuyableDisplayedType &buyableDisplayedType);
+    void SetBuyableSortedBy(const BuyableSortedBy &buyableSortedBy);
 
-    void GetBuyableDisplayedType(BuyableDisplayedType &e);
-    void GetBuyableSortedBy(BuyableSortedBy &e);
+    BuyableDisplayedType GetBuyableDisplayedType();
+    BuyableSortedBy GetBuyableSortedBy();
 
-    void SetBuyableSearchQuery(std::string query);
-    void GetBuyableSearchQuery(std::string &query);
+    void SetBuyableSearchQuery(const std::string &query);
+    std::string GetBuyableSearchQuery();
 
-    void SetCurrentCustomerId(std::string id);
-    void GetCurrentCustomerId(std::string &id);
+    void SetCurrentCustomerId(const std::string &id);
+    std::string GetCurrentCustomerId();
 
-    void GetCurrentCustomer(std::shared_ptr<Customer> &customer);
+    std::shared_ptr<Customer> GetCurrentCustomer();
 
     Cart &GetCart();
 
     bool RemoveBuyable(const std::string &id);
     bool RemoveCustomer(const std::string &id);
+
+    void SortBuyables(const std::function<bool(const Buyable &, const Buyable &)> &comparator);
 
     static StoreSystem &GetInstance()
     {

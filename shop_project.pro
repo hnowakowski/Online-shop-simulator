@@ -58,7 +58,6 @@ HEADERS += \
     Interfaces/DynamicWidget.h \
     Interfaces/MoneyPossesive.h \
     Interfaces/Serializable.h \
-    Templates/Listing.h \
     Templates/LoaderSaver.h \
     mainwindow.h
 

@@ -1,82 +1,78 @@
 #include "StoreSystem.h"
 
-bool StoreSystem::GetBuyable(const std::string &id, std::shared_ptr<Buyable> &buyable)
+std::shared_ptr<Buyable> StoreSystem::GetBuyable(const std::string &id)
 {
-    if (buyables.GetItem(id, buyable)) {
-        return true;
+    for (auto &buyable : buyables) {
+        if (buyable->GetId() == id) {
+            return buyable;
+        }
     }
-    return false;
+    return std::shared_ptr<Buyable>();
 }
 
-bool StoreSystem::GetCustomer(const std::string &id, std::shared_ptr<Customer> &customer)
+std::shared_ptr<Customer> StoreSystem::GetCustomer(const std::string &id)
 {
-    if (customers.GetItem(id, customer)) {
-        return true;
+    for (auto &customer : customers) {
+        if (customer->GetId() == id) {
+            return customer;
+        }
     }
-    return false;
+    return std::shared_ptr<Customer>();
 }
 
-bool StoreSystem::GetBuyables(Listing<std::shared_ptr<Buyable>> &buyables)
+std::shared_ptr<std::vector<std::shared_ptr<Buyable>>> StoreSystem::GetBuyables()
 {
-    if (this->buyables.GetSize()) {
-        buyables = this->buyables;
-        return true;
-    }
-    return false;
+    return std::make_shared<std::vector<std::shared_ptr<Buyable>>>(this->buyables);
 }
 
-bool StoreSystem::GetCustomers(Listing<std::shared_ptr<Customer>> &customers)
+std::shared_ptr<std::vector<std::shared_ptr<Customer>>> StoreSystem::GetCustomers()
 {
-    customers = this->customers;
-    if (this->customers.GetSize()) {
-        return true;
-    }
-    return false;
+    return std::make_shared<std::vector<std::shared_ptr<Customer>>>(this->customers);
 }
 
-void StoreSystem::GetBuyableDisplayedType(BuyableDisplayedType &e)
+BuyableDisplayedType StoreSystem::GetBuyableDisplayedType()
 {
-    e = this->buyableDisplayedType;
+    return this->buyableDisplayedType;
 }
 
-void StoreSystem::GetBuyableSortedBy(BuyableSortedBy &e)
+BuyableSortedBy StoreSystem::GetBuyableSortedBy()
 {
-    e = this->buyableSortedBy;
+    return this->buyableSortedBy;
 }
 
-void StoreSystem::SetBuyableDisplayedType(BuyableDisplayedType buyableDisplayedType)
+void StoreSystem::SetBuyableDisplayedType(const BuyableDisplayedType &buyableDisplayedType)
 {
     this->buyableDisplayedType = buyableDisplayedType;
 }
 
-void StoreSystem::SetBuyableSortedBy(BuyableSortedBy buyableSortedBy)
+void StoreSystem::SetBuyableSortedBy(const BuyableSortedBy &buyableSortedBy)
 {
     this->buyableSortedBy = buyableSortedBy;
 }
 
-void StoreSystem::SetBuyableSearchQuery(std::string query)
+void StoreSystem::SetBuyableSearchQuery(const std::string &query)
 {
     this->buyableSearchQuery = query;
 }
 
-void StoreSystem::GetBuyableSearchQuery(std::string &query)
+std::string StoreSystem::GetBuyableSearchQuery()
 {
-    query = this->buyableSearchQuery;
+    return this->buyableSearchQuery;
 }
 
-void StoreSystem::SetCurrentCustomerId(std::string id)
+void StoreSystem::SetCurrentCustomerId(const std::string &id)
 {
     currentCustomerId = id;
 }
 
-void StoreSystem::GetCurrentCustomerId(std::string &id)
+std::string StoreSystem::GetCurrentCustomerId()
 {
-    id = currentCustomerId;
+    return currentCustomerId;
 }
 
-void StoreSystem::GetCurrentCustomer(std::shared_ptr<Customer> &customer)
+std::shared_ptr<Customer> StoreSystem::GetCurrentCustomer()
 {
-    GetCustomer(currentCustomerId, customer);
+    return GetCustomer(currentCustomerId);
 }
 
 Cart &StoreSystem::GetCart()
@@ -84,28 +80,48 @@ Cart &StoreSystem::GetCart()
     return cart;
 }
 
-void StoreSystem::AddBuyable(std::shared_ptr<Buyable> buyable)
+bool StoreSystem::AddBuyable(std::shared_ptr<Buyable> &buyable)
 {
-    buyables.AddItem(buyable);
+    if (!GetBuyable(buyable->GetId())) {
+        buyables.push_back(buyable);
+        return true;
+    }
+    return false;
 }
 
-void StoreSystem::AddCustomer(std::shared_ptr<Customer> customer)
+bool StoreSystem::AddCustomer(std::shared_ptr<Customer> &customer)
 {
-    customers.AddItem(customer);
+    if (!GetCustomer(customer->GetId())) {
+        customers.push_back(customer);
+        return true;
+    }
+    return false;
 }
 
 bool StoreSystem::RemoveBuyable(const std::string &id)
 {
-    if (buyables.RemoveItem(id)) {
-        return true;
+    for (int i = 0; i < buyables.size(); i++) {
+        if (buyables[i]->GetId() == id) {
+            buyables.erase(buyables.begin() + i);
+            return true;
+        }
     }
     return false;
 }
 
 bool StoreSystem::RemoveCustomer(const std::string &id)
 {
-    if (customers.RemoveItem(id)) {
-        return true;
+    for (int i = 0; i < customers.size(); i++) {
+        if (customers[i]->GetId() == id) {
+            customers.erase(customers.begin() + i);
+            return true;
+        }
     }
     return false;
+}
+
+void StoreSystem::SortBuyables(
+    const std::function<bool(const Buyable &, const Buyable &)> &comparator)
+{
+    std::sort(buyables.begin(), buyables.end(), comparator);
 }
