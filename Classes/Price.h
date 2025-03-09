@@ -9,35 +9,23 @@ class Wallet;
 class Price : virtual public MoneyPossesive, virtual public Serializable
 {
 public:
-    void UpdateMainUnit(uint32_t newmainprice);
+    void updateMainUnit(const uint32_t &newmainprice);
 
-    void UpdateSubUnit(uint32_t newsubprice);
+    void updateSubUnit(const uint32_t &newsubprice);
 
-    void UpdatePrice(uint32_t newmainprice, uint32_t newsubprice);
+    void updatePrice(const uint32_t &newmainPrice, const uint32_t &newSubprice);
 
-    Price &operator=(const Price &price);
+    void addPrice(const Price &other);
 
-    Price operator+(const Price &price);
+    Price();
 
-    Price operator-(const Price &price);
-
-    bool operator>(const Price &price);
-
-    bool operator<(const Price &price);
-
-    bool operator>=(const Price &price);
-
-    bool operator<=(const Price &price);
-
-    Price(uint32_t mainunit, uint32_t subunit);
+    Price(const uint32_t &mainunit, const uint32_t &subunit);
 
     nlohmann::json toJSON() const override;
 
     void fromJSON(const nlohmann::json &json) override;
 
     Price(const nlohmann::json &json);
-
-    friend bool operator>=(const std::shared_ptr<Wallet> wallet, const Price &price);
 };
 
 #endif // OOP_PROJECT_PRICE_H

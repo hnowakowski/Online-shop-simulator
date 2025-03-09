@@ -2,23 +2,23 @@
 
 #include "Customer.h"
 
-std::string Customer::GetId() { return id; }
+std::string Customer::getId() { return id; }
 
-std::string Customer::GetName() { return name; }
+std::string Customer::getName() { return name; }
 
-std::string Customer::GetSurname() { return surname; }
+std::string Customer::getSurname() { return surname; }
 
-std::string Customer::GetEmail() { return email; }
+std::string Customer::getEmail() { return email; }
 
-std::string Customer::GetPhone() { return phone; }
+std::string Customer::getPhone() { return phone; }
 
-std::string Customer::GetCity() { return city; }
+std::string Customer::getCity() { return city; }
 
-std::string Customer::GetAddress() { return address; }
+std::string Customer::getAddress() { return address; }
 
-std::string Customer::GetPESEL() { return PESEL; }
+std::string Customer::getPESEL() { return PESEL; }
 
-std::string Customer::GetPassword() { return password; }
+std::string Customer::getPassword() { return password; }
 
 Customer &Customer::operator=(const Customer &other)
 {
@@ -36,7 +36,7 @@ Customer &Customer::operator=(const Customer &other)
     return *this;
 }
 
-std::shared_ptr<Wallet> Customer::GetWallet() { return wallet; }
+std::shared_ptr<Wallet> Customer::getWallet() { return wallet; }
 
 Customer::Customer(std::string id,
                    std::string name,

@@ -11,9 +11,9 @@ class Clothing : public Product
     uint32_t size{};
 
 public:
-    Color GetColor();
-    std::string GetClothingType();
-    uint32_t GetSize();
+    Color getColor();
+    std::string getClothingType();
+    uint32_t getSize();
 
     Clothing &operator=(const Clothing &other);
     Clothing(std::string id,

@@ -10,4 +10,6 @@
 
 BuyableScrollArea::BuyableScrollArea(QScrollArea *scrollArea)
     : scrollArea(scrollArea) {};
-BuyableScrollArea::BuyableScrollArea() : scrollArea(nullptr) {};
+
+BuyableScrollArea::BuyableScrollArea()
+    : scrollArea(nullptr) {};

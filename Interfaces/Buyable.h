@@ -19,25 +19,25 @@ protected:
     std::shared_ptr<Price> price;
 
 public:
-    virtual std::string GetId();
+    virtual std::string getId();
 
-    virtual std::string GetName();
+    virtual std::string getName();
 
-    virtual std::string GetDescription();
+    virtual std::string getDescription();
 
-    virtual std::string GetImage();
+    virtual std::string getImage();
 
-    virtual std::string GetRating();
+    virtual std::string getRating();
 
-    virtual uint32_t GetMainUnitPrice();
+    virtual uint32_t getMainUnitPrice();
 
-    virtual uint32_t GetSubUnitPrice();
+    virtual uint32_t getSubUnitPrice();
 
-    virtual bool GetPrice(uint32_t &mainunit, uint32_t &subunit);
+    virtual Price getPrice();
 
-    virtual void UpdateMainUnitPrice(uint32_t newmainprice);
+    virtual void updateMainUnitPrice(const uint32_t &newmainprice);
 
-    virtual void UpdateSubUnitPrice(uint32_t newsubprice);
+    virtual void updateSubUnitPrice(const uint32_t &newsubprice);
 
     Buyable();
 
@@ -48,7 +48,7 @@ public:
             std::string rating,
             std::shared_ptr<Price> price);
 
-    static std::shared_ptr<Buyable> CreateFromJSON(const nlohmann::json &json);
+    static std::shared_ptr<Buyable> createFromJSON(const nlohmann::json &json);
 
     virtual nlohmann::json toJSON() const override;
 

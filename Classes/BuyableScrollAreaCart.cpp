@@ -15,12 +15,12 @@
 #include "Service.h"
 #include "StoreSystem.h"
 
-void BuyableScrollAreaCart::Populate()
+void BuyableScrollAreaCart::populate()
 {
     QWidget *container = scrollArea->widget();
     QVBoxLayout *layout = qobject_cast<QVBoxLayout *>(container->layout());
-    StoreSystem &system = StoreSystem::GetInstance();
-    std::vector<std::shared_ptr<Buyable>> buyables = system.GetCart().GetBuyables();
+    StoreSystem &system = StoreSystem::getInstance();
+    std::vector<std::shared_ptr<Buyable>> buyables = system.getCart().getBuyables();
 
     if (buyables.empty()) {
         qDebug() << "WARNING! - No buyables in storesystem to display!\n";
@@ -41,7 +41,7 @@ void BuyableScrollAreaCart::Populate()
         QHBoxLayout *productLayout = new QHBoxLayout(productPanel);
 
         QLabel *imageLabel = new QLabel();
-        std::string imgPath = (PATH + buyable->GetImage()).c_str();
+        std::string imgPath = (PATH + buyable->getImage()).c_str();
         QPixmap pixmap(imgPath.c_str());
         imageLabel->setPixmap(pixmap.scaled(100, 100));
         productLayout->addWidget(imageLabel);
@@ -49,17 +49,16 @@ void BuyableScrollAreaCart::Populate()
         QWidget *infoPanel = new QWidget();
         QVBoxLayout *infoLayout = new QVBoxLayout(infoPanel);
 
-        QLabel *nameLabel = new QLabel(QString::fromStdString(buyable->GetName()));
+        QLabel *nameLabel = new QLabel(QString::fromStdString(buyable->getName()));
         QFont nameFont = nameLabel->font();
         nameFont.setPointSize(14);
         nameFont.setBold(true);
         nameLabel->setFont(nameFont);
         infoLayout->addWidget(nameLabel);
 
-        uint32_t mainunit;
-        uint32_t subunit;
-        buyable->GetPrice(mainunit, subunit);
-        std::string priceText = std::to_string(mainunit) + "." + std::to_string(subunit) + " ZŁ";
+        Price price = buyable->getPrice();
+        std::string priceText = std::to_string(price.getMainUnit()) + "."
+                                + std::to_string(price.getSubUnit()) + " ZŁ";
 
         QLabel *priceLabel = new QLabel(QString::fromStdString(priceText));
         QFont priceFont = priceLabel->font();
@@ -78,11 +77,11 @@ void BuyableScrollAreaCart::Populate()
 
         std::shared_ptr<Buyable> currentBuyable = buyable;
         QObject::connect(removeFromCartButton, &QPushButton::clicked, [currentBuyable, this]() {
-            StoreSystem &system = StoreSystem::GetInstance();
-            qDebug() << "Removing " << currentBuyable->GetName() << " from cart.";
-            system.GetCart().RemoveBuyable(currentBuyable);
-            qDebug() << system.GetCart().Size();
-            this->Populate();
+            StoreSystem &system = StoreSystem::getInstance();
+            qDebug() << "Removing " << currentBuyable->getName() << " from cart.";
+            system.getCart().removeBuyable(currentBuyable);
+            qDebug() << system.getCart().size();
+            this->populate();
         });
 
         layout->addWidget(productPanel);
@@ -99,4 +98,6 @@ BuyableScrollAreaCart::BuyableScrollAreaCart(QScrollArea *scrollArea)
     : BuyableScrollArea(scrollArea)
 {}
 
-BuyableScrollAreaCart::BuyableScrollAreaCart() : BuyableScrollArea() {}
+BuyableScrollAreaCart::BuyableScrollAreaCart()
+    : BuyableScrollArea()
+{}

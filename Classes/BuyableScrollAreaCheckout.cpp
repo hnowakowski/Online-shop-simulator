@@ -15,12 +15,12 @@
 #include "Service.h"
 #include "StoreSystem.h"
 
-void BuyableScrollAreaCheckout::Populate()
+void BuyableScrollAreaCheckout::populate()
 {
     QWidget *container = scrollArea->widget();
     QVBoxLayout *layout = qobject_cast<QVBoxLayout *>(container->layout());
-    StoreSystem &system = StoreSystem::GetInstance();
-    std::vector<std::shared_ptr<Buyable>> buyables = system.GetCart().GetBuyables();
+    StoreSystem &system = StoreSystem::getInstance();
+    std::vector<std::shared_ptr<Buyable>> buyables = system.getCart().getBuyables();
 
     if (buyables.empty()) {
         qDebug() << "WARNING! - No buyables in storesystem to display!\n";
@@ -41,7 +41,7 @@ void BuyableScrollAreaCheckout::Populate()
         QHBoxLayout *productLayout = new QHBoxLayout(productPanel);
 
         QLabel *imageLabel = new QLabel();
-        std::string imgPath = (PATH + buyable->GetImage()).c_str();
+        std::string imgPath = (PATH + buyable->getImage()).c_str();
         QPixmap pixmap(imgPath.c_str());
         imageLabel->setPixmap(pixmap.scaled(100, 100));
         productLayout->addWidget(imageLabel);
@@ -49,17 +49,16 @@ void BuyableScrollAreaCheckout::Populate()
         QWidget *infoPanel = new QWidget();
         QVBoxLayout *infoLayout = new QVBoxLayout(infoPanel);
 
-        QLabel *nameLabel = new QLabel(QString::fromStdString(buyable->GetName()));
+        QLabel *nameLabel = new QLabel(QString::fromStdString(buyable->getName()));
         QFont nameFont = nameLabel->font();
         nameFont.setPointSize(14);
         nameFont.setBold(true);
         nameLabel->setFont(nameFont);
         infoLayout->addWidget(nameLabel);
 
-        uint32_t mainunit;
-        uint32_t subunit;
-        buyable->GetPrice(mainunit, subunit);
-        std::string priceText = std::to_string(mainunit) + "." + std::to_string(subunit) + " ZŁ";
+        Price price = buyable->getPrice();
+        std::string priceText = std::to_string(price.getMainUnit()) + "."
+                                + std::to_string(price.getSubUnit()) + " ZŁ";
 
         QLabel *priceLabel = new QLabel(QString::fromStdString(priceText));
         QFont priceFont = priceLabel->font();
@@ -87,4 +86,6 @@ BuyableScrollAreaCheckout::BuyableScrollAreaCheckout(QScrollArea *scrollArea)
     : BuyableScrollArea(scrollArea)
 {}
 
-BuyableScrollAreaCheckout::BuyableScrollAreaCheckout() : BuyableScrollArea() {}
+BuyableScrollAreaCheckout::BuyableScrollAreaCheckout()
+    : BuyableScrollArea()
+{}

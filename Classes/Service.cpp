@@ -1,7 +1,7 @@
 #include "../Enums/ServiceType.h"
 #include "Service.h"
 
-ServiceType Service::GetType()
+ServiceType Service::getType()
 {
     return servicetype;
 }
@@ -23,7 +23,9 @@ Service &Service::operator=(const Service &other)
     return *this;
 }
 
-Service::Service() : servicetype(ServiceType::OTHER) {}
+Service::Service()
+    : servicetype(ServiceType::OTHER)
+{}
 
 Service::Service(std::string id,
                  std::string name,

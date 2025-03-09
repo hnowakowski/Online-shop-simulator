@@ -10,9 +10,14 @@ protected:
     uint32_t subunit;
 
 public:
-    virtual bool GetTotal(uint32_t &mainunit, uint32_t &subunit);
-    virtual uint32_t GetMainUnit();
-    virtual uint32_t GetSubUnit();
+    virtual uint32_t getMainUnit();
+    virtual uint32_t getSubUnit();
+
+    void addMainUnit(const uint32_t &amount);
+
+    void addSubUnit(const uint32_t &amount);
+
+    bool operator>=(const MoneyPossesive &price);
 
     MoneyPossesive(uint32_t mainunit, uint32_t subunit);
     MoneyPossesive();

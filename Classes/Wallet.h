@@ -11,10 +11,10 @@ class Price;
 class Wallet : virtual public MoneyPossesive
 {
 public:
-    void AddMain(uint32_t amount);
-    void AddSub(uint32_t amount);
-    void RemoveMain(uint32_t amount);
-    void RemoveSub(uint32_t amount);
+    void addMain(uint32_t amount);
+    void addSub(uint32_t amount);
+    void removeMain(uint32_t amount);
+    void removeSub(uint32_t amount);
 
     Wallet &operator=(const Wallet &other);
     Wallet(uint32_t mainunit, uint32_t subunit);
@@ -26,8 +26,6 @@ public:
     explicit Wallet(const nlohmann::json &json);
 
     ~Wallet() = default;
-
-    friend bool operator>=(const std::shared_ptr<Wallet> wallet, const Price &price);
 };
 
 #endif // OOP_PROJECT_WALLET_H

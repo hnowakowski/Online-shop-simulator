@@ -12,7 +12,7 @@ protected:
     uint32_t quantity{};
 
 public:
-    uint32_t GetQuantity();
+    uint32_t getQuantity();
 
     Product &operator=(const Product &other);
 

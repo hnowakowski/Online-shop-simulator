@@ -2,14 +2,14 @@
 
 #include "Cart.h"
 
-bool Cart::AddBuyable(std::shared_ptr<Buyable> buyable)
+bool Cart::addBuyable(std::shared_ptr<Buyable> buyable)
 {
     buyables.push_back(buyable);
-    emit CartChanged();
+    emit cartChanged();
     return true;
 }
 
-bool Cart::RemoveBuyable(std::shared_ptr<Buyable> buyable)
+bool Cart::removeBuyable(std::shared_ptr<Buyable> buyable)
 {
     auto it = std::find_if(buyables.begin(),
                            buyables.end(),
@@ -19,38 +19,29 @@ bool Cart::RemoveBuyable(std::shared_ptr<Buyable> buyable)
 
     if (it != buyables.end()) {
         buyables.erase(it);
-        emit CartChanged();
+        emit cartChanged();
         return true;
     }
-
     return false;
 }
 
-uint32_t Cart::Size()
+uint32_t Cart::size()
 {
     return buyables.size();
 }
 
-std::pair<uint32_t, uint32_t> Cart::GetTotalPrice()
+Price Cart::getTotalPrice()
 {
-    uint32_t maintotal = 0;
-    uint32_t subtotal = 0;
+    Price totalPrice;
     for (auto &buyable : buyables) {
-        uint32_t mainunit;
-        uint32_t subunit;
-        buyable->GetPrice(mainunit, subunit);
-        maintotal += mainunit;
-        subtotal += subunit;
-    }
-    while (subtotal > 99) {
-        maintotal += (subtotal / 100);
-        subtotal %= 100;
+        Price bPrice = buyable->getPrice();
+        totalPrice.addPrice(bPrice);
     }
 
-    return std::make_pair(maintotal, subtotal);
+    return totalPrice;
 }
 
-std::vector<std::shared_ptr<Buyable>> &Cart::GetBuyables()
+std::vector<std::shared_ptr<Buyable>> &Cart::getBuyables()
 {
     return buyables;
 }

@@ -14,7 +14,7 @@ template<typename T>
 class LoaderSaver
 {
 public:
-    static bool Load(const std::string &filename, std::vector<std::shared_ptr<T>> &objects)
+    static bool load(const std::string &filename, std::vector<std::shared_ptr<T>> &objects)
     {
         std::ifstream file(filename);
 
@@ -30,7 +30,7 @@ public:
             std::shared_ptr<T> object;
 
             if constexpr (std::is_same_v<T, Buyable>) {
-                object = std::static_pointer_cast<T>(Buyable::CreateFromJSON(item));
+                object = std::static_pointer_cast<T>(Buyable::createFromJSON(item));
             } else {
                 object = std::make_shared<T>(item);
             }
@@ -41,7 +41,7 @@ public:
         return true;
     }
 
-    static bool Save(const std::string &filename, const std::vector<std::shared_ptr<T>> &objects)
+    static bool save(const std::string &filename, const std::vector<std::shared_ptr<T>> &objects)
     {
         nlohmann::json json;
         for (const auto &object : objects) {

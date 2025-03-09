@@ -1,16 +1,8 @@
 #include "Wallet.h"
 
-void Wallet::AddMain(uint32_t amount) { mainunit += amount; }
+void Wallet::removeMain(uint32_t amount) { mainunit -= amount; }
 
-void Wallet::AddSub(uint32_t amount)
-{
-    subunit += amount % 100;
-    mainunit += amount / 100;
-}
-
-void Wallet::RemoveMain(uint32_t amount) { mainunit -= amount; }
-
-void Wallet::RemoveSub(uint32_t amount)
+void Wallet::removeSub(uint32_t amount)
 {
     mainunit -= amount / 100;
     subunit = (amount % 100) > subunit ? (subunit + 100) - (amount % 100)

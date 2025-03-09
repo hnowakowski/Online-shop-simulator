@@ -12,19 +12,10 @@ void MainWindow::on_btnCheckoutGotoCart_clicked()
     ui->stackedWidget->setCurrentWidget(ui->pageCart);
 }
 
-bool operator>=(const std::shared_ptr<Wallet> wallet, const Price &price)
-{
-    if (wallet->mainunit < price.mainunit)
-        return false;
-    else if (wallet->mainunit == price.mainunit && wallet->subunit < price.subunit)
-        return false;
-    return true;
-}
-
 void MainWindow::on_btnCheckoutWallet_clicked()
 {
-    StoreSystem &system = StoreSystem::GetInstance();
-    std::string id = system.GetCurrentCustomerId();
+    StoreSystem &system = StoreSystem::getInstance();
+    std::string id = system.getCurrentCustomerId();
     if (id == "U0") {
         showWarning(ui->pageCheckout, "Cannot consume", "You are not logged in!");
         return;
@@ -42,26 +33,24 @@ void MainWindow::on_btnCheckoutWallet_clicked()
         ui->labelFieldsNotFilled->setVisible(true);
     } else {
         ui->labelFieldsNotFilled->setVisible(false);
-        std::pair<uint32_t, uint32_t> pricePair
-            = StoreSystem::GetInstance().GetCart().GetTotalPrice();
-        Price priceObj(pricePair.first, pricePair.second);
-        std::shared_ptr<Customer> currCustomer = system.GetCurrentCustomer();
-        if (currCustomer->GetWallet() >= priceObj) {
+        Price totalPrice = system.getCart().getTotalPrice();
+        std::shared_ptr<Customer> currCustomer = system.getCurrentCustomer();
+        if (*currCustomer->getWallet() >= totalPrice) {
             showInfo(ui->pageCheckout, "Yipee!", "Products successfully consumed!");
-            currCustomer->GetWallet()->RemoveMain(pricePair.first);
-            currCustomer->GetWallet()->RemoveSub(pricePair.second);
-            StoreSystem::GetInstance().GetCart().GetBuyables().clear();
+            currCustomer->getWallet()->removeMain(totalPrice.getMainUnit());
+            currCustomer->getWallet()->removeSub(totalPrice.getSubUnit());
+            system.getCart().getBuyables().clear();
 
-            qDebug() << StoreSystem::GetInstance().GetCart().Size();
-            emit StoreSystem::GetInstance().GetCart().CartChanged();
+            qDebug() << system.getCart().size();
+            emit system.getCart().cartChanged();
 
             displayAccountInfo();
-            cartScrollArea.Populate();
-            checkoutScrollArea.Populate();
-            UpdateCartTotalPrice();
+            cartScrollArea.populate();
+            checkoutScrollArea.populate();
+            updateCartTotalPrice();
             ui->labelCheckout->setText("Checkout (Total: 0.0 ZŁ)");
-            uint32_t walletFirst = currCustomer->GetWallet()->GetMainUnit();
-            uint32_t walletSecond = currCustomer->GetWallet()->GetSubUnit();
+            uint32_t walletFirst = currCustomer->getWallet()->getMainUnit();
+            uint32_t walletSecond = currCustomer->getWallet()->getSubUnit();
             std::string walletStr = "Wallet: " + std::to_string(walletFirst) + "."
                                     + std::to_string(walletSecond) + " ZŁ";
             ui->labelCheckoutWalletStatus->setText(QString::fromStdString(walletStr));
@@ -93,13 +82,13 @@ void MainWindow::on_btnCheckoutCard_clicked()
         ui->labelFieldsNotFilled->setVisible(true);
     } else {
         showInfo(ui->pageCheckout, "Yipee!", "Products successfully consumed!");
-        StoreSystem &system = StoreSystem::GetInstance();
-        system.GetCart().GetBuyables().clear();
-        qDebug() << system.GetCart().Size();
-        emit system.GetCart().CartChanged();
-        cartScrollArea.Populate();
-        checkoutScrollArea.Populate();
-        UpdateCartTotalPrice();
+        StoreSystem &system = StoreSystem::getInstance();
+        system.getCart().getBuyables().clear();
+        qDebug() << system.getCart().size();
+        emit system.getCart().cartChanged();
+        cartScrollArea.populate();
+        checkoutScrollArea.populate();
+        updateCartTotalPrice();
         ui->labelCheckout->setText("Checkout (Total: 0.0 ZŁ)");
     }
 }

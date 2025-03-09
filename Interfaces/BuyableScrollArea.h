@@ -17,7 +17,7 @@ protected:
     QScrollArea *scrollArea;
 
 public:
-    virtual void Populate() = 0;
+    virtual void populate() = 0;
 
     BuyableScrollArea(QScrollArea *scrollArea);
     BuyableScrollArea();

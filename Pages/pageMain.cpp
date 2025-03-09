@@ -29,13 +29,13 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    StoreSystem &system = StoreSystem::GetInstance();
+    StoreSystem &system = StoreSystem::getInstance();
     ui->setupUi(this);
     ui->stackedWidget->setCurrentWidget(ui->pageMain);
     loadBuyables();
     loadCustomers();
 
-    StoreSystem::GetInstance().SetCurrentCustomerId("U1");
+    StoreSystem::getInstance().setCurrentCustomerId("U1");
     ui->stackedWidgetLogin->setCurrentWidget(ui->pageLoginLoggedIn);
     displayAccountInfo();
 
@@ -46,8 +46,8 @@ MainWindow::MainWindow(QWidget *parent)
     QStringList comboBoxItems = {"All", "Products", "Clothes", "Services"};
     ui->comboBoxSearch->addItems(comboBoxItems);
 
-    QObject::connect(&system.GetCart(), &Cart::CartChanged, this, &MainWindow::UpdateCartLabel);
-    QObject::connect(&system.GetCart(), &Cart::CartChanged, this, &MainWindow::UpdateCartTotalPrice);
+    QObject::connect(&system.getCart(), &Cart::cartChanged, this, &MainWindow::updateCartLabel);
+    QObject::connect(&system.getCart(), &Cart::cartChanged, this, &MainWindow::updateCartTotalPrice);
 
     QPixmap pixmapLogo((PATH + "Assets\\Images\\UI\\logo.png").c_str());
     QPixmap pixmapAd1((PATH + "Assets\\Images\\UI\\ad1.png").c_str());
@@ -68,21 +68,24 @@ MainWindow::MainWindow(QWidget *parent)
     ui->labelSignUpBadData->setVisible(false);
     ui->labelFieldsNotFilled->setVisible(false);
     ui->labelLoginBadData->setVisible(false);
-    mainScrollArea.Populate();
-    UpdateCartLabel();
-    UpdateCartTotalPrice();
+    mainScrollArea.populate();
+    updateCartLabel();
+    updateCartTotalPrice();
 }
 
-MainWindow::~MainWindow() { delete ui; }
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
 
 void MainWindow::displayAccountInfo()
 {
-    StoreSystem &system = StoreSystem::GetInstance();
-    std::shared_ptr<Customer> currCustomer = system.GetCurrentCustomer();
+    StoreSystem &system = StoreSystem::getInstance();
+    std::shared_ptr<Customer> currCustomer = system.getCurrentCustomer();
     ui->labelUserLogin->setText(
-        QString::fromStdString(currCustomer->GetName() + " " + currCustomer->GetSurname()));
-    uint32_t walletFirst = currCustomer->GetWallet()->GetMainUnit();
-    uint32_t walletSecond = currCustomer->GetWallet()->GetSubUnit();
+        QString::fromStdString(currCustomer->getName() + " " + currCustomer->getSurname()));
+    uint32_t walletFirst = currCustomer->getWallet()->getMainUnit();
+    uint32_t walletSecond = currCustomer->getWallet()->getSubUnit();
     std::string walletStr = "Wallet: " + std::to_string(walletFirst) + "."
                             + std::to_string(walletSecond) + " ZŁ";
     ui->labelWalletStatus->setText(QString::fromStdString(walletStr));
@@ -91,16 +94,16 @@ void MainWindow::displayAccountInfo()
 void MainWindow::loadBuyables()
 {
     std::vector<std::shared_ptr<Buyable>> loadedBuyables;
-    StoreSystem &system = StoreSystem::GetInstance();
-    if (!LoaderSaver<Buyable>::Load(PATH + "Assets\\products.json", loadedBuyables)) {
+    StoreSystem &system = StoreSystem::getInstance();
+    if (!LoaderSaver<Buyable>::load(PATH + "Assets\\products.json", loadedBuyables)) {
         qDebug() << "WARNING! - Loading products.json failed!\n";
     }
-    if (!LoaderSaver<Buyable>::Load(PATH + "Assets\\services.json", loadedBuyables)) {
+    if (!LoaderSaver<Buyable>::load(PATH + "Assets\\services.json", loadedBuyables)) {
         qDebug() << "WARNING! - Loading services.json failed!\n";
     }
     for (auto buyable : loadedBuyables) {
-        if (!system.GetBuyable(buyable->GetId())) {
-            system.AddBuyable(buyable);
+        if (!system.getBuyable(buyable->getId())) {
+            system.addBuyable(buyable);
         }
     }
 }
@@ -108,18 +111,18 @@ void MainWindow::loadBuyables()
 void MainWindow::loadCustomers()
 {
     std::vector<std::shared_ptr<Customer>> loadedCustomers;
-    StoreSystem &system = StoreSystem::GetInstance();
-    if (!LoaderSaver<Customer>::Load(PATH + "Assets\\customers.json", loadedCustomers)) {
+    StoreSystem &system = StoreSystem::getInstance();
+    if (!LoaderSaver<Customer>::load(PATH + "Assets\\customers.json", loadedCustomers)) {
         qDebug() << "WARNING! - Loading customers.json failed!\n";
     }
     for (auto customer : loadedCustomers) {
-        system.AddCustomer(customer);
+        system.addCustomer(customer);
     }
 }
 
 void MainWindow::on_comboBoxSearch_currentIndexChanged(int index)
 {
-    StoreSystem &system = StoreSystem::GetInstance();
+    StoreSystem &system = StoreSystem::getInstance();
     BuyableDisplayedType type = BuyableDisplayedType::ALL;
     switch (index) {
     case 0:
@@ -138,41 +141,41 @@ void MainWindow::on_comboBoxSearch_currentIndexChanged(int index)
         type = BuyableDisplayedType::SERVICE;
         break;
     }
-    system.SetBuyableDisplayedType(type);
+    system.setBuyableDisplayedType(type);
 }
 
 void MainWindow::on_btnSearch_clicked()
 {
-    StoreSystem &system = StoreSystem::GetInstance();
+    StoreSystem &system = StoreSystem::getInstance();
     QString query = ui->lineEditSearch->text();
-    system.SetBuyableSearchQuery(query.toStdString());
-    this->mainScrollArea.Populate();
+    system.setBuyableSearchQuery(query.toStdString());
+    this->mainScrollArea.populate();
 }
 
 void MainWindow::on_radioSortName_clicked()
 {
-    StoreSystem &system = StoreSystem::GetInstance();
-    system.SetBuyableSortedBy(BuyableSortedBy::NAME);
-    mainScrollArea.Populate();
+    StoreSystem &system = StoreSystem::getInstance();
+    system.setBuyableSortedBy(BuyableSortedBy::NAME);
+    mainScrollArea.populate();
 }
 
 void MainWindow::on_radioSortPrice_clicked()
 {
-    StoreSystem &system = StoreSystem::GetInstance();
-    system.SetBuyableSortedBy(BuyableSortedBy::PRICE);
-    mainScrollArea.Populate();
+    StoreSystem &system = StoreSystem::getInstance();
+    system.setBuyableSortedBy(BuyableSortedBy::PRICE);
+    mainScrollArea.populate();
 }
 
 void MainWindow::on_radioRating_clicked()
 {
-    StoreSystem &system = StoreSystem::GetInstance();
-    system.SetBuyableSortedBy(BuyableSortedBy::RATING);
-    mainScrollArea.Populate();
+    StoreSystem &system = StoreSystem::getInstance();
+    system.setBuyableSortedBy(BuyableSortedBy::RATING);
+    mainScrollArea.populate();
 }
 
-void MainWindow::UpdateCartLabel()
+void MainWindow::updateCartLabel()
 {
-    uint32_t size = StoreSystem::GetInstance().GetCart().Size();
+    uint32_t size = StoreSystem::getInstance().getCart().size();
     QString label = QString::fromStdString("Cart (" + std::to_string(size) + ")");
     ui->labelCart->setText(label);
 }
@@ -180,8 +183,8 @@ void MainWindow::UpdateCartLabel()
 void MainWindow::on_btnMainGotoCart_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->pageCart);
-    cartScrollArea.Populate();
-    UpdateCartTotalPrice();
+    cartScrollArea.populate();
+    updateCartTotalPrice();
 }
 
 void MainWindow::on_btnMainGotoLogin_clicked()
@@ -192,5 +195,5 @@ void MainWindow::on_btnMainGotoLogin_clicked()
 void MainWindow::on_btnLogout_clicked()
 {
     ui->stackedWidgetLogin->setCurrentWidget(ui->pageLoginLoggedOut);
-    StoreSystem::GetInstance().SetCurrentCustomerId("U0");
+    StoreSystem::getInstance().setCurrentCustomerId("U0");
 }

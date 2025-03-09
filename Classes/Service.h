@@ -10,7 +10,7 @@ private:
     ServiceType servicetype;
 
 public:
-    ServiceType GetType();
+    ServiceType getType();
 
     Service &operator=(const Service &other);
 

@@ -3,33 +3,33 @@
 #include "../Classes/Product.h"
 #include "../Classes/Service.h"
 
-std::string Buyable::GetId() { return id; }
+std::string Buyable::getId() { return id; }
 
-std::string Buyable::GetName() { return name; }
+std::string Buyable::getName() { return name; }
 
-std::string Buyable::GetDescription() { return description; }
+std::string Buyable::getDescription() { return description; }
 
-std::string Buyable::GetImage() { return image; }
+std::string Buyable::getImage() { return image; }
 
-std::string Buyable::GetRating() { return rating; }
+std::string Buyable::getRating() { return rating; }
 
-bool Buyable::GetPrice(uint32_t &mainunit, uint32_t &subunit)
+Price Buyable::getPrice()
 {
-    return price->GetTotal(mainunit, subunit);
+    return *price;
 }
 
-uint32_t Buyable::GetMainUnitPrice() { return price->GetMainUnit(); }
+uint32_t Buyable::getMainUnitPrice() { return price->getMainUnit(); }
 
-uint32_t Buyable::GetSubUnitPrice() { return price->GetSubUnit(); }
+uint32_t Buyable::getSubUnitPrice() { return price->getSubUnit(); }
 
-void Buyable::UpdateMainUnitPrice(uint32_t newmainprice)
+void Buyable::updateMainUnitPrice(const uint32_t &newmainprice)
 {
-    price->UpdateMainUnit(newmainprice);
+    price->updateMainUnit(newmainprice);
 }
 
-void Buyable::UpdateSubUnitPrice(uint32_t newsubprice)
+void Buyable::updateSubUnitPrice(const uint32_t &newsubprice)
 {
-    price->UpdateSubUnit(newsubprice);
+    price->updateSubUnit(newsubprice);
 }
 
 Buyable::Buyable()
@@ -56,7 +56,7 @@ Buyable::Buyable(std::string id,
     this->price = price;
 }
 
-std::shared_ptr<Buyable> Buyable::CreateFromJSON(const nlohmann::json &json)
+std::shared_ptr<Buyable> Buyable::createFromJSON(const nlohmann::json &json)
 {
     if (json.contains("color")) {
         return std::make_shared<Clothing>(json);

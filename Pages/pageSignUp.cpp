@@ -27,8 +27,8 @@ void MainWindow::on_btnSignUp_clicked()
         ui->labelSignUpBadData->setText("Some fields have not been filled in!");
         ui->labelSignUpBadData->setVisible(true);
     } else {
-        StoreSystem &system = StoreSystem::GetInstance();
-        auto customers = system.GetCustomers();
+        StoreSystem &system = StoreSystem::getInstance();
+        auto customers = system.getCustomers();
         QString formEmail = ui->lineEditEmail->text();
         QString formPassword = ui->lineEditPassword->text();
         QString formPasswordR = ui->lineEditRepeatPassword->text();
@@ -41,7 +41,7 @@ void MainWindow::on_btnSignUp_clicked()
 
         if (customers->size()) {
             for (const auto &customer : *customers) {
-                QString qEmail = QString::fromStdString(customer->GetEmail());
+                QString qEmail = QString::fromStdString(customer->getEmail());
                 if (qEmail == formEmail) {
                     ui->labelSignUpBadData->setText("A user with this email already exists!");
                     ui->labelSignUpBadData->setVisible(true);
@@ -70,12 +70,12 @@ void MainWindow::on_btnSignUp_clicked()
                                                                            newPESEL,
                                                                            newPassword);
 
-        system.AddCustomer(newCustomer);
-        system.SetCurrentCustomerId(newId);
+        system.addCustomer(newCustomer);
+        system.setCurrentCustomerId(newId);
         ui->labelSignUpBadData->setVisible(false);
         displayAccountInfo();
 
-        if (!LoaderSaver<Customer>::Save(PATH + "Assets\\customers.json", *customers)) {
+        if (!LoaderSaver<Customer>::save(PATH + "Assets\\customers.json", *customers)) {
             qDebug() << "WARNING! - Saving customers.json failed!\n";
         }
         ui->stackedWidgetLogin->setCurrentWidget(ui->pageLoginLoggedIn);

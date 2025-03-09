@@ -1,6 +1,6 @@
 #include "Product.h"
 
-uint32_t Product::GetQuantity() { return quantity; }
+uint32_t Product::getQuantity() { return quantity; }
 
 Product::Product() {}
 

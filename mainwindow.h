@@ -35,9 +35,9 @@ private slots:
 
     void on_radioRating_clicked();
 
-    void UpdateCartLabel();
+    void updateCartLabel();
 
-    void UpdateCartTotalPrice();
+    void updateCartTotalPrice();
 
     void on_btnMainGotoCart_clicked();
 

@@ -21,16 +21,16 @@ class Customer : virtual public Serializable
     std::shared_ptr<Wallet> wallet;
 
 public:
-    std::string GetId();
-    std::string GetName();
-    std::string GetSurname();
-    std::string GetEmail();
-    std::string GetPhone();
-    std::string GetCity();
-    std::string GetAddress();
-    std::string GetPESEL();
-    std::string GetPassword();
-    std::shared_ptr<Wallet> GetWallet();
+    std::string getId();
+    std::string getName();
+    std::string getSurname();
+    std::string getEmail();
+    std::string getPhone();
+    std::string getCity();
+    std::string getAddress();
+    std::string getPESEL();
+    std::string getPassword();
+    std::shared_ptr<Wallet> getWallet();
 
     Customer &operator=(const Customer &other);
 

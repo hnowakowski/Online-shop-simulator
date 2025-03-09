@@ -14,12 +14,12 @@
 #include "Service.h"
 #include "StoreSystem.h"
 
-void BuyableScrollAreaMain::Populate()
+void BuyableScrollAreaMain::populate()
 {
     QWidget *container = scrollArea->widget();
     QVBoxLayout *layout = qobject_cast<QVBoxLayout *>(container->layout());
-    StoreSystem &system = StoreSystem::GetInstance();
-    std::shared_ptr<std::vector<std::shared_ptr<Buyable>>> buyables = system.GetBuyables();
+    StoreSystem &system = StoreSystem::getInstance();
+    std::shared_ptr<std::vector<std::shared_ptr<Buyable>>> buyables = system.getBuyables();
     if (buyables->empty()) {
         qDebug() << "WARNING! - No buyables in storesystem to display!\n";
     }
@@ -34,24 +34,24 @@ void BuyableScrollAreaMain::Populate()
         delete item;
     }
 
-    BuyableDisplayedType displayedType = system.GetBuyableDisplayedType();
-    std::string query = system.GetBuyableSearchQuery();
-    BuyableSortedBy sortedBy = system.GetBuyableSortedBy();
+    BuyableDisplayedType displayedType = system.getBuyableDisplayedType();
+    std::string query = system.getBuyableSearchQuery();
+    BuyableSortedBy sortedBy = system.getBuyableSortedBy();
 
     switch (sortedBy) {
     case BuyableSortedBy::NAME:
-        system.SortBuyables(
+        system.sortBuyables(
             [](const std::shared_ptr<Buyable> &a, const std::shared_ptr<Buyable> &b) {
-                return a->GetName() < b->GetName();
+                return a->getName() < b->getName();
             });
         break;
     case BuyableSortedBy::PRICE:
-        system.SortBuyables(
+        system.sortBuyables(
             [](const std::shared_ptr<Buyable> &a, const std::shared_ptr<Buyable> &b) {
-                uint32_t amainunit = a->GetMainUnitPrice();
-                uint32_t asubunit = a->GetSubUnitPrice();
-                uint32_t bmainunit = b->GetMainUnitPrice();
-                uint32_t bsubunit = b->GetSubUnitPrice();
+                uint32_t amainunit = a->getMainUnitPrice();
+                uint32_t asubunit = a->getSubUnitPrice();
+                uint32_t bmainunit = b->getMainUnitPrice();
+                uint32_t bsubunit = b->getSubUnitPrice();
                 if (amainunit != bmainunit) {
                     return amainunit < bmainunit;
                 }
@@ -60,9 +60,9 @@ void BuyableScrollAreaMain::Populate()
             });
         break;
     case BuyableSortedBy::RATING:
-        system.SortBuyables(
+        system.sortBuyables(
             [](const std::shared_ptr<Buyable> &a, const std::shared_ptr<Buyable> &b) {
-                return std::stof(a->GetRating()) > std::stof(b->GetRating());
+                return std::stof(a->getRating()) > std::stof(b->getRating());
             });
         break;
     }
@@ -90,7 +90,7 @@ void BuyableScrollAreaMain::Populate()
         }
 
         if (!query.empty()) {
-            QString qName = QString::fromStdString(buyable->GetName());
+            QString qName = QString::fromStdString(buyable->getName());
             QString qQuery = QString::fromStdString(query);
 
             if (!qName.contains(qQuery, Qt::CaseInsensitive)) {
@@ -104,7 +104,7 @@ void BuyableScrollAreaMain::Populate()
         QHBoxLayout *productLayout = new QHBoxLayout(productPanel);
 
         QLabel *imageLabel = new QLabel();
-        std::string imgPath = (PATH + buyable->GetImage()).c_str();
+        std::string imgPath = (PATH + buyable->getImage()).c_str();
         QPixmap pixmap(imgPath.c_str());
         imageLabel->setPixmap(pixmap.scaled(200, 200));
         productLayout->addWidget(imageLabel);
@@ -112,18 +112,18 @@ void BuyableScrollAreaMain::Populate()
         QWidget *infoPanel = new QWidget();
         QVBoxLayout *infoLayout = new QVBoxLayout(infoPanel);
 
-        QLabel *nameLabel = new QLabel(QString::fromStdString(buyable->GetName()));
+        QLabel *nameLabel = new QLabel(QString::fromStdString(buyable->getName()));
         QFont nameFont = nameLabel->font();
         nameFont.setPointSize(12);
         nameFont.setBold(true);
         nameLabel->setFont(nameFont);
         infoLayout->addWidget(nameLabel);
 
-        QLabel *ratingLabel = new QLabel(QString::fromStdString(buyable->GetRating() + "/10"));
+        QLabel *ratingLabel = new QLabel(QString::fromStdString(buyable->getRating() + "/10"));
         ratingLabel->setWordWrap(true);
         infoLayout->addWidget(ratingLabel);
 
-        QLabel *descriptionLabel = new QLabel(QString::fromStdString(buyable->GetDescription()));
+        QLabel *descriptionLabel = new QLabel(QString::fromStdString(buyable->getDescription()));
         descriptionLabel->setWordWrap(true);
         infoLayout->addWidget(descriptionLabel);
 
@@ -146,16 +146,15 @@ void BuyableScrollAreaMain::Populate()
 
         std::shared_ptr<Buyable> currentBuyable = buyable;
         QObject::connect(addToCartButton, &QPushButton::clicked, [currentBuyable]() {
-            StoreSystem &system = StoreSystem::GetInstance();
-            qDebug() << "Adding " << currentBuyable->GetName() << " to cart.";
-            system.GetCart().AddBuyable(currentBuyable);
-            qDebug() << system.GetCart().Size();
+            StoreSystem &system = StoreSystem::getInstance();
+            qDebug() << "Adding " << currentBuyable->getName() << " to cart.";
+            system.getCart().addBuyable(currentBuyable);
+            qDebug() << system.getCart().size();
         });
 
-        uint32_t mainunit;
-        uint32_t subunit;
-        buyable->GetPrice(mainunit, subunit);
-        std::string priceText = std::to_string(mainunit) + "." + std::to_string(subunit) + " ZŁ";
+        Price price = buyable->getPrice();
+        std::string priceText = std::to_string(price.getMainUnit()) + "."
+                                + std::to_string(price.getSubUnit()) + " ZŁ";
 
         QLabel *priceLabel = new QLabel(QString::fromStdString(priceText));
         priceLabel->setWordWrap(true);
@@ -185,4 +184,6 @@ BuyableScrollAreaMain::BuyableScrollAreaMain(QScrollArea *scrollArea)
     : BuyableScrollArea(scrollArea)
 {}
 
-BuyableScrollAreaMain::BuyableScrollAreaMain() : BuyableScrollArea() {}
+BuyableScrollAreaMain::BuyableScrollAreaMain()
+    : BuyableScrollArea()
+{}
