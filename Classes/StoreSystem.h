@@ -55,7 +55,8 @@ public:
     bool RemoveBuyable(const std::string &id);
     bool RemoveCustomer(const std::string &id);
 
-    void SortBuyables(const std::function<bool(const Buyable &, const Buyable &)> &comparator);
+    void SortBuyables(const std::function<bool(const std::shared_ptr<Buyable> &,
+                                               const std::shared_ptr<Buyable> &)> &comparator);
 
     static StoreSystem &GetInstance()
     {

@@ -27,8 +27,8 @@ void MainWindow::on_btnSignUp_clicked()
         ui->labelSignUpBadData->setText("Some fields have not been filled in!");
         ui->labelSignUpBadData->setVisible(true);
     } else {
-        Listing<std::shared_ptr<Customer>> customers;
-        StoreSystem::GetInstance().GetCustomers(customers);
+        StoreSystem &system = StoreSystem::GetInstance();
+        auto customers = system.GetCustomers();
         QString formEmail = ui->lineEditEmail->text();
         QString formPassword = ui->lineEditPassword->text();
         QString formPasswordR = ui->lineEditRepeatPassword->text();
@@ -39,8 +39,8 @@ void MainWindow::on_btnSignUp_clicked()
             return;
         }
 
-        if (customers.GetSize()) {
-            for (const auto &customer : customers) {
+        if (customers->size()) {
+            for (const auto &customer : *customers) {
                 QString qEmail = QString::fromStdString(customer->GetEmail());
                 if (qEmail == formEmail) {
                     ui->labelSignUpBadData->setText("A user with this email already exists!");
@@ -50,7 +50,7 @@ void MainWindow::on_btnSignUp_clicked()
             }
         }
 
-        std::string newId = "U" + std::to_string(customers.GetSize() + 1);
+        std::string newId = "U" + std::to_string(customers->size() + 1);
         std::string newName = ui->lineEditFName->text().toStdString();
         std::string newSurname = ui->lineEditLName->text().toStdString();
         std::string newEmail = formEmail.toStdString();
@@ -70,16 +70,12 @@ void MainWindow::on_btnSignUp_clicked()
                                                                            newPESEL,
                                                                            newPassword);
 
-        StoreSystem::GetInstance().AddCustomer(newCustomer);
-        StoreSystem::GetInstance().SetCurrentCustomerId(newId);
+        system.AddCustomer(newCustomer);
+        system.SetCurrentCustomerId(newId);
         ui->labelSignUpBadData->setVisible(false);
         displayAccountInfo();
-        StoreSystem::GetInstance().GetCustomers(customers);
-        std::vector<std::shared_ptr<Customer>> customersVec;
-        for (const auto &customer : customers) {
-            customersVec.push_back(customer);
-        }
-        if (!LoaderSaver<Customer>::Save(PATH + "Assets\\customers.json", customersVec)) {
+
+        if (!LoaderSaver<Customer>::Save(PATH + "Assets\\customers.json", *customers)) {
             qDebug() << "WARNING! - Saving customers.json failed!\n";
         }
         ui->stackedWidgetLogin->setCurrentWidget(ui->pageLoginLoggedIn);

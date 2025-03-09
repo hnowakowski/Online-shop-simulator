@@ -7,7 +7,6 @@
 #include <QWidget>
 #include <memory>
 #include <string>
-#include <typeinfo>
 
 #include "../mainwindow.h"
 #include "BuyableScrollAreaMain.h"
@@ -20,8 +19,8 @@ void BuyableScrollAreaMain::Populate()
     QWidget *container = scrollArea->widget();
     QVBoxLayout *layout = qobject_cast<QVBoxLayout *>(container->layout());
     StoreSystem &system = StoreSystem::GetInstance();
-    Listing<std::shared_ptr<Buyable>> buyables;
-    if (!system.GetBuyables(buyables)) {
+    std::shared_ptr<std::vector<std::shared_ptr<Buyable>>> buyables = system.GetBuyables();
+    if (buyables->empty()) {
         qDebug() << "WARNING! - No buyables in storesystem to display!\n";
     }
 
@@ -35,42 +34,40 @@ void BuyableScrollAreaMain::Populate()
         delete item;
     }
 
-    BuyableDisplayedType displayedType;
-    system.GetBuyableDisplayedType(displayedType);
-
-    std::string query;
-    system.GetBuyableSearchQuery(query);
-
-    BuyableSortedBy sortedBy;
-    system.GetBuyableSortedBy(sortedBy);
+    BuyableDisplayedType displayedType = system.GetBuyableDisplayedType();
+    std::string query = system.GetBuyableSearchQuery();
+    BuyableSortedBy sortedBy = system.GetBuyableSortedBy();
 
     switch (sortedBy) {
     case BuyableSortedBy::NAME:
-        buyables.Sort([](const std::shared_ptr<Buyable> &a, const std::shared_ptr<Buyable> &b) {
-            return a->GetName() < b->GetName();
-        });
+        system.SortBuyables(
+            [](const std::shared_ptr<Buyable> &a, const std::shared_ptr<Buyable> &b) {
+                return a->GetName() < b->GetName();
+            });
         break;
     case BuyableSortedBy::PRICE:
-        buyables.Sort([](const std::shared_ptr<Buyable> &a, const std::shared_ptr<Buyable> &b) {
-            uint32_t amainunit = a->GetMainUnitPrice();
-            uint32_t asubunit = a->GetSubUnitPrice();
-            uint32_t bmainunit = b->GetMainUnitPrice();
-            uint32_t bsubunit = b->GetSubUnitPrice();
-            if (amainunit != bmainunit) {
-                return amainunit < bmainunit;
-            }
+        system.SortBuyables(
+            [](const std::shared_ptr<Buyable> &a, const std::shared_ptr<Buyable> &b) {
+                uint32_t amainunit = a->GetMainUnitPrice();
+                uint32_t asubunit = a->GetSubUnitPrice();
+                uint32_t bmainunit = b->GetMainUnitPrice();
+                uint32_t bsubunit = b->GetSubUnitPrice();
+                if (amainunit != bmainunit) {
+                    return amainunit < bmainunit;
+                }
 
-            return asubunit < bsubunit;
-        });
+                return asubunit < bsubunit;
+            });
         break;
     case BuyableSortedBy::RATING:
-        buyables.Sort([](const std::shared_ptr<Buyable> &a, const std::shared_ptr<Buyable> &b) {
-            return std::stof(a->GetRating()) > std::stof(b->GetRating());
-        });
+        system.SortBuyables(
+            [](const std::shared_ptr<Buyable> &a, const std::shared_ptr<Buyable> &b) {
+                return std::stof(a->GetRating()) > std::stof(b->GetRating());
+            });
         break;
     }
 
-    for (auto &buyable : buyables) {
+    for (auto &buyable : *buyables) {
         // filtering
         switch (displayedType) {
         case BuyableDisplayedType::ALL:

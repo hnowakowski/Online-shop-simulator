@@ -1,7 +1,6 @@
 #include <memory>
 
 #include "Customer.h"
-#include "StoreSystem.h"
 
 std::string Customer::GetId() { return id; }
 

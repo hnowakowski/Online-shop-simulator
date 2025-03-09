@@ -22,13 +22,13 @@ void MainWindow::on_btnLogIn_clicked()
             QString::fromStdString("Some fields have not been filled in!"));
         ui->labelLoginBadData->setVisible(true);
     } else {
-        Listing<std::shared_ptr<Customer>> customers;
-        StoreSystem::GetInstance().GetCustomers(customers);
+        StoreSystem &system = StoreSystem::GetInstance();
+        auto customers = system.GetCustomers();
         QString formEmail = ui->lineEditLoginEmail->text();
         QString formPassword = ui->lineEditLoginPassword->text();
 
-        if (customers.GetSize()) {
-            for (const auto &customer : customers) {
+        if (customers->size()) {
+            for (const auto &customer : *customers) {
                 QString qEmail = QString::fromStdString(customer->GetEmail());
                 QString qPassword = QString::fromStdString(customer->GetPassword());
 

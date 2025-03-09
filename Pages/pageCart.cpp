@@ -30,16 +30,15 @@ void MainWindow::on_btnCartGotoCheckout_clicked()
     QString priceQStr = QString::fromStdString(priceStr);
     ui->labelCheckout->setText(priceQStr);
 
-    std::string currentId;
-    StoreSystem::GetInstance().GetCurrentCustomerId(currentId);
+    StoreSystem &system = StoreSystem::GetInstance();
+    std::string currentId = system.GetCurrentCustomerId();
     if (currentId == "U0") {
         ui->labelCheckoutLoggedInStatus->setVisible(true);
         ui->labelCheckoutWalletStatus->setText("Not logged in, wallet not available!");
     } else {
         ui->labelCheckoutLoggedInStatus->setVisible(false);
         ui->labelCheckoutWalletStatus->setText("Not logged in, wallet not available!");
-        std::shared_ptr<Customer> currCustomer;
-        StoreSystem::GetInstance().GetCurrentCustomer(currCustomer);
+        std::shared_ptr<Customer> currCustomer = system.GetCurrentCustomer();
         uint32_t walletFirst = currCustomer->GetWallet()->GetMainUnit();
         uint32_t walletSecond = currCustomer->GetWallet()->GetSubUnit();
         std::string walletStr = "Wallet: " + std::to_string(walletFirst) + "."

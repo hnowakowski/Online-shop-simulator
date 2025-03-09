@@ -23,8 +23,8 @@ bool operator>=(const std::shared_ptr<Wallet> wallet, const Price &price)
 
 void MainWindow::on_btnCheckoutWallet_clicked()
 {
-    std::string id;
-    StoreSystem::GetInstance().GetCurrentCustomerId(id);
+    StoreSystem &system = StoreSystem::GetInstance();
+    std::string id = system.GetCurrentCustomerId();
     if (id == "U0") {
         showWarning(ui->pageCheckout, "Cannot consume", "You are not logged in!");
         return;
@@ -45,8 +45,7 @@ void MainWindow::on_btnCheckoutWallet_clicked()
         std::pair<uint32_t, uint32_t> pricePair
             = StoreSystem::GetInstance().GetCart().GetTotalPrice();
         Price priceObj(pricePair.first, pricePair.second);
-        std::shared_ptr<Customer> currCustomer;
-        StoreSystem::GetInstance().GetCurrentCustomer(currCustomer);
+        std::shared_ptr<Customer> currCustomer = system.GetCurrentCustomer();
         if (currCustomer->GetWallet() >= priceObj) {
             showInfo(ui->pageCheckout, "Yipee!", "Products successfully consumed!");
             currCustomer->GetWallet()->RemoveMain(pricePair.first);
@@ -94,9 +93,10 @@ void MainWindow::on_btnCheckoutCard_clicked()
         ui->labelFieldsNotFilled->setVisible(true);
     } else {
         showInfo(ui->pageCheckout, "Yipee!", "Products successfully consumed!");
-        StoreSystem::GetInstance().GetCart().GetBuyables().clear();
-        qDebug() << StoreSystem::GetInstance().GetCart().Size();
-        emit StoreSystem::GetInstance().GetCart().CartChanged();
+        StoreSystem &system = StoreSystem::GetInstance();
+        system.GetCart().GetBuyables().clear();
+        qDebug() << system.GetCart().Size();
+        emit system.GetCart().CartChanged();
         cartScrollArea.Populate();
         checkoutScrollArea.Populate();
         UpdateCartTotalPrice();

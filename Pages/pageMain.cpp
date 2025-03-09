@@ -78,8 +78,7 @@ MainWindow::~MainWindow() { delete ui; }
 void MainWindow::displayAccountInfo()
 {
     StoreSystem &system = StoreSystem::GetInstance();
-    std::shared_ptr<Customer> currCustomer;
-    system.GetCurrentCustomer(currCustomer);
+    std::shared_ptr<Customer> currCustomer = system.GetCurrentCustomer();
     ui->labelUserLogin->setText(
         QString::fromStdString(currCustomer->GetName() + " " + currCustomer->GetSurname()));
     uint32_t walletFirst = currCustomer->GetWallet()->GetMainUnit();
@@ -100,7 +99,7 @@ void MainWindow::loadBuyables()
         qDebug() << "WARNING! - Loading services.json failed!\n";
     }
     for (auto buyable : loadedBuyables) {
-        if (!system.GetBuyable(buyable->GetId(), buyable)) {
+        if (!system.GetBuyable(buyable->GetId())) {
             system.AddBuyable(buyable);
         }
     }
@@ -114,9 +113,7 @@ void MainWindow::loadCustomers()
         qDebug() << "WARNING! - Loading customers.json failed!\n";
     }
     for (auto customer : loadedCustomers) {
-        if (!system.GetCustomer(customer->GetId(), customer)) {
-            system.AddCustomer(customer);
-        }
+        system.AddCustomer(customer);
     }
 }
 

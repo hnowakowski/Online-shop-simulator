@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "Product.h"
 
 uint32_t Product::GetQuantity() { return quantity; }
