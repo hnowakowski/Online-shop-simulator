@@ -19,25 +19,17 @@ protected:
     std::shared_ptr<Price> price;
 
 public:
-    virtual std::string getId();
+    virtual std::string getId() const;
 
-    virtual std::string getName();
+    virtual std::string getName() const;
 
-    virtual std::string getDescription();
+    virtual std::string getDescription() const;
 
-    virtual std::string getImage();
+    virtual std::string getImage() const;
 
-    virtual std::string getRating();
+    virtual std::string getRating() const;
 
-    virtual uint32_t getMainUnitPrice();
-
-    virtual uint32_t getSubUnitPrice();
-
-    virtual Price getPrice();
-
-    virtual void updateMainUnitPrice(const uint32_t &newmainprice);
-
-    virtual void updateSubUnitPrice(const uint32_t &newsubprice);
+    virtual std::shared_ptr<Price> getPrice();
 
     Buyable();
 

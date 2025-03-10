@@ -25,9 +25,9 @@ SOURCES += \
     Classes/AddressLineEdit.cpp \
     Classes/BuyableScrollAreaMain.cpp \
     Classes/StoreSystem.cpp \
-    Interfaces/Buyable.cpp \
-    Interfaces/BuyableScrollArea.cpp \
-    Interfaces/MoneyPossesive.cpp \
+    Abstracts/Buyable.cpp \
+    Abstracts/BuyableScrollArea.cpp \
+    Abstracts/MoneyPossesive.cpp \
     main.cpp \
     Pages/pageCart.cpp \
     Pages/pageCheckout.cpp \
@@ -53,11 +53,10 @@ HEADERS += \
     Classes/Customer.h \
     Classes/Wallet.h \
     Classes/StoreSystem.h \
-    Interfaces/Buyable.h \
-    Interfaces/BuyableScrollArea.h \
-    Interfaces/DynamicWidget.h \
-    Interfaces/MoneyPossesive.h \
-    Interfaces/Serializable.h \
+    Abstracts/Buyable.h \
+    Abstracts/BuyableScrollArea.h \
+    Abstracts/MoneyPossesive.h \
+    Abstracts/Serializable.h \
     Templates/LoaderSaver.h \
     mainwindow.h
 

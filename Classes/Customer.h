@@ -4,7 +4,7 @@
 #include <memory>
 #include <string>
 
-#include "../Interfaces/Serializable.h"
+#include "../Abstracts/Serializable.h"
 #include "Wallet.h"
 
 class Customer : virtual public Serializable
@@ -21,15 +21,15 @@ class Customer : virtual public Serializable
     std::shared_ptr<Wallet> wallet;
 
 public:
-    std::string getId();
-    std::string getName();
-    std::string getSurname();
-    std::string getEmail();
-    std::string getPhone();
-    std::string getCity();
-    std::string getAddress();
-    std::string getPESEL();
-    std::string getPassword();
+    std::string getId() const;
+    std::string getName() const;
+    std::string getSurname() const;
+    std::string getEmail() const;
+    std::string getPhone() const;
+    std::string getCity() const;
+    std::string getAddress() const;
+    std::string getPESEL() const;
+    std::string getPassword() const;
     std::shared_ptr<Wallet> getWallet();
 
     Customer &operator=(const Customer &other);
@@ -55,9 +55,9 @@ public:
              std::string password,
              std::shared_ptr<Wallet> wallet);
 
-    nlohmann::json toJSON() const;
+    nlohmann::json toJSON() const override;
 
-    void fromJSON(const nlohmann::json &json);
+    void fromJSON(const nlohmann::json &json) override;
 
     explicit Customer(const nlohmann::json &json);
 

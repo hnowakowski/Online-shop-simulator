@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-#include "../Interfaces/Buyable.h"
+#include "../Abstracts/Buyable.h"
 #include "mainwindow.h"
 
 template<typename T>

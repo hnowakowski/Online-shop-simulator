@@ -2,23 +2,50 @@
 
 #include "Customer.h"
 
-std::string Customer::getId() { return id; }
+std::string Customer::getId() const
+{
+    return id;
+}
 
-std::string Customer::getName() { return name; }
+std::string Customer::getName() const
+{
+    return name;
+}
 
-std::string Customer::getSurname() { return surname; }
+std::string Customer::getSurname() const
+{
+    return surname;
+}
 
-std::string Customer::getEmail() { return email; }
+std::string Customer::getEmail() const
+{
+    return email;
+}
 
-std::string Customer::getPhone() { return phone; }
+std::string Customer::getPhone() const
+{
+    return phone;
+}
 
-std::string Customer::getCity() { return city; }
+std::string Customer::getCity() const
+{
+    return city;
+}
 
-std::string Customer::getAddress() { return address; }
+std::string Customer::getAddress() const
+{
+    return address;
+}
 
-std::string Customer::getPESEL() { return PESEL; }
+std::string Customer::getPESEL() const
+{
+    return PESEL;
+}
 
-std::string Customer::getPassword() { return password; }
+std::string Customer::getPassword() const
+{
+    return password;
+}
 
 Customer &Customer::operator=(const Customer &other)
 {

@@ -1,7 +1,7 @@
 #include "../Enums/ServiceType.h"
 #include "Service.h"
 
-ServiceType Service::getType()
+ServiceType Service::getType() const
 {
     return servicetype;
 }

@@ -33,12 +33,12 @@ void MainWindow::on_btnCheckoutWallet_clicked()
         ui->labelFieldsNotFilled->setVisible(true);
     } else {
         ui->labelFieldsNotFilled->setVisible(false);
-        Price totalPrice = system.getCart().getTotalPrice();
+        std::shared_ptr<Price> totalPrice = system.getCart().getTotalPrice();
         std::shared_ptr<Customer> currCustomer = system.getCurrentCustomer();
-        if (*currCustomer->getWallet() >= totalPrice) {
+        if (*currCustomer->getWallet() >= *totalPrice) {
             showInfo(ui->pageCheckout, "Yipee!", "Products successfully consumed!");
-            currCustomer->getWallet()->removeMain(totalPrice.getMainUnit());
-            currCustomer->getWallet()->removeSub(totalPrice.getSubUnit());
+            currCustomer->getWallet()->subtractMain(totalPrice->getMainUnit());
+            currCustomer->getWallet()->subtractSub(totalPrice->getSubUnit());
             system.getCart().getBuyables().clear();
 
             qDebug() << system.getCart().size();

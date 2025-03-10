@@ -1,18 +1,14 @@
 #ifndef OOP_PROJECT_PRICE_H
 #define OOP_PROJECT_PRICE_H
 
-#include "../Interfaces/MoneyPossesive.h"
-#include "../Interfaces/Serializable.h"
+#include "../Abstracts/MoneyPossesive.h"
+#include "../Abstracts/Serializable.h"
 
 class Wallet;
 
-class Price : virtual public MoneyPossesive, virtual public Serializable
+class Price : public MoneyPossesive, virtual public Serializable
 {
 public:
-    void updateMainUnit(const uint32_t &newmainprice);
-
-    void updateSubUnit(const uint32_t &newsubprice);
-
     void updatePrice(const uint32_t &newmainPrice, const uint32_t &newSubprice);
 
     void addPrice(const Price &other);

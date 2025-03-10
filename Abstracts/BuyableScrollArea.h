@@ -9,9 +9,7 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
-#include "Interfaces/DynamicWidget.h"
-
-class BuyableScrollArea : public DynamicWidget
+class BuyableScrollArea
 {
 protected:
     QScrollArea *scrollArea;
@@ -21,6 +19,8 @@ public:
 
     BuyableScrollArea(QScrollArea *scrollArea);
     BuyableScrollArea();
+
+    virtual ~BuyableScrollArea() = default;
 };
 
 #endif // OOP_PROJECT_BUYABLESCROLLAREA_H

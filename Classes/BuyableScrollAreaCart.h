@@ -9,7 +9,7 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
-#include "../Interfaces/BuyableScrollArea.h"
+#include "../Abstracts/BuyableScrollArea.h"
 
 class BuyableScrollAreaCart : public BuyableScrollArea
 {

@@ -44,19 +44,14 @@ void BuyableScrollAreaMain::populate()
             [](const std::shared_ptr<Buyable> &a, const std::shared_ptr<Buyable> &b) {
                 return a->getName() < b->getName();
             });
+        for (const auto &b : *buyables) {
+            qDebug() << b->getName();
+        }
         break;
     case BuyableSortedBy::PRICE:
         system.sortBuyables(
             [](const std::shared_ptr<Buyable> &a, const std::shared_ptr<Buyable> &b) {
-                uint32_t amainunit = a->getMainUnitPrice();
-                uint32_t asubunit = a->getSubUnitPrice();
-                uint32_t bmainunit = b->getMainUnitPrice();
-                uint32_t bsubunit = b->getSubUnitPrice();
-                if (amainunit != bmainunit) {
-                    return amainunit < bmainunit;
-                }
-
-                return asubunit < bsubunit;
+                return a->getPrice() < b->getPrice();
             });
         break;
     case BuyableSortedBy::RATING:
@@ -152,9 +147,9 @@ void BuyableScrollAreaMain::populate()
             qDebug() << system.getCart().size();
         });
 
-        Price price = buyable->getPrice();
-        std::string priceText = std::to_string(price.getMainUnit()) + "."
-                                + std::to_string(price.getSubUnit()) + " ZŁ";
+        std::shared_ptr<Price> price = buyable->getPrice();
+        std::string priceText = std::to_string(price->getMainUnit()) + "."
+                                + std::to_string(price->getSubUnit()) + " ZŁ";
 
         QLabel *priceLabel = new QLabel(QString::fromStdString(priceText));
         priceLabel->setWordWrap(true);

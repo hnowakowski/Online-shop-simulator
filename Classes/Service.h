@@ -1,8 +1,8 @@
 #ifndef OOP_PROJECT_SERVICE_H
 #define OOP_PROJECT_SERVICE_H
 
+#include "../Abstracts/Buyable.h"
 #include "../Enums/ServiceType.h"
-#include "../Interfaces/Buyable.h"
 
 class Service : public Buyable
 {
@@ -10,7 +10,7 @@ private:
     ServiceType servicetype;
 
 public:
-    ServiceType getType();
+    ServiceType getType() const;
 
     Service &operator=(const Service &other);
 

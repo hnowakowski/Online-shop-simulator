@@ -7,16 +7,6 @@ void Price::updatePrice(const uint32_t& mainunit, const uint32_t& subunit)
     this->subunit = subunit % 100;
 }
 
-void Price::updateMainUnit(const uint32_t& mainunit)
-{
-    this->mainunit = mainunit;
-}
-
-void Price::updateSubUnit(const uint32_t& subunit)
-{
-    this->subunit = subunit % 100;
-}
-
 void Price::addPrice(const Price& other)
 {
     addMainUnit(other.mainunit);

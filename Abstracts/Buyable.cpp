@@ -3,33 +3,34 @@
 #include "../Classes/Product.h"
 #include "../Classes/Service.h"
 
-std::string Buyable::getId() { return id; }
-
-std::string Buyable::getName() { return name; }
-
-std::string Buyable::getDescription() { return description; }
-
-std::string Buyable::getImage() { return image; }
-
-std::string Buyable::getRating() { return rating; }
-
-Price Buyable::getPrice()
+std::string Buyable::getId() const
 {
-    return *price;
+    return id;
 }
 
-uint32_t Buyable::getMainUnitPrice() { return price->getMainUnit(); }
-
-uint32_t Buyable::getSubUnitPrice() { return price->getSubUnit(); }
-
-void Buyable::updateMainUnitPrice(const uint32_t &newmainprice)
+std::string Buyable::getName() const
 {
-    price->updateMainUnit(newmainprice);
+    return name;
 }
 
-void Buyable::updateSubUnitPrice(const uint32_t &newsubprice)
+std::string Buyable::getDescription() const
 {
-    price->updateSubUnit(newsubprice);
+    return description;
+}
+
+std::string Buyable::getImage() const
+{
+    return image;
+}
+
+std::string Buyable::getRating() const
+{
+    return rating;
+}
+
+std::shared_ptr<Price> Buyable::getPrice()
+{
+    return price;
 }
 
 Buyable::Buyable()

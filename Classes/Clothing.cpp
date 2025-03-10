@@ -15,11 +15,20 @@ Clothing::Clothing(std::string id,
     , size(size)
 {}
 
-Color Clothing::getColor() { return color; }
+Color Clothing::getColor() const
+{
+    return color;
+}
 
-std::string Clothing::getClothingType() { return clothing_type; }
+std::string Clothing::getClothingType() const
+{
+    return clothing_type;
+}
 
-uint32_t Clothing::getSize() { return size; }
+uint32_t Clothing::getSize() const
+{
+    return size;
+}
 
 Clothing &Clothing::operator=(const Clothing &other)
 {

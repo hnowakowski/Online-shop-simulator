@@ -3,18 +3,16 @@
 
 #include <cstdint>
 
-#include "../Interfaces/MoneyPossesive.h"
-#include "../Interfaces/Serializable.h"
+#include "../Abstracts/MoneyPossesive.h"
+#include "../Abstracts/Serializable.h"
 
 class Price;
 
-class Wallet : virtual public MoneyPossesive
+class Wallet : public MoneyPossesive
 {
 public:
-    void addMain(uint32_t amount);
-    void addSub(uint32_t amount);
-    void removeMain(uint32_t amount);
-    void removeSub(uint32_t amount);
+    void subtractMain(const uint32_t &amount);
+    void subtractSub(const uint32_t &amount);
 
     Wallet &operator=(const Wallet &other);
     Wallet(uint32_t mainunit, uint32_t subunit);

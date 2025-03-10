@@ -56,9 +56,9 @@ void BuyableScrollAreaCheckout::populate()
         nameLabel->setFont(nameFont);
         infoLayout->addWidget(nameLabel);
 
-        Price price = buyable->getPrice();
-        std::string priceText = std::to_string(price.getMainUnit()) + "."
-                                + std::to_string(price.getSubUnit()) + " ZŁ";
+        std::shared_ptr<Price> price = buyable->getPrice();
+        std::string priceText = std::to_string(price->getMainUnit()) + "."
+                                + std::to_string(price->getSubUnit()) + " ZŁ";
 
         QLabel *priceLabel = new QLabel(QString::fromStdString(priceText));
         QFont priceFont = priceLabel->font();

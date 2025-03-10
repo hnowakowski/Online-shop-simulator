@@ -5,9 +5,10 @@
 #include <memory>
 #include <vector>
 
-#include "Product.h"
+#include "../Abstracts/Buyable.h"
+#include "Price.h"
 
-class Cart : public QObject, public MoneyPossesive
+class Cart : public QObject
 {
     Q_OBJECT
 
@@ -16,10 +17,9 @@ class Cart : public QObject, public MoneyPossesive
 public:
     bool addBuyable(std::shared_ptr<Buyable> buyable);
     bool removeBuyable(std::shared_ptr<Buyable> buyable);
-    uint32_t size();
-    Price getTotalPrice();
+    uint32_t size() const;
+    std::shared_ptr<Price> getTotalPrice() const;
     std::vector<std::shared_ptr<Buyable>> &getBuyables();
-    Cart &operator=(const Cart &cart);
 
     Cart();
     Cart(std::vector<std::shared_ptr<Buyable>> &buyables);

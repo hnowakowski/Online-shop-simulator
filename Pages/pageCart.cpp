@@ -13,9 +13,9 @@ void MainWindow::on_btnCartGotoMain_clicked()
 
 void MainWindow::updateCartTotalPrice()
 {
-    Price totalPrice = StoreSystem::getInstance().getCart().getTotalPrice();
-    std::string priceStr = "Total: " + std::to_string(totalPrice.getMainUnit()) + "."
-                           + std::to_string(totalPrice.getSubUnit()) + " ZŁ";
+    std::shared_ptr<Price> totalPrice = StoreSystem::getInstance().getCart().getTotalPrice();
+    std::string priceStr = "Total: " + std::to_string(totalPrice->getMainUnit()) + "."
+                           + std::to_string(totalPrice->getSubUnit()) + " ZŁ";
     QString priceQStr = QString::fromStdString(priceStr);
     ui->labelCartTotalPrice->setText(priceQStr);
 }
@@ -24,9 +24,9 @@ void MainWindow::on_btnCartGotoCheckout_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->pageCheckout);
     checkoutScrollArea.populate();
-    Price totalPrice = StoreSystem::getInstance().getCart().getTotalPrice();
-    std::string priceStr = "Checkout (Total: " + std::to_string(totalPrice.getMainUnit()) + "."
-                           + std::to_string(totalPrice.getSubUnit()) + " ZŁ)";
+    std::shared_ptr<Price> totalPrice = StoreSystem::getInstance().getCart().getTotalPrice();
+    std::string priceStr = "Checkout (Total: " + std::to_string(totalPrice->getMainUnit()) + "."
+                           + std::to_string(totalPrice->getSubUnit()) + " ZŁ)";
     QString priceQStr = QString::fromStdString(priceStr);
     ui->labelCheckout->setText(priceQStr);
 

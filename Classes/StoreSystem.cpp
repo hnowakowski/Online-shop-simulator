@@ -12,8 +12,9 @@ std::shared_ptr<Buyable> StoreSystem::getBuyable(const std::string &id)
 
 std::shared_ptr<Customer> StoreSystem::getCustomer(const std::string &id)
 {
-    for (auto &customer : customers) {
-        if (customer->getId() == id) {
+    for (auto &customer :
+         customers) { //FIGURE THIS OUT SO CUSTOMER ISN'T SOME RANDOM POINTER AFTER CHANGES TO THE VECTOR
+        if (customer->getId() == id) { // BECAUSE BUYERS IS NOW A POINTER INSTEAD OF A RAW VECTOR
             return customer;
         }
     }
@@ -30,12 +31,12 @@ std::shared_ptr<std::vector<std::shared_ptr<Customer>>> StoreSystem::getCustomer
     return std::make_shared<std::vector<std::shared_ptr<Customer>>>(this->customers);
 }
 
-BuyableDisplayedType StoreSystem::getBuyableDisplayedType()
+BuyableDisplayedType StoreSystem::getBuyableDisplayedType() const
 {
     return this->buyableDisplayedType;
 }
 
-BuyableSortedBy StoreSystem::getBuyableSortedBy()
+BuyableSortedBy StoreSystem::getBuyableSortedBy() const
 {
     return this->buyableSortedBy;
 }
@@ -55,7 +56,7 @@ void StoreSystem::setBuyableSearchQuery(const std::string &query)
     this->buyableSearchQuery = query;
 }
 
-std::string StoreSystem::getBuyableSearchQuery()
+std::string StoreSystem::getBuyableSearchQuery() const
 {
     return this->buyableSearchQuery;
 }
@@ -65,7 +66,7 @@ void StoreSystem::setCurrentCustomerId(const std::string &id)
     currentCustomerId = id;
 }
 
-std::string StoreSystem::getCurrentCustomerId()
+std::string StoreSystem::getCurrentCustomerId() const
 {
     return currentCustomerId;
 }

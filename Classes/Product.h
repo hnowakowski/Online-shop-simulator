@@ -3,16 +3,16 @@
 
 #include <string>
 
-#include "../Interfaces/Buyable.h"
+#include "../Abstracts/Buyable.h"
 #include "Price.h"
 
 class Product : public Buyable
 {
 protected:
-    uint32_t quantity{};
+    uint32_t quantity;
 
 public:
-    uint32_t getQuantity();
+    uint32_t getQuantity() const;
 
     Product &operator=(const Product &other);
 

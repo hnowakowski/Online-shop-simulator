@@ -9,8 +9,8 @@
 
 class StoreSystem
 {
-    std::vector<std::shared_ptr<Buyable>> buyables;
-    std::vector<std::shared_ptr<Customer>> customers;
+    std::shared_ptr<std::vector<std::shared_ptr<Buyable>>> buyables;
+    std::shared_ptr<std::vector<std::shared_ptr<Customer>>> customers;
 
     Cart cart;
 
@@ -39,14 +39,14 @@ public:
     void setBuyableDisplayedType(const BuyableDisplayedType &buyableDisplayedType);
     void setBuyableSortedBy(const BuyableSortedBy &buyableSortedBy);
 
-    BuyableDisplayedType getBuyableDisplayedType();
-    BuyableSortedBy getBuyableSortedBy();
+    BuyableDisplayedType getBuyableDisplayedType() const;
+    BuyableSortedBy getBuyableSortedBy() const;
 
     void setBuyableSearchQuery(const std::string &query);
-    std::string getBuyableSearchQuery();
+    std::string getBuyableSearchQuery() const;
 
     void setCurrentCustomerId(const std::string &id);
-    std::string getCurrentCustomerId();
+    std::string getCurrentCustomerId() const;
 
     std::shared_ptr<Customer> getCurrentCustomer();
 
