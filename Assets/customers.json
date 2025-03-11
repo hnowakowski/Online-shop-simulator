@@ -10,8 +10,23 @@
         "phone": "111222333",
         "surname": "Kowalski",
         "wallet": {
-            "mainunit": 60,
-            "subunit": 2
+            "mainunit": 21,
+            "subunit": 3
+        }
+    },
+    {
+        "PESEL": "s",
+        "address": "s",
+        "city": "s",
+        "email": "s",
+        "id": "U2",
+        "name": "s",
+        "password": "s",
+        "phone": "s",
+        "surname": "s",
+        "wallet": {
+            "mainunit": 0,
+            "subunit": 0
         }
     }
 ]

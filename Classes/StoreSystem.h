@@ -20,7 +20,7 @@ class StoreSystem
     std::string buyableSearchQuery;
     std::string currentCustomerId;
 
-    StoreSystem() = default;
+    StoreSystem();
 
     StoreSystem(StoreSystem &other) = delete;
 

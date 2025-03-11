@@ -39,12 +39,12 @@ MoneyPossesive::MoneyPossesive()
     this->subunit = 0;
 }
 
-bool MoneyPossesive::operator>(const MoneyPossesive &other) const
+bool MoneyPossesive::operator<(const MoneyPossesive &other) const
 {
-    if (this->mainunit > other.mainunit) {
+    if (this->mainunit < other.mainunit) {
         return true;
     } else if (this->mainunit == other.mainunit) {
-        if (this->subunit > other.subunit) {
+        if (this->subunit < other.subunit) {
             return true;
         }
     }

@@ -101,10 +101,8 @@ void MainWindow::loadBuyables()
     if (!LoaderSaver<Buyable>::load(PATH + "Assets\\services.json", loadedBuyables)) {
         qDebug() << "WARNING! - Loading services.json failed!\n";
     }
-    for (auto buyable : loadedBuyables) {
-        if (!system.getBuyable(buyable->getId())) {
-            system.addBuyable(buyable);
-        }
+    for (auto &buyable : loadedBuyables) {
+        system.addBuyable(buyable);
     }
 }
 
@@ -115,7 +113,7 @@ void MainWindow::loadCustomers()
     if (!LoaderSaver<Customer>::load(PATH + "Assets\\customers.json", loadedCustomers)) {
         qDebug() << "WARNING! - Loading customers.json failed!\n";
     }
-    for (auto customer : loadedCustomers) {
+    for (auto &customer : loadedCustomers) {
         system.addCustomer(customer);
     }
 }

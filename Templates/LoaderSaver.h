@@ -41,7 +41,7 @@ public:
         return true;
     }
 
-    static bool save(const std::string &filename, const std::vector<std::shared_ptr<T>> &objects)
+    static bool save(const std::string &filename, std::vector<std::shared_ptr<T>> &objects)
     {
         nlohmann::json json;
         for (const auto &object : objects) {

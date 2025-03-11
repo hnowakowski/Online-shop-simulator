@@ -51,14 +51,20 @@ void BuyableScrollAreaMain::populate()
     case BuyableSortedBy::PRICE:
         system.sortBuyables(
             [](const std::shared_ptr<Buyable> &a, const std::shared_ptr<Buyable> &b) {
-                return a->getPrice() < b->getPrice();
+                return *(a->getPrice()) < *(b->getPrice());
             });
+        for (const auto &b : *buyables) {
+            qDebug() << b->getPrice()->getMainUnit() << " " << b->getPrice()->getSubUnit();
+        }
         break;
     case BuyableSortedBy::RATING:
         system.sortBuyables(
             [](const std::shared_ptr<Buyable> &a, const std::shared_ptr<Buyable> &b) {
                 return std::stof(a->getRating()) > std::stof(b->getRating());
             });
+        for (const auto &b : *buyables) {
+            qDebug() << b->getRating();
+        }
         break;
     }
 

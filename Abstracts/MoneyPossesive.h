@@ -22,7 +22,7 @@ public:
 
     virtual void setSubUnit(const uint32_t &amount);
 
-    virtual bool operator>(const MoneyPossesive &other) const;
+    virtual bool operator<(const MoneyPossesive &other) const;
 
     virtual bool operator>=(const MoneyPossesive &other) const;
 

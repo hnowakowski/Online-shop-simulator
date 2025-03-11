@@ -36,6 +36,7 @@ SOURCES += \
     Pages/pageSignUp.cpp
 
 HEADERS += \
+    Classes/AddressLineEdit.h \
     Classes/BuyableScrollAreaCart.h \
     Classes/BuyableScrollAreaCheckout.h \
     Enums/BuyableDisplayedType.h \

@@ -1,8 +1,15 @@
 #include "StoreSystem.h"
 
+StoreSystem::StoreSystem()
+    : buyables(std::make_shared<std::vector<std::shared_ptr<Buyable>>>())
+    , customers(std::make_shared<std::vector<std::shared_ptr<Customer>>>())
+{}
+
 std::shared_ptr<Buyable> StoreSystem::getBuyable(const std::string &id)
 {
-    for (auto &buyable : buyables) {
+    if (buyables->empty())
+        return std::shared_ptr<Buyable>();
+    for (auto &buyable : *buyables) {
         if (buyable->getId() == id) {
             return buyable;
         }
@@ -12,9 +19,10 @@ std::shared_ptr<Buyable> StoreSystem::getBuyable(const std::string &id)
 
 std::shared_ptr<Customer> StoreSystem::getCustomer(const std::string &id)
 {
-    for (auto &customer :
-         customers) { //FIGURE THIS OUT SO CUSTOMER ISN'T SOME RANDOM POINTER AFTER CHANGES TO THE VECTOR
-        if (customer->getId() == id) { // BECAUSE BUYERS IS NOW A POINTER INSTEAD OF A RAW VECTOR
+    if (customers->empty())
+        return std::shared_ptr<Customer>();
+    for (auto &customer : *customers) {
+        if (customer->getId() == id) {
             return customer;
         }
     }
@@ -23,12 +31,12 @@ std::shared_ptr<Customer> StoreSystem::getCustomer(const std::string &id)
 
 std::shared_ptr<std::vector<std::shared_ptr<Buyable>>> StoreSystem::getBuyables()
 {
-    return std::make_shared<std::vector<std::shared_ptr<Buyable>>>(this->buyables);
+    return buyables;
 }
 
 std::shared_ptr<std::vector<std::shared_ptr<Customer>>> StoreSystem::getCustomers()
 {
-    return std::make_shared<std::vector<std::shared_ptr<Customer>>>(this->customers);
+    return customers;
 }
 
 BuyableDisplayedType StoreSystem::getBuyableDisplayedType() const
@@ -84,7 +92,7 @@ Cart &StoreSystem::getCart()
 bool StoreSystem::addBuyable(std::shared_ptr<Buyable> &buyable)
 {
     if (!getBuyable(buyable->getId())) {
-        buyables.push_back(buyable);
+        buyables->push_back(buyable);
         return true;
     }
     return false;
@@ -93,7 +101,7 @@ bool StoreSystem::addBuyable(std::shared_ptr<Buyable> &buyable)
 bool StoreSystem::addCustomer(std::shared_ptr<Customer> &customer)
 {
     if (!getCustomer(customer->getId())) {
-        customers.push_back(customer);
+        customers->push_back(customer);
         return true;
     }
     return false;
@@ -101,9 +109,9 @@ bool StoreSystem::addCustomer(std::shared_ptr<Customer> &customer)
 
 bool StoreSystem::removeBuyable(const std::string &id)
 {
-    for (int i = 0; i < buyables.size(); i++) {
-        if (buyables[i]->getId() == id) {
-            buyables.erase(buyables.begin() + i);
+    for (int i = 0; i < buyables->size(); i++) {
+        if ((*buyables)[i]->getId() == id) {
+            buyables->erase(buyables->begin() + i);
             return true;
         }
     }
@@ -112,9 +120,9 @@ bool StoreSystem::removeBuyable(const std::string &id)
 
 bool StoreSystem::removeCustomer(const std::string &id)
 {
-    for (int i = 0; i < customers.size(); i++) {
-        if (customers[i]->getId() == id) {
-            customers.erase(customers.begin() + i);
+    for (int i = 0; i < customers->size(); i++) {
+        if ((*customers)[i]->getId() == id) {
+            customers->erase(customers->begin() + i);
             return true;
         }
     }
@@ -125,5 +133,5 @@ void StoreSystem::sortBuyables(
     const std::function<bool(const std::shared_ptr<Buyable> &, const std::shared_ptr<Buyable> &)>
         &comparator)
 {
-    std::sort(buyables.begin(), buyables.end(), comparator);
+    std::sort(buyables->begin(), buyables->end(), comparator);
 }
