@@ -4,17 +4,14 @@
 #include <QMainWindow>
 
 #include "Classes/BuyableScrollAreaCart.h"
-#include "Classes/BuyableScrollAreaMain.h"
 #include "Classes/BuyableScrollAreaCheckout.h"
+#include "Classes/BuyableScrollAreaMain.h"
 #include "ui_mainwindow.h"
 
-
-#define PATH (std::filesystem::current_path().string() + "\\..\\..\\..\\")
-
+#define PATH (std::filesystem::current_path().string() + "\\..\\..\\")
 
 QT_BEGIN_NAMESPACE
-namespace Ui
-{
+namespace Ui {
 class MainWindow;
 }
 QT_END_NAMESPACE
@@ -23,11 +20,11 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
-  public:
-    MainWindow(QWidget* parent = nullptr);
+public:
+    MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-  private slots:
+private slots:
     void on_comboBoxSearch_currentIndexChanged(int index);
 
     void on_btnSearch_clicked();
@@ -38,9 +35,9 @@ class MainWindow : public QMainWindow
 
     void on_radioRating_clicked();
 
-    void UpdateCartLabel();
+    void updateCartLabel();
 
-    void UpdateCartTotalPrice();
+    void updateCartTotalPrice();
 
     void on_btnMainGotoCart_clicked();
 
@@ -68,15 +65,15 @@ class MainWindow : public QMainWindow
 
     void on_btnCheckoutCard_clicked();
 
-  private:
-    Ui::MainWindow*           ui;
-    BuyableScrollAreaMain     mainScrollArea;
-    BuyableScrollAreaCart     cartScrollArea;
+private:
+    Ui::MainWindow *ui;
+    BuyableScrollAreaMain mainScrollArea;
+    BuyableScrollAreaCart cartScrollArea;
     BuyableScrollAreaCheckout checkoutScrollArea;
 
-    void showInfo(QWidget* parent, std::string title, std::string text);
-    void showWarning(QWidget* parent, std::string title, std::string text);
-    void showError(QWidget* parent, std::string title, std::string text);
+    void showInfo(QWidget *parent, std::string title, std::string text);
+    void showWarning(QWidget *parent, std::string title, std::string text);
+    void showError(QWidget *parent, std::string title, std::string text);
     void displayAccountInfo();
     void loadBuyables();
     void loadCustomers();

@@ -1,60 +1,63 @@
-#include <iostream>
-
 #include "Product.h"
 
-uint32_t Product::GetQuantity() { return quantity; }
+uint32_t Product::getQuantity() const
+{
+    return quantity;
+}
 
 Product::Product() {}
 
-Product::Product(std::string            id,
-                 std::string            name,
-                 std::string            description,
-                 std::string            image,
-                 std::string            rating,
-                 uint32_t               quantity,
+Product::Product(std::string id,
+                 std::string name,
+                 std::string description,
+                 std::string image,
+                 std::string rating,
+                 uint32_t quantity,
                  std::shared_ptr<Price> price)
-    : Buyable(id, name, description, image, rating, price), quantity(quantity)
-{
-}
+    : Buyable(id, name, description, image, rating, price)
+    , quantity(quantity)
+{}
 
-Product& Product::operator=(const Product& other)
+Product &Product::operator=(const Product &other)
 {
-    if (this == &other)
-    {
+    if (this == &other) {
         return *this;
     }
 
-    this->id          = other.id;
-    this->name        = other.name;
+    this->id = other.id;
+    this->name = other.name;
     this->description = other.description;
-    this->image       = other.image;
-    this->rating      = other.rating;
-    this->quantity    = other.quantity;
-    this->price       = other.price;
+    this->image = other.image;
+    this->rating = other.rating;
+    this->quantity = other.quantity;
+    this->price = other.price;
 
     return *this;
 }
 
 nlohmann::json Product::toJSON() const
 {
-    return nlohmann::json {{"id", id},
-                           {"name", name},
-                           {"description", description},
-                           {"image", image},
-                           {"rating", rating},
-                           {"quantity", quantity},
-                           {"price", price->toJSON()}};
+    return nlohmann::json{{"id", id},
+                          {"name", name},
+                          {"description", description},
+                          {"image", image},
+                          {"rating", rating},
+                          {"quantity", quantity},
+                          {"price", price->toJSON()}};
 }
 
-void Product::fromJSON(const nlohmann::json& json)
+void Product::fromJSON(const nlohmann::json &json)
 {
-    id          = json.at("id").get<std::string>();
-    name        = json.at("name").get<std::string>();
+    id = json.at("id").get<std::string>();
+    name = json.at("name").get<std::string>();
     description = json.at("description").get<std::string>();
-    image       = json.at("image").get<std::string>();
-    rating      = json.at("rating").get<std::string>();
-    quantity    = json.at("quantity").get<uint32_t>();
-    price       = std::make_shared<Price>(json.at("price"));
+    image = json.at("image").get<std::string>();
+    rating = json.at("rating").get<std::string>();
+    quantity = json.at("quantity").get<uint32_t>();
+    price = std::make_shared<Price>(json.at("price"));
 }
 
-Product::Product(const nlohmann::json& json) { this->Product::fromJSON(json); }
+Product::Product(const nlohmann::json &json)
+{
+    this->Product::fromJSON(json);
+}

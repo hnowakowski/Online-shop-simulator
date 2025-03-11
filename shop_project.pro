@@ -21,22 +21,22 @@ SOURCES += \
     Classes/Cart.cpp \
     Classes/Clothing.cpp \
     Classes/Customer.cpp \
-    Classes/Order.cpp \
     Classes/Wallet.cpp \
     Classes/AddressLineEdit.cpp \
     Classes/BuyableScrollAreaMain.cpp \
     Classes/StoreSystem.cpp \
-    Interfaces/Buyable.cpp \
-    Interfaces/BuyableScrollArea.cpp \
-    Interfaces/MoneyPossesive.cpp \
+    Abstracts/Buyable.cpp \
+    Abstracts/BuyableScrollArea.cpp \
+    Abstracts/MoneyPossesive.cpp \
     main.cpp \
-    pageCart.cpp \
-    pageCheckout.cpp \
-    pageLogin.cpp \
-    pageMain.cpp \
-    pageSignUp.cpp
+    Pages/pageCart.cpp \
+    Pages/pageCheckout.cpp \
+    Pages/pageLogin.cpp \
+    Pages/pageMain.cpp \
+    Pages/pageSignUp.cpp
 
 HEADERS += \
+    Classes/AddressLineEdit.h \
     Classes/BuyableScrollAreaCart.h \
     Classes/BuyableScrollAreaCheckout.h \
     Enums/BuyableDisplayedType.h \
@@ -52,15 +52,12 @@ HEADERS += \
     Classes/Cart.h \
     Classes/Clothing.h \
     Classes/Customer.h \
-    Classes/Order.h \
     Classes/Wallet.h \
     Classes/StoreSystem.h \
-    Interfaces/Buyable.h \
-    Interfaces/BuyableScrollArea.h \
-    Interfaces/DynamicWidget.h \
-    Interfaces/MoneyPossesive.h \
-    Interfaces/Serializable.h \
-    Templates/Listing.h \
+    Abstracts/Buyable.h \
+    Abstracts/BuyableScrollArea.h \
+    Abstracts/MoneyPossesive.h \
+    Abstracts/Serializable.h \
     Templates/LoaderSaver.h \
     mainwindow.h
 

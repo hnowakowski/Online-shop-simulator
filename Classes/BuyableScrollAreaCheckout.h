@@ -9,16 +9,15 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
-#include "../Interfaces/BuyableScrollArea.h"
+#include "../Abstracts/BuyableScrollArea.h"
 
 class BuyableScrollAreaCheckout : public BuyableScrollArea
 {
-  public:
-    void Populate();
+public:
+    void populate();
 
-    BuyableScrollAreaCheckout(QScrollArea* scrollArea);
+    BuyableScrollAreaCheckout(QScrollArea *scrollArea);
     BuyableScrollAreaCheckout();
 };
-
 
 #endif // BUYABLESCROLLAREACHECKOUT_H

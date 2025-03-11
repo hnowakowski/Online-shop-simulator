@@ -8,5 +8,8 @@
 
 #include "BuyableScrollArea.h"
 
-BuyableScrollArea::BuyableScrollArea(QScrollArea* scrollArea) : scrollArea(scrollArea) {};
-BuyableScrollArea::BuyableScrollArea() : scrollArea(nullptr) {};
+BuyableScrollArea::BuyableScrollArea(QScrollArea *scrollArea)
+    : scrollArea(scrollArea) {};
+
+BuyableScrollArea::BuyableScrollArea()
+    : scrollArea(nullptr) {};

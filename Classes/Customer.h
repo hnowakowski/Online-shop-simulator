@@ -4,55 +4,62 @@
 #include <memory>
 #include <string>
 
+#include "../Abstracts/Serializable.h"
 #include "Wallet.h"
-#include "../Interfaces/Serializable.h"
 
 class Customer : virtual public Serializable
 {
-    std::string             id;
-    std::string             name;
-    std::string             surname;
-    std::string             email;
-    std::string             phone;
-    std::string             city;
-    std::string             address;
-    std::string             PESEL;
-    std::string             password;
+    std::string id;
+    std::string name;
+    std::string surname;
+    std::string email;
+    std::string phone;
+    std::string city;
+    std::string address;
+    std::string PESEL;
+    std::string password;
     std::shared_ptr<Wallet> wallet;
 
-  public:
-    std::string             GetId();
-    std::string             GetName();
-    std::string             GetSurname();
-    std::string             GetEmail();
-    std::string             GetPhone();
-    std::string             GetCity();
-    std::string             GetAddress();
-    std::string             GetPESEL();
-    std::string             GetPassword();
-    std::shared_ptr<Wallet> GetWallet();
+public:
+    std::string getId() const;
+    std::string getName() const;
+    std::string getSurname() const;
+    std::string getEmail() const;
+    std::string getPhone() const;
+    std::string getCity() const;
+    std::string getAddress() const;
+    std::string getPESEL() const;
+    std::string getPassword() const;
+    std::shared_ptr<Wallet> getWallet();
 
-    Customer& operator=(const Customer& other);
+    Customer &operator=(const Customer &other);
 
-    Customer(std::string id, std::string name, std::string surname, std::string email, std::string phone, std::string city,
-             std::string address, std::string PESEL, std::string password);
+    Customer(std::string id,
+             std::string name,
+             std::string surname,
+             std::string email,
+             std::string phone,
+             std::string city,
+             std::string address,
+             std::string PESEL,
+             std::string password);
 
-    Customer(std::string             id,
-             std::string             name,
-             std::string             surname,
-             std::string             email,
-             std::string             phone,
-             std::string             city,
-             std::string             address,
-             std::string             PESEL,
-             std::string             password,
+    Customer(std::string id,
+             std::string name,
+             std::string surname,
+             std::string email,
+             std::string phone,
+             std::string city,
+             std::string address,
+             std::string PESEL,
+             std::string password,
              std::shared_ptr<Wallet> wallet);
 
-    nlohmann::json toJSON() const;
+    nlohmann::json toJSON() const override;
 
-    void fromJSON(const nlohmann::json& json);
+    void fromJSON(const nlohmann::json &json) override;
 
-    explicit Customer(const nlohmann::json& json);
+    explicit Customer(const nlohmann::json &json);
 
     ~Customer() = default;
 };

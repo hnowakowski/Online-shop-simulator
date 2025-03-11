@@ -5,15 +5,14 @@
 
 class Serializable
 {
-  protected:
-    Serializable() = default;
-
-  public:
+public:
     virtual nlohmann::json toJSON() const = 0;
 
-    virtual void fromJSON(const nlohmann::json& json) = 0;
+    virtual void fromJSON(const nlohmann::json &json) = 0;
 
-    explicit Serializable(const nlohmann::json& json);
+    explicit Serializable(const nlohmann::json &json);
+
+    Serializable() = default;
 
     virtual ~Serializable() = default;
 };
