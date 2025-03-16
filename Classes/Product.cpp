@@ -5,6 +5,11 @@ uint32_t Product::getQuantity() const
     return quantity;
 }
 
+void Product::setQuantity(const uint32_t &quantity)
+{
+    this->quantity = quantity;
+}
+
 Product::Product() {}
 
 Product::Product(std::string id,

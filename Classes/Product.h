@@ -14,6 +14,8 @@ protected:
 public:
     uint32_t getQuantity() const;
 
+    void setQuantity(const uint32_t &quantity);
+
     Product &operator=(const Product &other);
 
     Product();

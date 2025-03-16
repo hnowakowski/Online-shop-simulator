@@ -44,27 +44,27 @@ void BuyableScrollAreaMain::populate()
             [](const std::shared_ptr<Buyable> &a, const std::shared_ptr<Buyable> &b) {
                 return a->getName() < b->getName();
             });
-        for (const auto &b : *buyables) {
-            qDebug() << b->getName();
-        }
+        // for (const auto &b : *buyables) {
+        //     qDebug() << b->getName();
+        // }
         break;
     case BuyableSortedBy::PRICE:
         system.sortBuyables(
             [](const std::shared_ptr<Buyable> &a, const std::shared_ptr<Buyable> &b) {
                 return *(a->getPrice()) < *(b->getPrice());
             });
-        for (const auto &b : *buyables) {
-            qDebug() << b->getPrice()->getMainUnit() << " " << b->getPrice()->getSubUnit();
-        }
+        // for (const auto &b : *buyables) {
+        //     qDebug() << b->getPrice()->getMainUnit() << " " << b->getPrice()->getSubUnit();
+        // }
         break;
     case BuyableSortedBy::RATING:
         system.sortBuyables(
             [](const std::shared_ptr<Buyable> &a, const std::shared_ptr<Buyable> &b) {
                 return std::stof(a->getRating()) > std::stof(b->getRating());
             });
-        for (const auto &b : *buyables) {
-            qDebug() << b->getRating();
-        }
+        // for (const auto &b : *buyables) {
+        //     qDebug() << b->getRating();
+        // }
         break;
     }
 
@@ -121,11 +121,10 @@ void BuyableScrollAreaMain::populate()
         infoLayout->addWidget(nameLabel);
 
         QLabel *ratingLabel = new QLabel(QString::fromStdString(buyable->getRating() + "/10"));
-        ratingLabel->setWordWrap(true);
         infoLayout->addWidget(ratingLabel);
 
         QLabel *descriptionLabel = new QLabel(QString::fromStdString(buyable->getDescription()));
-        descriptionLabel->setWordWrap(true);
+        //descriptionLabel->setWordWrap(true);
         infoLayout->addWidget(descriptionLabel);
 
         productLayout->addWidget(infoPanel);
@@ -145,21 +144,45 @@ void BuyableScrollAreaMain::populate()
         QPushButton *addToCartButton = new QPushButton("Add to Cart");
         buttonLayout->addWidget(addToCartButton);
 
-        std::shared_ptr<Buyable> currentBuyable = buyable;
-        QObject::connect(addToCartButton, &QPushButton::clicked, [currentBuyable]() {
-            StoreSystem &system = StoreSystem::getInstance();
-            qDebug() << "Adding " << currentBuyable->getName() << " to cart.";
-            system.getCart().addBuyable(currentBuyable);
-            qDebug() << system.getCart().size();
-        });
+        std::string quantityText = "";
+
+        if (std::shared_ptr<Product> product = std::dynamic_pointer_cast<Product>(buyable)) {
+            uint32_t quantity = product->getQuantity();
+            quantityText = "In stock: " + std::to_string(quantity);
+            if (quantity == 0) {
+                addToCartButton->setDisabled(true);
+            }
+        }
+        QLabel *quantityLabel = new QLabel(QString::fromStdString(quantityText));
+
+        QObject::connect(addToCartButton,
+                         &QPushButton::clicked,
+                         [buyable, quantityLabel, addToCartButton]() {
+                             StoreSystem &system = StoreSystem::getInstance();
+                             //qDebug() << "Adding " << buyable->getName() << " to cart.";
+
+                             if (std::shared_ptr<Product> product
+                                 = std::dynamic_pointer_cast<Product>(buyable)) {
+                                 uint32_t newQuantity = product->getQuantity() - 1;
+                                 product->setQuantity(newQuantity);
+
+                                 quantityLabel->setText(QString::fromStdString(
+                                     "In stock: " + std::to_string(newQuantity)));
+
+                                 if (newQuantity == 0) {
+                                     addToCartButton->setDisabled(true);
+                                 }
+                             }
+                             system.getCart().addBuyable(buyable);
+                         });
 
         std::shared_ptr<Price> price = buyable->getPrice();
         std::string priceText = std::to_string(price->getMainUnit()) + "."
                                 + std::to_string(price->getSubUnit()) + " ZŁ";
 
         QLabel *priceLabel = new QLabel(QString::fromStdString(priceText));
-        priceLabel->setWordWrap(true);
         buttonLayout->addWidget(priceLabel);
+        buttonLayout->addWidget(quantityLabel);
 
         QSpacerItem *vButtonSpacerBottom = new QSpacerItem(40,
                                                            20,
