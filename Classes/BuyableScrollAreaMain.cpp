@@ -163,13 +163,12 @@ void BuyableScrollAreaMain::populate()
 
                              if (std::shared_ptr<Product> product
                                  = std::dynamic_pointer_cast<Product>(buyable)) {
-                                 uint32_t newQuantity = product->getQuantity() - 1;
-                                 product->setQuantity(newQuantity);
+                                 product->setQuantity(product->getQuantity() - 1);
 
                                  quantityLabel->setText(QString::fromStdString(
-                                     "In stock: " + std::to_string(newQuantity)));
+                                     "In stock: " + std::to_string(product->getQuantity())));
 
-                                 if (newQuantity == 0) {
+                                 if (product->getQuantity() == 0) {
                                      addToCartButton->setDisabled(true);
                                  }
                              }

@@ -75,12 +75,14 @@ void BuyableScrollAreaCart::populate()
         QPushButton *removeFromCartButton = new QPushButton("Remove from cart");
         productLayout->addWidget(removeFromCartButton);
 
-        std::shared_ptr<Buyable> currentBuyable = buyable;
-        QObject::connect(removeFromCartButton, &QPushButton::clicked, [currentBuyable, this]() {
+        QObject::connect(removeFromCartButton, &QPushButton::clicked, [buyable, this]() {
             StoreSystem &system = StoreSystem::getInstance();
-            qDebug() << "Removing " << currentBuyable->getName() << " from cart.";
-            system.getCart().removeBuyable(currentBuyable);
-            qDebug() << system.getCart().size();
+            //qDebug() << "Removing " << currentBuyable->getName() << " from cart.";
+            if (std::shared_ptr<Product> product = std::dynamic_pointer_cast<Product>(buyable)) {
+                product->setQuantity(product->getQuantity() + 1);
+            }
+            system.getCart().removeBuyable(buyable);
+            //qDebug() << system.getCart().size();
             this->populate();
         });
 
