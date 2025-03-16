@@ -4,21 +4,21 @@
 
 bool Cart::addBuyable(std::shared_ptr<Buyable> buyable)
 {
-    buyables.push_back(buyable);
+    buyables->push_back(buyable);
     emit cartChanged();
     return true;
 }
 
 bool Cart::removeBuyable(std::shared_ptr<Buyable> buyable)
 {
-    auto it = std::find_if(buyables.begin(),
-                           buyables.end(),
+    auto it = std::find_if(buyables->begin(),
+                           buyables->end(),
                            [&buyable](const std::shared_ptr<Buyable> &item) {
                                return item == buyable;
                            });
 
-    if (it != buyables.end()) {
-        buyables.erase(it);
+    if (it != buyables->end()) {
+        buyables->erase(it);
         emit cartChanged();
         return true;
     }
@@ -27,13 +27,13 @@ bool Cart::removeBuyable(std::shared_ptr<Buyable> buyable)
 
 uint32_t Cart::size() const
 {
-    return buyables.size();
+    return buyables->size();
 }
 
 std::shared_ptr<Price> Cart::getTotalPrice() const
 {
     std::shared_ptr<Price> totalPrice = std::make_shared<Price>();
-    for (auto &buyable : buyables) {
+    for (auto &buyable : *buyables) {
         std::shared_ptr<Price> bPrice = buyable->getPrice();
         totalPrice->addPrice(*bPrice);
     }
@@ -41,17 +41,17 @@ std::shared_ptr<Price> Cart::getTotalPrice() const
     return totalPrice;
 }
 
-std::vector<std::shared_ptr<Buyable>> &Cart::getBuyables()
+std::shared_ptr<std::vector<std::shared_ptr<Buyable>>> &Cart::getBuyables()
 {
     return buyables;
 }
 
 Cart::Cart()
 {
-    this->buyables = std::vector<std::shared_ptr<Buyable>>();
+    this->buyables = std::make_shared<std::vector<std::shared_ptr<Buyable>>>();
 }
 
-Cart::Cart(std::vector<std::shared_ptr<Buyable>> &buyables)
+Cart::Cart(std::shared_ptr<std::vector<std::shared_ptr<Buyable>>> &buyables)
 {
     this->buyables = buyables;
 }

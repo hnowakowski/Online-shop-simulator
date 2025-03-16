@@ -12,17 +12,17 @@ class Cart : public QObject
 {
     Q_OBJECT
 
-    std::vector<std::shared_ptr<Buyable>> buyables;
+    std::shared_ptr<std::vector<std::shared_ptr<Buyable>>> buyables;
 
 public:
     bool addBuyable(std::shared_ptr<Buyable> buyable);
     bool removeBuyable(std::shared_ptr<Buyable> buyable);
     uint32_t size() const;
     std::shared_ptr<Price> getTotalPrice() const;
-    std::vector<std::shared_ptr<Buyable>> &getBuyables();
+    std::shared_ptr<std::vector<std::shared_ptr<Buyable>>> &getBuyables();
 
     Cart();
-    Cart(std::vector<std::shared_ptr<Buyable>> &buyables);
+    Cart(std::shared_ptr<std::vector<std::shared_ptr<Buyable>>> &buyables);
 
 signals:
     void cartChanged();

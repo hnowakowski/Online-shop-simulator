@@ -14,26 +14,13 @@
 #include "Service.h"
 #include "StoreSystem.h"
 
-void BuyableScrollAreaMain::populate()
+void BuyableScrollAreaMain::populateElements(QVBoxLayout *layout)
 {
-    QWidget *container = scrollArea->widget();
-    QVBoxLayout *layout = qobject_cast<QVBoxLayout *>(container->layout());
     StoreSystem &system = StoreSystem::getInstance();
     std::shared_ptr<std::vector<std::shared_ptr<Buyable>>> buyables = system.getBuyables();
     if (buyables->empty()) {
         qDebug() << "WARNING! - No buyables in storesystem to display!\n";
     }
-
-    if (!layout) {
-        layout = new QVBoxLayout(container);
-        container->setLayout(layout);
-    }
-
-    while (QLayoutItem *item = layout->takeAt(0)) {
-        delete item->widget();
-        delete item;
-    }
-
     BuyableDisplayedType displayedType = system.getBuyableDisplayedType();
     std::string query = system.getBuyableSearchQuery();
     BuyableSortedBy sortedBy = system.getBuyableSortedBy();
@@ -103,11 +90,6 @@ void BuyableScrollAreaMain::populate()
     }
 
     scrollArea->widget()->adjustSize();
-}
-
-void BuyableScrollAreaMain::updateBuyables()
-{
-    //idk
 }
 
 void BuyableScrollAreaMain::displayBuyable(std::shared_ptr<Buyable> &buyable, QVBoxLayout *layout)

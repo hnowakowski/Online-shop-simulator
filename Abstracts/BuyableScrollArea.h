@@ -8,14 +8,19 @@
 #include <QScrollArea>
 #include <QVBoxLayout>
 #include <QWidget>
+#include "Buyable.h"
 
 class BuyableScrollArea
 {
 protected:
     QScrollArea *scrollArea;
 
+    virtual void populateElements(QVBoxLayout *layout) = 0;
+
+    void clearArea();
+
 public:
-    virtual void populate() = 0;
+    void populate();
 
     BuyableScrollArea(QScrollArea *scrollArea);
     BuyableScrollArea();

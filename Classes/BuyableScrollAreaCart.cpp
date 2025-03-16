@@ -15,85 +15,74 @@
 #include "Service.h"
 #include "StoreSystem.h"
 
-void BuyableScrollAreaCart::populate()
+void BuyableScrollAreaCart::populateElements(QVBoxLayout *layout)
 {
-    QWidget *container = scrollArea->widget();
-    QVBoxLayout *layout = qobject_cast<QVBoxLayout *>(container->layout());
     StoreSystem &system = StoreSystem::getInstance();
-    std::vector<std::shared_ptr<Buyable>> buyables = system.getCart().getBuyables();
+    std::shared_ptr<std::vector<std::shared_ptr<Buyable>>> buyables = system.getCart().getBuyables();
 
-    if (buyables.empty()) {
-        qDebug() << "WARNING! - No buyables in storesystem to display!\n";
+    for (auto &buyable : *buyables) {
+        displayBuyable(buyable, layout);
     }
+}
 
-    if (!layout) {
-        layout = new QVBoxLayout(container);
-        container->setLayout(layout);
-    }
+void BuyableScrollAreaCart::displayBuyable(std::shared_ptr<Buyable> &buyable, QVBoxLayout *layout)
+{
+    QWidget *productPanel = new QWidget();
+    QHBoxLayout *productLayout = new QHBoxLayout(productPanel);
 
-    while (QLayoutItem *item = layout->takeAt(0)) {
-        delete item->widget();
-        delete item;
-    }
+    QLabel *imageLabel = new QLabel();
+    std::string imgPath = (PATH + buyable->getImage()).c_str();
+    QPixmap pixmap(imgPath.c_str());
+    imageLabel->setPixmap(pixmap.scaled(100, 100));
+    productLayout->addWidget(imageLabel);
 
-    for (auto &buyable : buyables) {
-        QWidget *productPanel = new QWidget();
-        QHBoxLayout *productLayout = new QHBoxLayout(productPanel);
+    QWidget *infoPanel = new QWidget();
+    QVBoxLayout *infoLayout = new QVBoxLayout(infoPanel);
 
-        QLabel *imageLabel = new QLabel();
-        std::string imgPath = (PATH + buyable->getImage()).c_str();
-        QPixmap pixmap(imgPath.c_str());
-        imageLabel->setPixmap(pixmap.scaled(100, 100));
-        productLayout->addWidget(imageLabel);
+    QLabel *nameLabel = new QLabel(QString::fromStdString(buyable->getName()));
+    QFont nameFont = nameLabel->font();
+    nameFont.setPointSize(14);
+    nameFont.setBold(true);
+    nameLabel->setFont(nameFont);
+    infoLayout->addWidget(nameLabel);
 
-        QWidget *infoPanel = new QWidget();
-        QVBoxLayout *infoLayout = new QVBoxLayout(infoPanel);
+    std::shared_ptr<Price> price = buyable->getPrice();
+    std::string priceText = std::to_string(price->getMainUnit()) + "."
+                            + std::to_string(price->getSubUnit()) + " ZŁ";
 
-        QLabel *nameLabel = new QLabel(QString::fromStdString(buyable->getName()));
-        QFont nameFont = nameLabel->font();
-        nameFont.setPointSize(14);
-        nameFont.setBold(true);
-        nameLabel->setFont(nameFont);
-        infoLayout->addWidget(nameLabel);
+    QLabel *priceLabel = new QLabel(QString::fromStdString(priceText));
+    QFont priceFont = priceLabel->font();
+    priceFont.setPointSize(12);
+    priceLabel->setFont(priceFont);
+    priceLabel->setWordWrap(true);
+    infoLayout->addWidget(priceLabel);
 
-        std::shared_ptr<Price> price = buyable->getPrice();
-        std::string priceText = std::to_string(price->getMainUnit()) + "."
-                                + std::to_string(price->getSubUnit()) + " ZŁ";
+    productLayout->addWidget(infoPanel);
 
-        QLabel *priceLabel = new QLabel(QString::fromStdString(priceText));
-        QFont priceFont = priceLabel->font();
-        priceFont.setPointSize(12);
-        priceLabel->setFont(priceFont);
-        priceLabel->setWordWrap(true);
-        infoLayout->addWidget(priceLabel);
+    QSpacerItem *horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding);
+    productLayout->addItem(horizontalSpacer);
 
-        productLayout->addWidget(infoPanel);
+    QPushButton *removeFromCartButton = new QPushButton("Remove from cart");
+    productLayout->addWidget(removeFromCartButton);
 
-        QSpacerItem *horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding);
-        productLayout->addItem(horizontalSpacer);
+    QObject::connect(removeFromCartButton, &QPushButton::clicked, [buyable, this]() {
+        StoreSystem &system = StoreSystem::getInstance();
+        //qDebug() << "Removing " << currentBuyable->getName() << " from cart.";
+        if (std::shared_ptr<Product> product = std::dynamic_pointer_cast<Product>(buyable)) {
+            product->setQuantity(product->getQuantity() + 1);
+        }
+        system.getCart().removeBuyable(buyable);
+        //qDebug() << system.getCart().size();
+        this->populate();
+    });
 
-        QPushButton *removeFromCartButton = new QPushButton("Remove from cart");
-        productLayout->addWidget(removeFromCartButton);
+    layout->addWidget(productPanel);
 
-        QObject::connect(removeFromCartButton, &QPushButton::clicked, [buyable, this]() {
-            StoreSystem &system = StoreSystem::getInstance();
-            //qDebug() << "Removing " << currentBuyable->getName() << " from cart.";
-            if (std::shared_ptr<Product> product = std::dynamic_pointer_cast<Product>(buyable)) {
-                product->setQuantity(product->getQuantity() + 1);
-            }
-            system.getCart().removeBuyable(buyable);
-            //qDebug() << system.getCart().size();
-            this->populate();
-        });
-
-        layout->addWidget(productPanel);
-
-        QFrame *sepLine = new QFrame();
-        sepLine->setFrameShape(QFrame::HLine);
-        sepLine->setFrameShadow(QFrame::Plain);
-        sepLine->setLineWidth(1);
-        layout->addWidget(sepLine);
-    }
+    QFrame *sepLine = new QFrame();
+    sepLine->setFrameShape(QFrame::HLine);
+    sepLine->setFrameShadow(QFrame::Plain);
+    sepLine->setLineWidth(1);
+    layout->addWidget(sepLine);
 }
 
 BuyableScrollAreaCart::BuyableScrollAreaCart(QScrollArea *scrollArea)
