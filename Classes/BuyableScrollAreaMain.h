@@ -9,12 +9,17 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
+#include "../Abstracts/Buyable.h"
 #include "../Abstracts/BuyableScrollArea.h"
 
 class BuyableScrollAreaMain : public BuyableScrollArea
 {
 public:
     void populate();
+
+    void updateBuyables();
+
+    void displayBuyable(std::shared_ptr<Buyable> &buyable, QVBoxLayout *layout);
 
     BuyableScrollAreaMain(QScrollArea *scrollArea);
     BuyableScrollAreaMain();
