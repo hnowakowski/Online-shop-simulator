@@ -33,7 +33,13 @@ void BuyableScrollArea::clearArea()
 }
 
 BuyableScrollArea::BuyableScrollArea(QScrollArea *scrollArea)
-    : scrollArea(scrollArea) {};
+    : scrollArea(scrollArea)
+{
+    buyableLayout = std::make_shared<std::unordered_map<std::string, QVBoxLayout *>>();
+};
 
 BuyableScrollArea::BuyableScrollArea()
-    : scrollArea(nullptr) {};
+    : scrollArea(nullptr)
+{
+    buyableLayout = std::make_shared<std::unordered_map<std::string, QVBoxLayout *>>();
+};

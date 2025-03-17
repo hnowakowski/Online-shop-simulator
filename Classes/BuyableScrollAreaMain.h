@@ -20,6 +20,8 @@ private:
     void displayBuyable(std::shared_ptr<Buyable> &buyable, QVBoxLayout *layout);
 
 public:
+    void updateElements() override;
+
     BuyableScrollAreaMain(QScrollArea *scrollArea);
     BuyableScrollAreaMain();
 };

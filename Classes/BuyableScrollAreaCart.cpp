@@ -25,6 +25,8 @@ void BuyableScrollAreaCart::populateElements(QVBoxLayout *layout)
     }
 }
 
+void BuyableScrollAreaCart::updateElements() {}
+
 void BuyableScrollAreaCart::displayBuyable(std::shared_ptr<Buyable> &buyable, QVBoxLayout *layout)
 {
     QWidget *productPanel = new QWidget();

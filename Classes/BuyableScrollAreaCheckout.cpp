@@ -25,6 +25,8 @@ void BuyableScrollAreaCheckout::populateElements(QVBoxLayout *layout)
     }
 }
 
+void BuyableScrollAreaCheckout::updateElements() {}
+
 void BuyableScrollAreaCheckout::displayBuyable(std::shared_ptr<Buyable> &buyable,
                                                QVBoxLayout *layout)
 {

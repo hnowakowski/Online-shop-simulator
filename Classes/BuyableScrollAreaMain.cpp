@@ -92,6 +92,8 @@ void BuyableScrollAreaMain::populateElements(QVBoxLayout *layout)
     scrollArea->widget()->adjustSize();
 }
 
+void BuyableScrollAreaMain::updateElements() {}
+
 void BuyableScrollAreaMain::displayBuyable(std::shared_ptr<Buyable> &buyable, QVBoxLayout *layout)
 {
     QWidget *productPanel = new QWidget();

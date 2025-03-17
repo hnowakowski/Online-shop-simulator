@@ -15,11 +15,15 @@ class BuyableScrollArea
 protected:
     QScrollArea *scrollArea;
 
+    std::shared_ptr<std::unordered_map<std::string, QVBoxLayout *>> buyableLayout;
+
     virtual void populateElements(QVBoxLayout *layout) = 0;
 
     void clearArea();
 
 public:
+    virtual void updateElements() = 0;
+
     void populate();
 
     BuyableScrollArea(QScrollArea *scrollArea);
