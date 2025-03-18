@@ -19,7 +19,7 @@ void BuyableScrollArea::populate()
     }
 
     clearArea();
-    populateElements(layout);
+    populateBuyables(layout);
 }
 
 void BuyableScrollArea::clearArea()

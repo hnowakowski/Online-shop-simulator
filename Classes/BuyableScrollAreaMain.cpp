@@ -14,13 +14,23 @@
 #include "Service.h"
 #include "StoreSystem.h"
 
-void BuyableScrollAreaMain::populateElements(QVBoxLayout *layout)
+void BuyableScrollAreaMain::populateBuyables(QVBoxLayout *layout)
 {
     StoreSystem &system = StoreSystem::getInstance();
     std::shared_ptr<std::vector<std::shared_ptr<Buyable>>> buyables = system.getBuyables();
     if (buyables->empty()) {
         qDebug() << "WARNING! - No buyables in storesystem to display!\n";
     }
+
+    for (auto &buyable : *buyables) {
+        generatePanel(buyable, layout);
+    }
+
+    scrollArea->widget()->adjustSize();
+}
+
+void BuyableScrollAreaMain::displayBuyables()
+{
     BuyableDisplayedType displayedType = system.getBuyableDisplayedType();
     std::string query = system.getBuyableSearchQuery();
     BuyableSortedBy sortedBy = system.getBuyableSortedBy();
@@ -55,46 +65,38 @@ void BuyableScrollAreaMain::populateElements(QVBoxLayout *layout)
         break;
     }
 
-    for (auto &buyable : *buyables) {
-        // filtering
-        switch (displayedType) {
-        case BuyableDisplayedType::ALL:
-            break;
-        case BuyableDisplayedType::PRODUCT:
-            if (!std::dynamic_pointer_cast<Product>(buyable)) {
-                continue;
-            }
-            break;
-        case BuyableDisplayedType::CLOTHING:
-            if (!std::dynamic_pointer_cast<Clothing>(buyable)) {
-                continue;
-            }
-            break;
-        case BuyableDisplayedType::SERVICE:
-            if (!std::dynamic_pointer_cast<Service>(buyable)) {
-                continue;
-            }
-            break;
+    // filtering
+    switch (displayedType) {
+    case BuyableDisplayedType::ALL:
+        break;
+    case BuyableDisplayedType::PRODUCT:
+        if (!std::dynamic_pointer_cast<Product>(buyable)) {
+            continue;
         }
-
-        if (!query.empty()) {
-            QString qName = QString::fromStdString(buyable->getName());
-            QString qQuery = QString::fromStdString(query);
-
-            if (!qName.contains(qQuery, Qt::CaseInsensitive)) {
-                continue;
-            }
+        break;
+    case BuyableDisplayedType::CLOTHING:
+        if (!std::dynamic_pointer_cast<Clothing>(buyable)) {
+            continue;
         }
-
-        displayBuyable(buyable, layout);
+        break;
+    case BuyableDisplayedType::SERVICE:
+        if (!std::dynamic_pointer_cast<Service>(buyable)) {
+            continue;
+        }
+        break;
     }
 
-    scrollArea->widget()->adjustSize();
+    if (!query.empty()) {
+        QString qName = QString::fromStdString(buyable->getName());
+        QString qQuery = QString::fromStdString(query);
+
+        if (!qName.contains(qQuery, Qt::CaseInsensitive)) {
+            continue;
+        }
+    }
 }
 
-void BuyableScrollAreaMain::updateElements() {}
-
-void BuyableScrollAreaMain::displayBuyable(std::shared_ptr<Buyable> &buyable, QVBoxLayout *layout)
+void BuyableScrollAreaMain::generatePanel(std::shared_ptr<Buyable> &buyable, QVBoxLayout *layout)
 {
     QWidget *productPanel = new QWidget();
     QHBoxLayout *productLayout = new QHBoxLayout(productPanel);

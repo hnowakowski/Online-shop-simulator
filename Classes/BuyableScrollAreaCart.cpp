@@ -15,19 +15,19 @@
 #include "Service.h"
 #include "StoreSystem.h"
 
-void BuyableScrollAreaCart::populateElements(QVBoxLayout *layout)
+void BuyableScrollAreaCart::populateBuyables(QVBoxLayout *layout)
 {
     StoreSystem &system = StoreSystem::getInstance();
     std::shared_ptr<std::vector<std::shared_ptr<Buyable>>> buyables = system.getCart().getBuyables();
 
     for (auto &buyable : *buyables) {
-        displayBuyable(buyable, layout);
+        generatePanel(buyable, layout);
     }
 }
 
-void BuyableScrollAreaCart::updateElements() {}
+void BuyableScrollAreaCart::displayBuyables() {}
 
-void BuyableScrollAreaCart::displayBuyable(std::shared_ptr<Buyable> &buyable, QVBoxLayout *layout)
+void BuyableScrollAreaCart::generatePanel(std::shared_ptr<Buyable> &buyable, QVBoxLayout *layout)
 {
     QWidget *productPanel = new QWidget();
     QHBoxLayout *productLayout = new QHBoxLayout(productPanel);

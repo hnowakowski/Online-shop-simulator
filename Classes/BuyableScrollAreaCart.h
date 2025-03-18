@@ -14,12 +14,12 @@
 class BuyableScrollAreaCart : public BuyableScrollArea
 {
 private:
-    void populateElements(QVBoxLayout *layout) override;
+    void populateBuyables(QVBoxLayout *layout) override;
 
-    void displayBuyable(std::shared_ptr<Buyable> &buyable, QVBoxLayout *layout);
+    void generatePanel(std::shared_ptr<Buyable> &buyable, QVBoxLayout *layout) override;
 
 public:
-    void updateElements() override;
+    void displayBuyables() override;
 
     BuyableScrollAreaCart(QScrollArea *scrollArea);
     BuyableScrollAreaCart();
