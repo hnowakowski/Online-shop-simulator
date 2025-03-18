@@ -15,11 +15,11 @@ class BuyableScrollArea
 protected:
     QScrollArea *scrollArea;
 
-    std::shared_ptr<std::unordered_map<std::string, QWidget *>> buyablePanel;
+    std::shared_ptr<std::vector<std::pair<std::shared_ptr<Buyable>, QWidget *>>> buyableWidgets;
 
     virtual void populateBuyables(QVBoxLayout *layout) = 0;
 
-    virtual void generateLayout(std::shared_ptr<Buyable> &buyable, QVBoxLayout *layout) = 0;
+    virtual void generatePanel(std::shared_ptr<Buyable> &buyable, QVBoxLayout *layout) = 0;
 
     void clearArea();
 

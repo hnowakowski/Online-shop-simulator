@@ -8,7 +8,7 @@
 
 void MainWindow::on_btnCartGotoMain_clicked()
 {
-    mainScrollArea.populate();
+    mainScrollArea.displayBuyables();
     ui->stackedWidget->setCurrentWidget(ui->pageMain);
 }
 
