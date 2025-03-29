@@ -1,8 +1,8 @@
 #include <QMessageBox>
 #include <string>
 
-#include "../Classes/BuyableScrollAreaCart.h"
-#include "../Classes/BuyableScrollAreaCheckout.h"
+#include "../Classes/ItemScrollAreaCart.h"
+#include "../Classes/ItemScrollAreaCheckout.h"
 #include "../Classes/StoreSystem.h"
 #include "../mainwindow.h"
 #include "../ui_mainwindow.h"
@@ -39,7 +39,7 @@ void MainWindow::on_btnCheckoutWallet_clicked()
             showInfo(ui->pageCheckout, "Yipee!", "Products successfully consumed!");
             currCustomer->getWallet()->subtractMain(totalPrice->getMainUnit());
             currCustomer->getWallet()->subtractSub(totalPrice->getSubUnit());
-            system.getCart().getBuyables()->clear();
+            system.getCart().getItems()->clear();
 
             qDebug() << system.getCart().size();
             emit system.getCart().cartChanged();
@@ -83,7 +83,7 @@ void MainWindow::on_btnCheckoutCard_clicked()
     } else {
         showInfo(ui->pageCheckout, "Yipee!", "Products successfully consumed!");
         StoreSystem &system = StoreSystem::getInstance();
-        system.getCart().getBuyables()->clear();
+        system.getCart().getItems()->clear();
         qDebug() << system.getCart().size();
         emit system.getCart().cartChanged();
         cartScrollArea.populate();

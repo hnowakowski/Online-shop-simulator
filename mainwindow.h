@@ -3,9 +3,9 @@
 
 #include <QMainWindow>
 
-#include "Classes/BuyableScrollAreaCart.h"
-#include "Classes/BuyableScrollAreaCheckout.h"
-#include "Classes/BuyableScrollAreaMain.h"
+#include "Classes/ItemScrollAreaCart.h"
+#include "Classes/ItemScrollAreaCheckout.h"
+#include "Classes/ItemScrollAreaMain.h"
 #include "ui_mainwindow.h"
 
 #define PATH (std::filesystem::current_path().string() + "\\..\\..\\")
@@ -67,9 +67,9 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    BuyableScrollAreaMain mainScrollArea;
-    BuyableScrollAreaCart cartScrollArea;
-    BuyableScrollAreaCheckout checkoutScrollArea;
+    ItemScrollAreaMain mainScrollArea;
+    ItemScrollAreaCart cartScrollArea;
+    ItemScrollAreaCheckout checkoutScrollArea;
 
     void showInfo(QWidget *parent, std::string title, std::string text);
     void showWarning(QWidget *parent, std::string title, std::string text);

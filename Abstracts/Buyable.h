@@ -31,6 +31,8 @@ public:
 
     virtual std::shared_ptr<Price> getPrice();
 
+    bool operator==(const Buyable &other) const;
+
     Buyable();
 
     Buyable(std::string id,

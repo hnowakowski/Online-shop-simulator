@@ -1,14 +1,14 @@
 #include <QMessageBox>
 #include <string>
 
-#include "../Classes/BuyableScrollAreaCheckout.h"
+#include "../Classes/ItemScrollAreaCheckout.h"
 #include "../Classes/StoreSystem.h"
 #include "../mainwindow.h"
 #include "../ui_mainwindow.h"
 
 void MainWindow::on_btnCartGotoMain_clicked()
 {
-    mainScrollArea.displayBuyables();
+    mainScrollArea.displayItems();
     ui->stackedWidget->setCurrentWidget(ui->pageMain);
 }
 

@@ -109,8 +109,8 @@ bool StoreSystem::addCustomer(std::shared_ptr<Customer> &customer)
 
 bool StoreSystem::removeBuyable(const std::string &id)
 {
-    for (int i = 0; i < buyables->size(); i++) {
-        if ((*buyables)[i]->getId() == id) {
+    for (int32_t i = buyables->size() - 1; i >= 0; i--) {
+        if (buyables->at(i)->getId() == id) {
             buyables->erase(buyables->begin() + i);
             return true;
         }
@@ -120,8 +120,8 @@ bool StoreSystem::removeBuyable(const std::string &id)
 
 bool StoreSystem::removeCustomer(const std::string &id)
 {
-    for (int i = 0; i < customers->size(); i++) {
-        if ((*customers)[i]->getId() == id) {
+    for (int32_t i = customers->size() - 1; i >= 0; i--) {
+        if (customers->at(i)->getId() == id) {
             customers->erase(customers->begin() + i);
             return true;
         }
