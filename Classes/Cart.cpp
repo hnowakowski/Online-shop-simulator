@@ -65,7 +65,6 @@ std::shared_ptr<Price> Cart::getTotalPrice() const
         std::shared_ptr<Price> bPrice = item->getBuyable()->getPrice();
         totalPrice->addPrice(*bPrice);
     }
-
     return totalPrice;
 }
 

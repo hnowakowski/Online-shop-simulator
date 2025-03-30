@@ -23,8 +23,8 @@ void MoneyPossesive::addMainUnit(const uint32_t& amount)
 
 void MoneyPossesive::addSubUnit(const uint32_t& amount)
 {
-    subunit += amount % 100;
-    mainunit += amount / 100;
+    mainunit += (subunit + amount) / 100;
+    subunit = (subunit + amount) % 100;
 }
 
 MoneyPossesive::MoneyPossesive(const uint32_t &mainunit, const uint32_t &subunit)
