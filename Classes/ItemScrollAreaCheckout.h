@@ -19,6 +19,10 @@ private:
 
     void generatePanel(std::shared_ptr<CartItem> &item) override;
 
+    void clearArea() override;
+
+    bool panelExists(const std::shared_ptr<CartItem> &item) const;
+
 public:
     void displayItems() override;
 

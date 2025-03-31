@@ -7,12 +7,9 @@
 #include <QWidget>
 #include <memory>
 #include <string>
-#include <typeinfo>
 
 #include "../mainwindow.h"
 #include "ItemScrollAreaCheckout.h"
-#include "Clothing.h"
-#include "Service.h"
 #include "StoreSystem.h"
 
 void ItemScrollAreaCheckout::populateItems()
@@ -21,11 +18,30 @@ void ItemScrollAreaCheckout::populateItems()
     std::shared_ptr<std::vector<std::shared_ptr<CartItem>>> items = system.getCart().getItems();
 
     for (auto &item : *items) {
-        generatePanel(item);
+        if (!panelExists(item)) {
+            generatePanel(item);
+        }
     }
 }
 
-void ItemScrollAreaCheckout::displayItems() {}
+void ItemScrollAreaCheckout::displayItems()
+{
+    QVBoxLayout *layout = qobject_cast<QVBoxLayout *>(scrollArea->widget()->layout());
+    for (const auto &[item, widget] : *itemWidgets) {
+        widget->setVisible(true);
+        layout->addWidget(widget);
+    }
+}
+
+bool ItemScrollAreaCheckout::panelExists(const std::shared_ptr<CartItem> &item) const
+{
+    for (const auto &[i, w] : *itemWidgets) {
+        if (item == i) {
+            return true;
+        }
+    }
+    return false;
+}
 
 void ItemScrollAreaCheckout::generatePanel(std::shared_ptr<CartItem> &item)
 {
@@ -75,6 +91,22 @@ void ItemScrollAreaCheckout::generatePanel(std::shared_ptr<CartItem> &item)
     sepLine->setLineWidth(1);
     buyableLayout->addWidget(sepLine);
     itemWidgets->push_back(std::pair<std::shared_ptr<CartItem>, QWidget *>(item, buyablePanel));
+}
+
+void ItemScrollAreaCheckout::clearArea()
+{
+    QWidget *container = scrollArea->widget();
+    QVBoxLayout *layout = qobject_cast<QVBoxLayout *>(container->layout());
+    StoreSystem &system = StoreSystem::getInstance();
+    for (int32_t i = itemWidgets->size() - 1; i >= 0; i--) {
+        itemWidgets->at(i).second->setVisible(false);
+        layout->removeWidget(itemWidgets->at(i).second);
+        if (!system.getCart().hasItemId(itemWidgets->at(i).first->getId())) {
+            itemWidgets->at(i).second->deleteLater();
+            itemWidgets->erase(itemWidgets->begin() + i);
+            qDebug() << "ANNIHILATED BUYABLE WIDGET AT " << i;
+        }
+    }
 }
 
 ItemScrollAreaCheckout::ItemScrollAreaCheckout(QScrollArea *scrollArea)

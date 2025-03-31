@@ -17,7 +17,6 @@ void ItemScrollAreaCart::populateItems()
 {
     StoreSystem &system = StoreSystem::getInstance();
     std::shared_ptr<std::vector<std::shared_ptr<CartItem>>> items = system.getCart().getItems();
-    QVBoxLayout *layout = qobject_cast<QVBoxLayout *>(scrollArea->widget()->layout());
 
     for (auto &item : *items) {
         if (!panelExists(item)) {
