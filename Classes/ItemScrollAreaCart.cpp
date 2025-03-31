@@ -24,17 +24,6 @@ void ItemScrollAreaCart::populateItems()
             generatePanel(item);
         }
     }
-
-    for (int32_t i = itemWidgets->size() - 1; i >= 0; i--) {
-        itemWidgets->at(i).second->setVisible(false);
-        layout->removeWidget(itemWidgets->at(i).second);
-        if (!system.getCart().hasItemId(itemWidgets->at(i).first->getId())) {
-            //this should happen in the remove button but idk
-            delete itemWidgets->at(i).second;
-            itemWidgets->erase(itemWidgets->begin() + i);
-            qDebug() << "ANNIHILATED BUYABLE WIDGET AT " << i;
-        }
-    }
 }
 
 void ItemScrollAreaCart::displayItems()
@@ -44,17 +33,6 @@ void ItemScrollAreaCart::displayItems()
     for (const auto &[item, widget] : *itemWidgets) {
         widget->setVisible(true);
         layout->addWidget(widget);
-        // qDebug() << itemWidgets->size();
-        // qDebug() << widget;
-
-        // widget->setVisible(false);
-        // layout->removeWidget(widget);
-
-        // if (system.getCart().hasItemId(item->getId())) {
-        //     qDebug() << "Making " << item->getBuyable()->getName() << " visible";
-        //     widget->setVisible(true);
-        //     layout->addWidget(widget);
-        // }
     }
 }
 
@@ -136,7 +114,7 @@ void ItemScrollAreaCart::generatePanel(std::shared_ptr<CartItem> &item)
         system.getCart().removeBuyable(buyable);
 
         qDebug() << system.getCart().size() << itemWidgets->size();
-        //this->populate();
+        displayItems();
     });
     buyableLayout->addWidget(productPanel);
 
@@ -155,13 +133,16 @@ void ItemScrollAreaCart::clearArea()
 {
     QWidget *container = scrollArea->widget();
     QVBoxLayout *layout = qobject_cast<QVBoxLayout *>(container->layout());
-    // for (const auto &[buyable, widget] : *buyableWidgets) {
-    //     if (true) //identifying stale widgets here while also accounting for duplicate buyables and deleting only one instead of all of them
-    //     {
-    //         // delete item->widget();
-    //         // delete item;
-    //     }
-    // }
+    StoreSystem &system = StoreSystem::getInstance();
+    for (int32_t i = itemWidgets->size() - 1; i >= 0; i--) {
+        itemWidgets->at(i).second->setVisible(false);
+        layout->removeWidget(itemWidgets->at(i).second);
+        if (!system.getCart().hasItemId(itemWidgets->at(i).first->getId())) {
+            itemWidgets->at(i).second->deleteLater();
+            itemWidgets->erase(itemWidgets->begin() + i);
+            qDebug() << "ANNIHILATED BUYABLE WIDGET AT " << i;
+        }
+    }
 }
 
 ItemScrollAreaCart::ItemScrollAreaCart(QScrollArea *scrollArea)

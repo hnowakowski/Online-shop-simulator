@@ -48,6 +48,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     QObject::connect(&system.getCart(), &Cart::cartChanged, this, &MainWindow::updateCartLabel);
     QObject::connect(&system.getCart(), &Cart::cartChanged, this, &MainWindow::updateCartTotalPrice);
+    QObject::connect(&system.getCart(), &Cart::cartChanged, this, [this]() {
+        cartScrollArea.populate();
+    });
+    QObject::connect(&system.getCart(), &Cart::cartChanged, this, [this]() {
+        checkoutScrollArea.populate();
+    });
 
     QPixmap pixmapLogo((PATH + "Assets\\Images\\UI\\logo.png").c_str());
     QPixmap pixmapAd1((PATH + "Assets\\Images\\UI\\ad1.png").c_str());
