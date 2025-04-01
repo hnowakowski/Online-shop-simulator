@@ -31,7 +31,7 @@ void ItemScrollAreaCart::displayItems()
     StoreSystem &system = StoreSystem::getInstance();
     for (const auto &[item, widget] : *itemWidgets) {
         widget->setVisible(true);
-        layout->addWidget(widget);
+        //layout->addWidget(widget);
     }
 }
 
@@ -135,9 +135,9 @@ void ItemScrollAreaCart::clearArea()
     StoreSystem &system = StoreSystem::getInstance();
     for (int32_t i = itemWidgets->size() - 1; i >= 0; i--) {
         itemWidgets->at(i).second->setVisible(false);
-        layout->removeWidget(itemWidgets->at(i).second);
         if (!system.getCart().hasItemId(itemWidgets->at(i).first->getId())) {
             itemWidgets->at(i).second->deleteLater();
+            layout->removeWidget(itemWidgets->at(i).second);
             itemWidgets->erase(itemWidgets->begin() + i);
             qDebug() << "ANNIHILATED BUYABLE WIDGET AT " << i;
         }

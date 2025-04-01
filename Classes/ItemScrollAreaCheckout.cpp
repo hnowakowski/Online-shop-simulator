@@ -29,7 +29,7 @@ void ItemScrollAreaCheckout::displayItems()
     QVBoxLayout *layout = qobject_cast<QVBoxLayout *>(scrollArea->widget()->layout());
     for (const auto &[item, widget] : *itemWidgets) {
         widget->setVisible(true);
-        layout->addWidget(widget);
+        //layout->addWidget(widget);
     }
 }
 
@@ -45,6 +45,8 @@ bool ItemScrollAreaCheckout::panelExists(const std::shared_ptr<CartItem> &item) 
 
 void ItemScrollAreaCheckout::generatePanel(std::shared_ptr<CartItem> &item)
 {
+    QVBoxLayout *layout = qobject_cast<QVBoxLayout *>(scrollArea->widget()->layout());
+
     QWidget *buyablePanel = new QWidget();
     QVBoxLayout *buyableLayout = new QVBoxLayout(buyablePanel);
 
@@ -90,6 +92,8 @@ void ItemScrollAreaCheckout::generatePanel(std::shared_ptr<CartItem> &item)
     sepLine->setFrameShadow(QFrame::Plain);
     sepLine->setLineWidth(1);
     buyableLayout->addWidget(sepLine);
+
+    layout->addWidget(buyablePanel);
     itemWidgets->push_back(std::pair<std::shared_ptr<CartItem>, QWidget *>(item, buyablePanel));
 }
 
@@ -100,9 +104,9 @@ void ItemScrollAreaCheckout::clearArea()
     StoreSystem &system = StoreSystem::getInstance();
     for (int32_t i = itemWidgets->size() - 1; i >= 0; i--) {
         itemWidgets->at(i).second->setVisible(false);
-        layout->removeWidget(itemWidgets->at(i).second);
         if (!system.getCart().hasItemId(itemWidgets->at(i).first->getId())) {
             itemWidgets->at(i).second->deleteLater();
+            layout->removeWidget(itemWidgets->at(i).second);
             itemWidgets->erase(itemWidgets->begin() + i);
             qDebug() << "ANNIHILATED BUYABLE WIDGET AT " << i;
         }

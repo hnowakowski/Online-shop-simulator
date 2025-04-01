@@ -112,6 +112,8 @@ void ItemScrollAreaMain::displayItems()
 
 void ItemScrollAreaMain::generatePanel(std::shared_ptr<Buyable> &item)
 {
+    QVBoxLayout *layout = qobject_cast<QVBoxLayout *>(scrollArea->widget()->layout());
+
     QWidget *buyablePanel = new QWidget();
     QVBoxLayout *buyableLayout = new QVBoxLayout(buyablePanel);
 
@@ -214,7 +216,7 @@ void ItemScrollAreaMain::generatePanel(std::shared_ptr<Buyable> &item)
     sepLine->setLineWidth(1);
     buyableLayout->addWidget(sepLine);
 
-    //layout->addWidget(buyablePanel);
+    layout->addWidget(buyablePanel);
 
     itemWidgets->push_back(std::pair<std::shared_ptr<Buyable>, QWidget *>(item, buyablePanel));
 }
