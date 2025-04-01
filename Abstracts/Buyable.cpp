@@ -33,6 +33,11 @@ std::shared_ptr<Price> Buyable::getPrice()
     return price;
 }
 
+bool Buyable::operator==(const Buyable &other) const
+{
+    return (this->getId() == other.getId());
+}
+
 Buyable::Buyable()
     : id("")
     , name("")
@@ -47,15 +52,13 @@ Buyable::Buyable(std::string id,
                  std::string image,
                  std::string rating,
                  std::shared_ptr<Price> price)
-    : price(price)
-{
-    this->id = id;
-    this->name = name;
-    this->description = description;
-    this->image = image;
-    this->rating = rating;
-    this->price = price;
-}
+    : id(id)
+    , name(name)
+    , description(description)
+    , image(image)
+    , rating(rating)
+    , price(price)
+{}
 
 std::shared_ptr<Buyable> Buyable::createFromJSON(const nlohmann::json &json)
 {
