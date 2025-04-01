@@ -2,9 +2,9 @@
 #include <QPixmap>
 #include <string>
 
-#include "../Classes/BuyableScrollAreaCart.h"
-#include "../Classes/BuyableScrollAreaCheckout.h"
-#include "../Classes/BuyableScrollAreaMain.h"
+#include "../Classes/ItemScrollAreaCart.h"
+#include "../Classes/ItemScrollAreaCheckout.h"
+#include "../Classes/ItemScrollAreaMain.h"
 #include "../Classes/StoreSystem.h"
 #include "../Templates/LoaderSaver.h"
 #include "../mainwindow.h"
@@ -39,15 +39,21 @@ MainWindow::MainWindow(QWidget *parent)
     ui->stackedWidgetLogin->setCurrentWidget(ui->pageLoginLoggedIn);
     displayAccountInfo();
 
-    mainScrollArea = BuyableScrollAreaMain(ui->scrollAreaProducts);
-    cartScrollArea = BuyableScrollAreaCart(ui->scrollAreaCart);
-    checkoutScrollArea = BuyableScrollAreaCheckout(ui->scrollAreaCheckout);
+    mainScrollArea = ItemScrollAreaMain(ui->scrollAreaProducts);
+    cartScrollArea = ItemScrollAreaCart(ui->scrollAreaCart);
+    checkoutScrollArea = ItemScrollAreaCheckout(ui->scrollAreaCheckout);
 
     QStringList comboBoxItems = {"All", "Products", "Clothes", "Services"};
     ui->comboBoxSearch->addItems(comboBoxItems);
 
     QObject::connect(&system.getCart(), &Cart::cartChanged, this, &MainWindow::updateCartLabel);
     QObject::connect(&system.getCart(), &Cart::cartChanged, this, &MainWindow::updateCartTotalPrice);
+    QObject::connect(&system.getCart(), &Cart::cartChanged, this, [this]() {
+        cartScrollArea.populate();
+    });
+    QObject::connect(&system.getCart(), &Cart::cartChanged, this, [this]() {
+        checkoutScrollArea.populate();
+    });
 
     QPixmap pixmapLogo((PATH + "Assets\\Images\\UI\\logo.png").c_str());
     QPixmap pixmapAd1((PATH + "Assets\\Images\\UI\\ad1.png").c_str());
@@ -69,6 +75,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->labelFieldsNotFilled->setVisible(false);
     ui->labelLoginBadData->setVisible(false);
     mainScrollArea.populate();
+    mainScrollArea.displayItems();
     updateCartLabel();
     updateCartTotalPrice();
 }
@@ -147,28 +154,28 @@ void MainWindow::on_btnSearch_clicked()
     StoreSystem &system = StoreSystem::getInstance();
     QString query = ui->lineEditSearch->text();
     system.setBuyableSearchQuery(query.toStdString());
-    this->mainScrollArea.populate();
+    mainScrollArea.displayItems();
 }
 
 void MainWindow::on_radioSortName_clicked()
 {
     StoreSystem &system = StoreSystem::getInstance();
     system.setBuyableSortedBy(BuyableSortedBy::NAME);
-    mainScrollArea.populate();
+    mainScrollArea.displayItems();
 }
 
 void MainWindow::on_radioSortPrice_clicked()
 {
     StoreSystem &system = StoreSystem::getInstance();
     system.setBuyableSortedBy(BuyableSortedBy::PRICE);
-    mainScrollArea.populate();
+    mainScrollArea.displayItems();
 }
 
 void MainWindow::on_radioRating_clicked()
 {
     StoreSystem &system = StoreSystem::getInstance();
     system.setBuyableSortedBy(BuyableSortedBy::RATING);
-    mainScrollArea.populate();
+    mainScrollArea.displayItems();
 }
 
 void MainWindow::updateCartLabel()
@@ -182,6 +189,7 @@ void MainWindow::on_btnMainGotoCart_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->pageCart);
     cartScrollArea.populate();
+    cartScrollArea.displayItems();
     updateCartTotalPrice();
 }
 

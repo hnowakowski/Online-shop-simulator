@@ -1,14 +1,14 @@
 #include <QMessageBox>
 #include <string>
 
-#include "../Classes/BuyableScrollAreaCheckout.h"
+#include "../Classes/ItemScrollAreaCheckout.h"
 #include "../Classes/StoreSystem.h"
 #include "../mainwindow.h"
 #include "../ui_mainwindow.h"
 
 void MainWindow::on_btnCartGotoMain_clicked()
 {
-    mainScrollArea.populate();
+    mainScrollArea.displayItems();
     ui->stackedWidget->setCurrentWidget(ui->pageMain);
 }
 
@@ -25,6 +25,7 @@ void MainWindow::on_btnCartGotoCheckout_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->pageCheckout);
     checkoutScrollArea.populate();
+    checkoutScrollArea.displayItems();
     std::shared_ptr<Price> totalPrice = StoreSystem::getInstance().getCart().getTotalPrice();
     std::string priceStr = "Checkout (Total: " + std::to_string(totalPrice->getMainUnit()) + "."
                            + std::to_string(totalPrice->getSubUnit()) + " ZŁ)";

@@ -13,8 +13,10 @@ CONFIG += console
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    Classes/BuyableScrollAreaCart.cpp \
-    Classes/BuyableScrollAreaCheckout.cpp \
+    Classes/CartItem.cpp \
+    Classes/ItemScrollAreaCart.cpp \
+    Classes/ItemScrollAreaCheckout.cpp \
+    Classes/ItemScrollAreaMain.cpp \
     Classes/Price.cpp \
     Classes/Product.cpp \
     Classes/Service.cpp \
@@ -23,10 +25,8 @@ SOURCES += \
     Classes/Customer.cpp \
     Classes/Wallet.cpp \
     Classes/AddressLineEdit.cpp \
-    Classes/BuyableScrollAreaMain.cpp \
     Classes/StoreSystem.cpp \
     Abstracts/Buyable.cpp \
-    Abstracts/BuyableScrollArea.cpp \
     Abstracts/MoneyPossesive.cpp \
     main.cpp \
     Pages/pageCart.cpp \
@@ -37,8 +37,10 @@ SOURCES += \
 
 HEADERS += \
     Classes/AddressLineEdit.h \
-    Classes/BuyableScrollAreaCart.h \
-    Classes/BuyableScrollAreaCheckout.h \
+    Classes/CartItem.h \
+    Classes/ItemScrollAreaCart.h \
+    Classes/ItemScrollAreaCheckout.h \
+    Classes/ItemScrollAreaMain.h \
     Enums/BuyableDisplayedType.h \
     Enums/BuyableSortedBy.h \
     Enums/BuyableSortedBy.h \
@@ -48,16 +50,15 @@ HEADERS += \
     Classes/Product.h \
     Classes/Service.h \
     Classes/AddressLineEdit.h \
-    Classes/BuyableScrollAreaMain.h \
     Classes/Cart.h \
     Classes/Clothing.h \
     Classes/Customer.h \
     Classes/Wallet.h \
     Classes/StoreSystem.h \
     Abstracts/Buyable.h \
-    Abstracts/BuyableScrollArea.h \
     Abstracts/MoneyPossesive.h \
     Abstracts/Serializable.h \
+    Templates/ItemScrollArea.h \
     Templates/LoaderSaver.h \
     mainwindow.h
 
