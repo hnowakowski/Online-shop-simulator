@@ -7,6 +7,8 @@
 #include "Customer.h"
 #include <memory>
 
+#define PATH (std::filesystem::current_path().string() + "\\..\\..\\..\\project\\")
+
 class StoreSystem
 {
     std::shared_ptr<std::vector<std::shared_ptr<Buyable>>> buyables;

@@ -12,6 +12,8 @@
 template<typename T>
 class ItemScrollArea
 {
+    friend class ScrollAreaTest;
+
 protected:
     QScrollArea *scrollArea;
 

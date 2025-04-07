@@ -7,8 +7,8 @@
 #include <string>
 #include <vector>
 
+#include <QMainWindow>
 #include "../Abstracts/Buyable.h"
-#include "mainwindow.h"
 
 template<typename T>
 class LoaderSaver

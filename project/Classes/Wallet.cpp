@@ -2,14 +2,25 @@
 
 void Wallet::subtractMain(const uint32_t &amount)
 {
-    mainunit -= amount;
+    if (amount > mainunit) {
+        mainunit = 0;
+        subunit = 0;
+    } else {
+        mainunit -= amount;
+    }
 }
 
 void Wallet::subtractSub(const uint32_t &amount)
 {
-    mainunit -= amount / 100;
-    subunit = (amount % 100) > subunit ? (subunit + 100) - (amount % 100)
-                                       : subunit - (amount % 100);
+    uint32_t amountInSub = mainunit * 100 + subunit;
+    if (amountInSub < amount) {
+        mainunit = 0;
+        subunit = 0;
+    } else {
+        amountInSub -= amount;
+        mainunit = amountInSub / 100;
+        subunit = amountInSub % 100;
+    }
 }
 
 Wallet &Wallet::operator=(const Wallet &other)

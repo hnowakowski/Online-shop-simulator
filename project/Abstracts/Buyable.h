@@ -35,12 +35,7 @@ public:
 
     Buyable();
 
-    Buyable(std::string id,
-            std::string name,
-            std::string description,
-            std::string image,
-            std::string rating,
-            std::shared_ptr<Price> price);
+    Buyable(std::string id, std::string name, std::string description, std::string image, std::string rating, std::shared_ptr<Price> price);
 
     static std::shared_ptr<Buyable> createFromJSON(const nlohmann::json &json);
 

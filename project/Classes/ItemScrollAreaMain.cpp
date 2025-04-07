@@ -8,7 +8,6 @@
 #include <memory>
 #include <string>
 
-#include "../mainwindow.h"
 #include "Clothing.h"
 #include "ItemScrollAreaMain.h"
 #include "Service.h"
@@ -135,6 +134,7 @@ void ItemScrollAreaMain::generatePanel(std::shared_ptr<Buyable> &item)
     nameFont.setBold(true);
     nameLabel->setFont(nameFont);
     infoLayout->addWidget(nameLabel);
+    nameLabel->setObjectName("nameLabel");
 
     QLabel *ratingLabel = new QLabel(QString::fromStdString(item->getRating() + "/10"));
     infoLayout->addWidget(ratingLabel);

@@ -60,10 +60,11 @@ HEADERS += \
     Abstracts/Serializable.h \
     Templates/ItemScrollArea.h \
     Templates/LoaderSaver.h \
-    mainwindow.h
+    mainwindow.h \
 
 FORMS += \
     mainwindow.ui
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

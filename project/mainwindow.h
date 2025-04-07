@@ -8,8 +8,6 @@
 #include "Classes/ItemScrollAreaMain.h"
 #include "ui_mainwindow.h"
 
-#define PATH (std::filesystem::current_path().string() + "\\..\\..\\..\\project\\")
-
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
