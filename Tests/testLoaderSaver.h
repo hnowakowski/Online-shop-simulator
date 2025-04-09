@@ -13,6 +13,8 @@
 #include "../project/Classes/Wallet.h"
 #include "../project/Templates/LoaderSaver.h"
 
+#define JSONPATH (std::filesystem::current_path().string() + "\\..\\..\\..\\tests\\")
+
 class TestLoaderSaver : public QObject
 {
     Q_OBJECT

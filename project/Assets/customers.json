@@ -26,5 +26,19 @@
         "wallet": {
             "units": 0
         }
+    },
+    {
+        "PESEL": "b",
+        "address": "b",
+        "city": "b",
+        "email": "b",
+        "id": "U3",
+        "name": "b",
+        "password": "bb",
+        "phone": "b",
+        "surname": "b",
+        "wallet": {
+            "units": 0
+        }
     }
 ]

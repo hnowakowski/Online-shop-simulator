@@ -62,5 +62,3 @@ void TestWallet::priceWalletLTCompareMainEq()
     Wallet wl(3, 40);
     QVERIFY(pr < wl);
 }
-
-QTEST_MAIN(TestWallet)

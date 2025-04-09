@@ -1,0 +1,30 @@
+[
+    {
+        "clothing_type": "type1",
+        "color": "BLACK",
+        "description": "desc1",
+        "id": "P1",
+        "image": "",
+        "name": "prod1",
+        "price": {
+            "units": 1001
+        },
+        "quantity": 1,
+        "rating": "1/10",
+        "size": 1
+    },
+    {
+        "clothing_type": "type2",
+        "color": "BLUE",
+        "description": "desc2",
+        "id": "P2",
+        "image": "",
+        "name": "prod2",
+        "price": {
+            "units": 2002
+        },
+        "quantity": 2,
+        "rating": "2/10",
+        "size": 2
+    }
+]

@@ -17,6 +17,7 @@ SOURCES += \
         ../project/Classes/Wallet.cpp \
         ../project/Classes/ItemScrollAreaMain.cpp \
         testLoaderSaver.cpp \
+        testMain.cpp \
         testWallet.cpp
 
 HEADERS += \
