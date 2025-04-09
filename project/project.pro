@@ -24,7 +24,6 @@ SOURCES += \
     Classes/Clothing.cpp \
     Classes/Customer.cpp \
     Classes/Wallet.cpp \
-    Classes/AddressLineEdit.cpp \
     Classes/StoreSystem.cpp \
     Abstracts/Buyable.cpp \
     Abstracts/MoneyPossesive.cpp \
@@ -36,7 +35,6 @@ SOURCES += \
     Pages/pageSignUp.cpp
 
 HEADERS += \
-    Classes/AddressLineEdit.h \
     Classes/CartItem.h \
     Classes/ItemScrollAreaCart.h \
     Classes/ItemScrollAreaCheckout.h \
@@ -49,7 +47,6 @@ HEADERS += \
     Classes/Price.h \
     Classes/Product.h \
     Classes/Service.h \
-    Classes/AddressLineEdit.h \
     Classes/Cart.h \
     Classes/Clothing.h \
     Classes/Customer.h \
