@@ -2,63 +2,57 @@
 
 #include "MoneyPossesive.h"
 
-uint32_t MoneyPossesive::getMainUnit() { return mainunit; }
+uint32_t MoneyPossesive::getMainUnit()
+{
+    return units / 100;
+}
 
-uint32_t MoneyPossesive::getSubUnit() { return subunit; }
+uint32_t MoneyPossesive::getSubUnit()
+{
+    return units % 100;
+}
 
 void MoneyPossesive::setMainUnit(const uint32_t &amount)
 {
-    this->mainunit = amount;
+    units = amount * 100;
 }
 
 void MoneyPossesive::setSubUnit(const uint32_t &amount)
 {
-    this->subunit = amount % 100;
+    units = (units / 100) * 100 + amount % 100;
 }
 
 void MoneyPossesive::addMainUnit(const uint32_t& amount)
 {
-    mainunit += amount;
+    units += amount * 100;
 }
 
 void MoneyPossesive::addSubUnit(const uint32_t& amount)
 {
-    mainunit += (subunit + amount) / 100;
-    subunit = (subunit + amount) % 100;
+    units += amount;
 }
 
 MoneyPossesive::MoneyPossesive(const uint32_t &mainunit, const uint32_t &subunit)
 {
-    this->mainunit = mainunit;
-    this->subunit = subunit;
+    units = mainunit * 100 + subunit;
+}
+
+MoneyPossesive::MoneyPossesive(const uint32_t &units)
+{
+    this->units = units;
 }
 
 MoneyPossesive::MoneyPossesive()
 {
-    this->mainunit = 0;
-    this->subunit = 0;
+    units = 0;
 }
 
 bool MoneyPossesive::operator<(const MoneyPossesive &other) const
 {
-    if (this->mainunit < other.mainunit) {
-        return true;
-    } else if (this->mainunit == other.mainunit) {
-        if (this->subunit < other.subunit) {
-            return true;
-        }
-    }
-    return false;
+    return units < other.units;
 }
 
 bool MoneyPossesive::operator>=(const MoneyPossesive &other) const
 {
-    if (this->mainunit > other.mainunit) {
-        return true;
-    } else if (this->mainunit == other.mainunit) {
-        if (this->subunit > other.subunit || this->subunit == other.subunit) {
-            return true;
-        }
-    }
-    return false;
+    return units >= other.units;
 }
