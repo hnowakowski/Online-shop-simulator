@@ -47,6 +47,11 @@ MoneyPossesive::MoneyPossesive()
     units = 0;
 }
 
+bool MoneyPossesive::operator==(const MoneyPossesive &other) const
+{
+    return units == other.units;
+}
+
 bool MoneyPossesive::operator<(const MoneyPossesive &other) const
 {
     return units < other.units;

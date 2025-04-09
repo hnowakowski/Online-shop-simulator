@@ -47,6 +47,12 @@ std::string Customer::getPassword() const
     return password;
 }
 
+bool Customer::operator==(const Customer &other) const
+{
+    return std::tie(id, name, surname, email, phone, city, address, PESEL, password, *wallet)
+           == std::tie(other.id, other.name, other.surname, other.email, other.phone, other.city, other.address, other.PESEL, other.password, *other.wallet);
+}
+
 Customer &Customer::operator=(const Customer &other)
 {
     if (this == &other) {
@@ -58,6 +64,10 @@ Customer &Customer::operator=(const Customer &other)
     this->surname = other.surname;
     this->email = other.email;
     this->phone = other.phone;
+    this->city = other.city;
+    this->address = other.address;
+    this->PESEL = other.PESEL;
+    this->password = other.password;
     this->wallet = other.wallet;
 
     return *this;

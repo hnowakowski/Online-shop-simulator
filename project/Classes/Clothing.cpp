@@ -9,6 +9,11 @@ Clothing::Clothing (std::string id, std::string name, std::string description,
 {
 }
 
+bool Clothing::operator==(const Clothing &other) const
+{
+    return Buyable::operator==(other) && std::tie(color, clothing_type, size) == std::tie(other.color, other.clothing_type, other.size);
+}
+
 Color
 Clothing::getColor () const
 {
