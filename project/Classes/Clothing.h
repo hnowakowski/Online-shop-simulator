@@ -14,6 +14,7 @@ public:
   Color getColor () const;
   std::string getClothingType () const;
   uint32_t getSize () const;
+  bool operator==(const Clothing &other) const;
 
   Clothing &operator= (const Clothing &other);
   Clothing (std::string id, std::string name, std::string description,

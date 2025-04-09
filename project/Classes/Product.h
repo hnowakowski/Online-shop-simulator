@@ -16,6 +16,8 @@ public:
 
     void setQuantity(const uint32_t &quantity);
 
+    bool operator==(const Product &other) const;
+
     Product &operator=(const Product &other);
 
     Product();

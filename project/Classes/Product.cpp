@@ -10,6 +10,11 @@ void Product::setQuantity(const uint32_t &quantity)
     this->quantity = quantity;
 }
 
+bool Product::operator==(const Product &other) const
+{
+    return Buyable::operator==(other) && quantity == other.quantity;
+}
+
 Product::Product() {}
 
 Product::Product(std::string id,

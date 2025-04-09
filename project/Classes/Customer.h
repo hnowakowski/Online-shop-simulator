@@ -32,6 +32,8 @@ public:
     std::string getPassword() const;
     std::shared_ptr<Wallet> getWallet();
 
+    bool operator==(const Customer &other) const;
+
     Customer &operator=(const Customer &other);
 
     Customer(std::string id,

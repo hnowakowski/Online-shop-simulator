@@ -35,7 +35,7 @@ std::shared_ptr<Price> Buyable::getPrice()
 
 bool Buyable::operator==(const Buyable &other) const
 {
-    return (this->getId() == other.getId());
+    return std::tie(id, name, description, image, *price) == std::tie(other.id, other.name, other.description, other.image, *other.price);
 }
 
 Buyable::Buyable()
