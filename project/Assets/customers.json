@@ -40,5 +40,33 @@
         "wallet": {
             "units": 0
         }
+    },
+    {
+        "PESEL": "a",
+        "address": "a",
+        "city": "a",
+        "email": "aaa@.",
+        "id": "U4",
+        "name": "a",
+        "password": "a",
+        "phone": "a",
+        "surname": "a",
+        "wallet": {
+            "units": 0
+        }
+    },
+    {
+        "PESEL": "99999999999",
+        "address": "a",
+        "city": "a",
+        "email": "a@.",
+        "id": "U5",
+        "name": "a",
+        "password": "a",
+        "phone": "999999999",
+        "surname": "a",
+        "wallet": {
+            "units": 0
+        }
     }
 ]

@@ -1,4 +1,5 @@
 #include <QMessageBox>
+#include <QRegularExpression>
 #include <string>
 
 #include "../Classes/ItemScrollAreaCart.h"
@@ -51,8 +52,7 @@ void MainWindow::on_btnCheckoutWallet_clicked()
             ui->labelCheckout->setText("Checkout (Total: 0.0 ZŁ)");
             uint32_t walletFirst = currCustomer->getWallet()->getMainUnit();
             uint32_t walletSecond = currCustomer->getWallet()->getSubUnit();
-            std::string walletStr = "Wallet: " + std::to_string(walletFirst) + "."
-                                    + std::to_string(walletSecond) + " ZŁ";
+            std::string walletStr = "Wallet: " + std::to_string(walletFirst) + "." + std::to_string(walletSecond) + " ZŁ";
             ui->labelCheckoutWalletStatus->setText(QString::fromStdString(walletStr));
         } else {
             showWarning(ui->pageCheckout, "Cannot consume", "Not enough funds in your account! :(");
@@ -81,14 +81,29 @@ void MainWindow::on_btnCheckoutCard_clicked()
         ui->labelFieldsNotFilled->setText("Some fields were not filled in or selected!");
         ui->labelFieldsNotFilled->setVisible(true);
     } else {
-        showInfo(ui->pageCheckout, "Yipee!", "Products successfully consumed!");
-        StoreSystem &system = StoreSystem::getInstance();
-        system.getCart().getItems()->clear();
-        qDebug() << system.getCart().size();
-        emit system.getCart().cartChanged();
-        cartScrollArea.populate();
-        checkoutScrollArea.populate();
-        updateCartTotalPrice();
-        ui->labelCheckout->setText("Checkout (Total: 0.0 ZŁ)");
+        static const QRegularExpression reg("^\\d{2}/\\d{2}$");
+        if (ui->lineEditCardNum->text().length() != ui->lineEditCardNum->maxLength()) {
+            ui->labelFieldsNotFilled->setText("Please input a valid card number!");
+            ui->labelFieldsNotFilled->setVisible(true);
+        } else if (ui->lineEditPin->text().length() != ui->lineEditPin->maxLength()) {
+            ui->labelFieldsNotFilled->setText("Please input a valid PIN!");
+            ui->labelFieldsNotFilled->setVisible(true);
+        } else if (ui->lineEditExpiryDate->text().length() != ui->lineEditExpiryDate->maxLength() || !reg.match(ui->lineEditExpiryDate->text()).hasMatch()) {
+            ui->labelFieldsNotFilled->setText("Please input a valid expiry date! Format MM/YY");
+            ui->labelFieldsNotFilled->setVisible(true);
+        } else if (ui->lineEditNumOnBack->text().length() != ui->lineEditNumOnBack->maxLength()) {
+            ui->labelFieldsNotFilled->setText("Please input valid numbers on the back!");
+            ui->labelFieldsNotFilled->setVisible(true);
+        } else {
+            showInfo(ui->pageCheckout, "Yipee!", "Products successfully consumed!");
+            StoreSystem &system = StoreSystem::getInstance();
+            system.getCart().getItems()->clear();
+            qDebug() << system.getCart().size();
+            emit system.getCart().cartChanged();
+            cartScrollArea.populate();
+            checkoutScrollArea.populate();
+            updateCartTotalPrice();
+            ui->labelCheckout->setText("Checkout (Total: 0.0 ZŁ)");
+        }
     }
 }
