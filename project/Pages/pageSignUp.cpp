@@ -27,8 +27,16 @@ void MainWindow::on_btnSignUp_clicked()
         ui->labelSignUpBadData->setText("Some fields have not been filled in!");
         ui->labelSignUpBadData->setVisible(true);
     } else {
+        static const QRegularExpression reg1("^\\d{9}");
+        static const QRegularExpression reg2("^\\d{11}");
         if (!ui->lineEditSignUpEmail->text().contains("@") || !ui->lineEditSignUpEmail->text().contains(".")) {
             ui->labelSignUpBadData->setText(QString::fromStdString("Please input a valid email address!"));
+            ui->labelSignUpBadData->setVisible(true);
+        } else if (ui->lineEditSignUpPhoneNum->text().length() != ui->lineEditSignUpPhoneNum->maxLength() || !reg1.match(ui->lineEditSignUpPhoneNum->text()).hasMatch()) {
+            ui->labelSignUpBadData->setText(QString::fromStdString("Please input a valid phone number!"));
+            ui->labelSignUpBadData->setVisible(true);
+        } else if (ui->lineEditSignUpPesel->text().length() != ui->lineEditSignUpPesel->maxLength() || !reg2.match(ui->lineEditSignUpPesel->text()).hasMatch()) {
+            ui->labelSignUpBadData->setText(QString::fromStdString("Please input a valid PESEL!"));
             ui->labelSignUpBadData->setVisible(true);
         } else {
             StoreSystem &system = StoreSystem::getInstance();
