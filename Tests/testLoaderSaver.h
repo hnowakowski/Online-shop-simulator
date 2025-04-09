@@ -26,13 +26,13 @@ private slots:
     void saveClothing();
     void saveService();
     void saveCustomer();
-    // void saveAndLoadPrice();
-    // void saveAndLoadWallet();
-    // void saveAndLoadProduct();
-    // void saveAndLoadClothing();
-    // void saveAndLoadService();
-    // void saveAndLoadCustomer();
-    //void cleanupTestCase();
+    void saveAndLoadPrice();
+    void saveAndLoadWallet();
+    void saveAndLoadProduct();
+    void saveAndLoadClothing();
+    void saveAndLoadService();
+    void saveAndLoadCustomer();
+    void cleanupTestCase();
 };
 
 #endif // TESTLOADERSAVER_H
