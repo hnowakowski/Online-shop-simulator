@@ -2,25 +2,12 @@
 
 void Wallet::subtractMain(const uint32_t &amount)
 {
-    if (amount > mainunit) {
-        mainunit = 0;
-        subunit = 0;
-    } else {
-        mainunit -= amount;
-    }
+    units = (amount * 100) > units ? 0 : (units - (amount * 100));
 }
 
 void Wallet::subtractSub(const uint32_t &amount)
 {
-    uint32_t amountInSub = mainunit * 100 + subunit;
-    if (amountInSub < amount) {
-        mainunit = 0;
-        subunit = 0;
-    } else {
-        amountInSub -= amount;
-        mainunit = amountInSub / 100;
-        subunit = amountInSub % 100;
-    }
+    units = amount > units ? 0 : (units - amount);
 }
 
 Wallet &Wallet::operator=(const Wallet &other)
@@ -29,28 +16,22 @@ Wallet &Wallet::operator=(const Wallet &other)
         return *this;
     }
 
-    this->mainunit = other.mainunit;
-    this->subunit = other.subunit;
-
+    units = other.units;
     return *this;
 }
 
 Wallet::Wallet(uint32_t mainunit, uint32_t subunit)
     : MoneyPossesive(mainunit, subunit)
-{
-    this->mainunit = mainunit;
-    this->subunit = subunit;
-}
+{}
 
 nlohmann::json Wallet::toJSON() const
 {
-    return nlohmann::json{{"mainunit", mainunit}, {"subunit", subunit}};
+    return nlohmann::json{{"units", units}};
 }
 
 void Wallet::fromJSON(const nlohmann::json &json)
 {
-    mainunit = json.at("mainunit").get<uint32_t>();
-    subunit = json.at("subunit").get<uint32_t>();
+    units = json.at("units").get<uint32_t>();
 }
 
 Wallet::Wallet(const nlohmann::json &json)

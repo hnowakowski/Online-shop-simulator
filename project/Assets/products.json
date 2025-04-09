@@ -5,8 +5,7 @@
         "image": "Assets\\Images\\Products\\blahaj.jpg",
         "name": "Blahaj",
         "price": {
-            "mainunit": 79,
-            "subunit": 99
+            "units": 7999
         },
         "rating": "11.0",
         "quantity": 20
@@ -17,8 +16,7 @@
         "image": "Assets\\Images\\Products\\creatine.jpg",
         "name": "Creatine",
         "price": {
-            "mainunit": 109,
-            "subunit": 99
+            "units": 10999
         },
         "rating": "9.9",
         "quantity": 10
@@ -29,8 +27,7 @@
         "image": "Assets\\Images\\Products\\transShirt.png",
         "name": "Sick trans shirt wow",
         "price": {
-            "mainunit": 89,
-            "subunit": 99
+            "units": 8999
         },
         "rating": "8.6",
         "quantity": 30,
@@ -44,8 +41,7 @@
         "image": "Assets\\Images\\Products\\superSneaker.png",
         "name": "Subway surfers super sneakers",
         "price": {
-            "mainunit": 159,
-            "subunit": 99
+            "units": 15999
         },
         "rating": "5.3",
         "quantity": 5,
@@ -59,8 +55,7 @@
         "image": "Assets\\Images\\Products\\goofyCar.jpg",
         "name": "Bulbous ahh automobile",
         "price": {
-            "mainunit": 1499,
-            "subunit": 99
+            "units": 149999
         },
         "rating": "8.5",
         "quantity": 2
@@ -71,8 +66,7 @@
         "image": "Assets\\Images\\Products\\jokerZFartem.jpg",
         "name": "Epic joker shirt",
         "price": {
-            "mainunit": 89,
-            "subunit": 99
+            "units": 8999
         },
         "rating": "7.6",
         "quantity": 3,
@@ -86,8 +80,7 @@
         "image": "Assets\\Images\\Products\\jokerLech.jpg",
         "name": "Lech poznań joker shirt",
         "price": {
-            "mainunit": 89,
-            "subunit": 99
+            "units": 8999
         },
         "rating": "7.8",
         "quantity": 3,

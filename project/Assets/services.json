@@ -5,8 +5,7 @@
         "image": "Assets\\Images\\Services\\boykisser.png",
         "name": "Slovenian discord e-boy",
         "price": {
-            "mainunit": 19,
-            "subunit": 99
+            "units": 1999
         },
         "servicetype": "DISCORDIAN",
         "rating": "8.7"
@@ -17,8 +16,7 @@
         "image": "Assets\\Images\\Services\\gojo.jpg",
         "name": "Become anime",
         "price": {
-            "mainunit": 39,
-            "subunit": 99
+            "units": 3999
         },
         "servicetype": "ART",
         "rating": "100"
@@ -29,8 +27,7 @@
         "image": "Assets\\Images\\Services\\pawel.jpg",
         "name": "Personal trainer Paweł",
         "price": {
-            "mainunit": 99,
-            "subunit": 99
+            "units": 9999
         },
         "servicetype": "OTHER",
         "rating": "10"

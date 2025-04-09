@@ -6,8 +6,7 @@
 class MoneyPossesive
 {
 protected:
-    uint32_t mainunit;
-    uint32_t subunit;
+    uint32_t units;
 
 public:
     virtual uint32_t getMainUnit();
@@ -27,6 +26,7 @@ public:
     virtual bool operator>=(const MoneyPossesive &other) const;
 
     MoneyPossesive(const uint32_t &mainunit, const uint32_t &subunit);
+    MoneyPossesive(const uint32_t &units);
     MoneyPossesive();
 
     virtual ~MoneyPossesive() = default;
