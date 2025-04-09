@@ -51,8 +51,7 @@ void MainWindow::on_btnCheckoutWallet_clicked()
             ui->labelCheckout->setText("Checkout (Total: 0.0 ZŁ)");
             uint32_t walletFirst = currCustomer->getWallet()->getMainUnit();
             uint32_t walletSecond = currCustomer->getWallet()->getSubUnit();
-            std::string walletStr = "Wallet: " + std::to_string(walletFirst) + "."
-                                    + std::to_string(walletSecond) + " ZŁ";
+            std::string walletStr = "Wallet: " + std::to_string(walletFirst) + "." + std::to_string(walletSecond) + " ZŁ";
             ui->labelCheckoutWalletStatus->setText(QString::fromStdString(walletStr));
         } else {
             showWarning(ui->pageCheckout, "Cannot consume", "Not enough funds in your account! :(");
