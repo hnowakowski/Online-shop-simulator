@@ -1,5 +1,10 @@
 #include "testLoaderSaver.h"
 
+void TestLoaderSaver::initTestCase()
+{
+    QVERIFY(std::filesystem::create_directory(JSONPATH + "TestJsons"));
+}
+
 void TestLoaderSaver::savePrice()
 {
     std::vector<std::shared_ptr<Price>> mockPrices;
@@ -134,4 +139,5 @@ void TestLoaderSaver::cleanupTestCase()
     QVERIFY(!std::remove((JSONPATH + "TestJsons\\clothingTest2.json").c_str()));
     QVERIFY(!std::remove((JSONPATH + "TestJsons\\serviceTest2.json").c_str()));
     QVERIFY(!std::remove((JSONPATH + "TestJsons\\customerTest2.json").c_str()));
+    QVERIFY(std::filesystem::remove(JSONPATH + "TestJsons"));
 }

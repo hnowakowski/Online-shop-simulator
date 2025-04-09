@@ -20,6 +20,7 @@ class TestLoaderSaver : public QObject
     Q_OBJECT
 
 private slots:
+    void initTestCase();
     void savePrice();
     void saveWallet();
     void saveProduct();
