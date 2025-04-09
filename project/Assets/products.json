@@ -1,0 +1,92 @@
+[
+    {
+        "description": "Haiiii :3",
+        "id": "P1",
+        "image": "Assets\\Images\\Products\\blahaj.jpg",
+        "name": "Blahaj",
+        "price": {
+            "units": 7999
+        },
+        "rating": "11.0",
+        "quantity": 20
+    },
+    {
+        "description": "Creatine zyzz hardstyle we go jim sam sulek uuuu sigma winter arc",
+        "id": "P2",
+        "image": "Assets\\Images\\Products\\creatine.jpg",
+        "name": "Creatine",
+        "price": {
+            "units": 10999
+        },
+        "rating": "9.9",
+        "quantity": 10
+    },
+    {
+        "description": "I REJECT MY MORTAL FLESH",
+        "id": "P3",
+        "image": "Assets\\Images\\Products\\transShirt.png",
+        "name": "Sick trans shirt wow",
+        "price": {
+            "units": 8999
+        },
+        "rating": "8.6",
+        "quantity": 30,
+        "color": "BLACK",
+        "clothing_type": "shirt",
+        "size": 2
+    },
+    {
+        "description": "boingboingboingboingboingboingboingboingboingboingboingboing",
+        "id": "P4",
+        "image": "Assets\\Images\\Products\\superSneaker.png",
+        "name": "Subway surfers super sneakers",
+        "price": {
+            "units": 15999
+        },
+        "rating": "5.3",
+        "quantity": 5,
+        "color": "YELLOW",
+        "clothing_type": "shoes",
+        "size": 10
+    },
+    {
+        "description": "300 km/h left lane on the autobahn let's go",
+        "id": "P5",
+        "image": "Assets\\Images\\Products\\goofyCar.jpg",
+        "name": "Bulbous ahh automobile",
+        "price": {
+            "units": 149999
+        },
+        "rating": "8.5",
+        "quantity": 2
+    },
+    {
+        "description": "dlaczego taki poważny? 🤡🤡🤡🤡 <- (what does this mean i dont speak polish)",
+        "id": "P6",
+        "image": "Assets\\Images\\Products\\jokerZFartem.jpg",
+        "name": "Epic joker shirt",
+        "price": {
+            "units": 8999
+        },
+        "rating": "7.6",
+        "quantity": 3,
+        "color": "BLACK",
+        "clothing_type": "shirt",
+        "size": 3
+    },
+    {
+        "description": "SCREAM IF YOU LOVE POZNAŃ",
+        "id": "P7",
+        "image": "Assets\\Images\\Products\\jokerLech.jpg",
+        "name": "Lech poznań joker shirt",
+        "price": {
+            "units": 8999
+        },
+        "rating": "7.8",
+        "quantity": 3,
+        "color": "BLUE",
+        "clothing_type": "shirt",
+        "size": 3
+    }
+
+]

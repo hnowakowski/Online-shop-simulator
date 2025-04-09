@@ -1,0 +1,44 @@
+[
+    {
+        "PESEL": "12345678901",
+        "address": "Piotrowo 4",
+        "city": "Poznań",
+        "email": "dragonslayer999@gmail.com",
+        "id": "U1",
+        "name": "Jan",
+        "password": "a",
+        "phone": "111222333",
+        "surname": "Kowalski",
+        "wallet": {
+            "units": 9999939
+        }
+    },
+    {
+        "PESEL": "s",
+        "address": "s",
+        "city": "s",
+        "email": "s",
+        "id": "U2",
+        "name": "s",
+        "password": "s",
+        "phone": "s",
+        "surname": "s",
+        "wallet": {
+            "units": 0
+        }
+    },
+    {
+        "PESEL": "b",
+        "address": "b",
+        "city": "b",
+        "email": "b",
+        "id": "U3",
+        "name": "b",
+        "password": "bb",
+        "phone": "b",
+        "surname": "b",
+        "wallet": {
+            "units": 0
+        }
+    }
+]
