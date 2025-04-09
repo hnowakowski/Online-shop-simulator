@@ -16,7 +16,7 @@ SOURCES += \
         ../project/Classes/CartItem.cpp \
         ../project/Classes/Wallet.cpp \
         ../project/Classes/ItemScrollAreaMain.cpp \
-        testLoader.cpp \
+        testLoaderSaver.cpp \
         testWallet.cpp
 
 HEADERS += \
@@ -38,7 +38,7 @@ HEADERS += \
         ../project/Enums/BuyableSortedBy.h \
         ../project/Enums/Color.h \
         ../project/Enums/ServiceType.h \
-        testLoader.h \
+        testLoaderSaver.h \
         testWallet.h
 
 INCLUDEPATH += $$PWD/../project
