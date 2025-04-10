@@ -14,11 +14,22 @@
    <string>The Drip Shop™</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">QWidget{
+background-color: rgb(48, 48, 48);
+color: white;
+}
+
+
+QPushButton, QComboBox {
+	background-color: rgb(70, 70, 70);
+}</string>
   </property>
   <widget class="QWidget" name="widgetSiteBody">
    <property name="enabled">
     <bool>true</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
@@ -34,7 +45,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="pageMain">
        <property name="sizePolicy">
