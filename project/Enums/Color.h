@@ -64,7 +64,7 @@ inline void to_json(nlohmann::json &j, const Color &color)
         break;
 
     default:
-        throw std::invalid_argument("Unknown Color");
+        j = "BLACK";
     }
 }
 
@@ -81,8 +81,6 @@ inline void from_json(const nlohmann::json &j, Color &color)
         color = it->second;
         return;
     }
-
-    throw std::invalid_argument("Unknown Color: " + colorStr);
 }
 
 #endif // OOP_PROJECT_COLOR_H

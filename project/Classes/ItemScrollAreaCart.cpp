@@ -26,11 +26,8 @@ void ItemScrollAreaCart::populateItems()
 
 void ItemScrollAreaCart::displayItems()
 {
-    QVBoxLayout *layout = qobject_cast<QVBoxLayout *>(scrollArea->widget()->layout());
-    StoreSystem &system = StoreSystem::getInstance();
     for (const auto &[item, widget] : *itemWidgets) {
         widget->setVisible(true);
-        //layout->addWidget(widget);
     }
 }
 
@@ -74,10 +71,6 @@ void ItemScrollAreaCart::generatePanel(std::shared_ptr<CartItem> &item)
     std::string priceText = std::to_string(price->getMainUnit()) + "." + std::to_string(price->getSubUnit()) + " ZŁ";
 
     QLabel *priceLabel = new QLabel(QString::fromStdString(priceText));
-    QFont priceFont = priceLabel->font();
-    priceFont.setPointSize(12);
-    priceLabel->setFont(priceFont);
-    priceLabel->setWordWrap(true);
     infoLayout->addWidget(priceLabel);
 
     productLayout->addWidget(infoPanel);
@@ -90,16 +83,12 @@ void ItemScrollAreaCart::generatePanel(std::shared_ptr<CartItem> &item)
 
     QObject::connect(removeFromCartButton, &QPushButton::clicked, [item, this]() {
         StoreSystem &system = StoreSystem::getInstance();
-        //qDebug() << "Removing " << currentBuyable->getName() << " from cart.";
         std::shared_ptr<Buyable> buyable = item->getBuyable();
         if (std::shared_ptr<Product> product = std::dynamic_pointer_cast<Product>(buyable)) {
             product->setQuantity(product->getQuantity() + 1);
         }
 
-        //qDebug() << "BEFORE REMOVE: " << buyableWidgets->at(0).first->getName();
-
         for (int32_t i = itemWidgets->size() - 1; i >= 0; i--) {
-            //qDebug() << i;
             if (itemWidgets->at(i).first->getId() == item->getId()) {
                 itemWidgets->at(i).second->deleteLater();
                 itemWidgets->erase(itemWidgets->begin() + i);

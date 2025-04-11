@@ -37,22 +37,13 @@ void ItemScrollAreaMain::displayItems()
     switch (sortedBy) {
     case BuyableSortedBy::NAME:
         std::sort(itemWidgets->begin(), itemWidgets->end(), [](const auto &a, const auto &b) { return a.first->getName() < b.first->getName(); });
-        // for (const auto &b : *buyables) {
-        //     qDebug() << b->getName();
-        // }
         break;
     case BuyableSortedBy::PRICE:
         std::sort(itemWidgets->begin(), itemWidgets->end(), [](const auto &a, const auto &b) { return *(a.first->getPrice()) < *(b.first->getPrice()); });
-        // for (const auto &b : *buyables) {
-        //     qDebug() << b->getPrice()->getMainUnit() << " " << b->getPrice()->getSubUnit();
-        // }
         break;
     case BuyableSortedBy::RATING:
         std::sort(itemWidgets->begin(), itemWidgets->end(),
                   [](const auto &a, const auto &b) { return std::stof(a.first->getRating()) > std::stof(b.first->getRating()); });
-        // for (const auto &b : *buyables) {
-        //     qDebug() << b->getRating();
-        // }
         break;
     }
 
@@ -92,7 +83,6 @@ void ItemScrollAreaMain::displayItems()
         if (std::shared_ptr<Product> product = std::dynamic_pointer_cast<Product>(buyable)) {
             if (QLabel *quantityLabel = widget->findChild<QLabel *>("quantityLabel", Qt::FindChildrenRecursively)) {
                 uint32_t quantity = product->getQuantity();
-                //qDebug() << "QUANTITY IS " << quantity;
                 std::string quantityText = "In stock: " + std::to_string(quantity);
                 quantityLabel->setText(QString::fromStdString(quantityText));
             }
@@ -124,7 +114,7 @@ void ItemScrollAreaMain::generatePanel(std::shared_ptr<Buyable> &item)
 
     QLabel *nameLabel = new QLabel(QString::fromStdString(item->getName()));
     QFont nameFont = nameLabel->font();
-    nameFont.setPointSize(12);
+    nameFont.setPointSize(14);
     nameFont.setBold(true);
     nameLabel->setFont(nameFont);
     infoLayout->addWidget(nameLabel);
@@ -134,7 +124,6 @@ void ItemScrollAreaMain::generatePanel(std::shared_ptr<Buyable> &item)
     infoLayout->addWidget(ratingLabel);
 
     QLabel *descriptionLabel = new QLabel(QString::fromStdString(item->getDescription()));
-    //descriptionLabel->setWordWrap(true);
     infoLayout->addWidget(descriptionLabel);
 
     productLayout->addWidget(infoPanel);
@@ -151,19 +140,11 @@ void ItemScrollAreaMain::generatePanel(std::shared_ptr<Buyable> &item)
     QPushButton *addToCartButton = new QPushButton("Add to Cart");
     buttonLayout->addWidget(addToCartButton);
 
-    // if (std::shared_ptr<Product> product = std::dynamic_pointer_cast<Product>(item)) {
-    //     uint32_t quantity = product->getQuantity();
-    //     quantityText = "In stock: " + std::to_string(quantity);
-    //     if (quantity == 0) {
-    //         addToCartButton->setDisabled(true);
-    //     }
-    // }
     QLabel *quantityLabel = new QLabel("");
     quantityLabel->setObjectName("quantityLabel");
 
     QObject::connect(addToCartButton, &QPushButton::clicked, [item, quantityLabel, addToCartButton]() {
         StoreSystem &system = StoreSystem::getInstance();
-        //qDebug() << "Adding " << buyable->getName() << " to cart.";
 
         if (std::shared_ptr<Product> product = std::dynamic_pointer_cast<Product>(item)) {
             product->setQuantity(product->getQuantity() - 1);

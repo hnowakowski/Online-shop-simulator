@@ -26,10 +26,8 @@ void ItemScrollAreaCheckout::populateItems()
 
 void ItemScrollAreaCheckout::displayItems()
 {
-    QVBoxLayout *layout = qobject_cast<QVBoxLayout *>(scrollArea->widget()->layout());
     for (const auto &[item, widget] : *itemWidgets) {
         widget->setVisible(true);
-        //layout->addWidget(widget);
     }
 }
 
@@ -73,10 +71,6 @@ void ItemScrollAreaCheckout::generatePanel(std::shared_ptr<CartItem> &item)
     std::string priceText = std::to_string(price->getMainUnit()) + "." + std::to_string(price->getSubUnit()) + " ZŁ";
 
     QLabel *priceLabel = new QLabel(QString::fromStdString(priceText));
-    QFont priceFont = priceLabel->font();
-    priceFont.setPointSize(12);
-    priceLabel->setFont(priceFont);
-    priceLabel->setWordWrap(true);
     infoLayout->addWidget(priceLabel);
 
     productLayout->addWidget(infoPanel);
@@ -107,7 +101,6 @@ void ItemScrollAreaCheckout::clearArea()
             itemWidgets->at(i).second->deleteLater();
             layout->removeWidget(itemWidgets->at(i).second);
             itemWidgets->erase(itemWidgets->begin() + i);
-            qDebug() << "ANNIHILATED BUYABLE WIDGET AT " << i;
         }
     }
 }

@@ -20,7 +20,7 @@ inline void to_json(nlohmann::json &j, const ServiceType &type)
         break;
 
     default:
-        throw std::invalid_argument("Unknown ServiceType");
+        j = "OTHER";
     }
 }
 
@@ -38,8 +38,6 @@ inline void from_json(const nlohmann::json &j, ServiceType &type)
         type = it->second;
         return;
     }
-
-    throw std::invalid_argument("Unknown ServiceType: " + typeStr);
 }
 
 #endif // OOP_PROJECT_SERVICETYPE_H
