@@ -14,9 +14,9 @@
    <string>The Drip Shop™</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QWidget{
-background-color: rgb(48, 48, 48);
-color: white;
+   <string notr="true">QWidget {
+	background-color: rgb(48, 48, 48);
+	color: white;
 }
 
 
@@ -32,16 +32,21 @@ QPushButton, QComboBox {
     <string notr="true"/>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <widget class="Line" name="line_12">
-      <property name="frameShadow">
-       <enum>QFrame::Shadow::Plain</enum>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Orientation::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
@@ -67,8 +72,8 @@ QPushButton, QComboBox {
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>1069</width>
-               <height>480</height>
+               <width>1087</width>
+               <height>513</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_13"/>
@@ -401,7 +406,7 @@ QPushButton, QComboBox {
              </widget>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_8">
+             <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="2,3,2">
               <item>
                <spacer name="horizontalSpacer_3">
                 <property name="orientation">
@@ -425,12 +430,12 @@ QPushButton, QComboBox {
                 </property>
                 <property name="font">
                  <font>
-                  <pointsize>12</pointsize>
+                  <pointsize>16</pointsize>
                   <bold>true</bold>
                  </font>
                 </property>
                 <property name="text">
-                 <string>LOG IN AND CONTINUE CONSUMPTION!</string>
+                 <string>Log in!</string>
                 </property>
                </widget>
               </item>
@@ -926,8 +931,8 @@ BECOME A CONSUMER TODAY!!</string>
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>1070</width>
-                 <height>161</height>
+                 <width>1088</width>
+                 <height>192</height>
                 </rect>
                </property>
               </widget>
@@ -1180,7 +1185,7 @@ BECOME A CONSUMER TODAY!!</string>
                  </font>
                 </property>
                 <property name="text">
-                 <string>CONSUME WITH CARD</string>
+                 <string>PURCHASE WITH CARD</string>
                 </property>
                </widget>
               </item>
@@ -1198,7 +1203,7 @@ BECOME A CONSUMER TODAY!!</string>
                  </font>
                 </property>
                 <property name="text">
-                 <string>CONSUME WITH WALLET</string>
+                 <string>PURCHASE WITH WALLET</string>
                 </property>
                </widget>
               </item>
@@ -1325,8 +1330,8 @@ BECOME A CONSUMER TODAY!!</string>
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>1070</width>
-                 <height>316</height>
+                 <width>1088</width>
+                 <height>337</height>
                 </rect>
                </property>
               </widget>
@@ -1467,6 +1472,9 @@ BECOME A CONSUMER TODAY!!</string>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -1474,6 +1482,9 @@ BECOME A CONSUMER TODAY!!</string>
      <width>1185</width>
      <height>21</height>
     </rect>
+   </property>
+   <property name="nativeMenuBar">
+    <bool>false</bool>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar">
