@@ -11,3 +11,4 @@ release/
 mainwindow
 ui_mainwindow.h
 *.TMP
+*.xcf
