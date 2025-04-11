@@ -17,12 +17,7 @@ bool Product::operator==(const Product &other) const
 
 Product::Product() {}
 
-Product::Product(std::string id,
-                 std::string name,
-                 std::string description,
-                 std::string image,
-                 std::string rating,
-                 uint32_t quantity,
+Product::Product(std::string id, std::string name, std::string description, std::string image, std::string rating, uint32_t quantity,
                  std::shared_ptr<Price> price)
     : Buyable(id, name, description, image, rating, price)
     , quantity(quantity)
@@ -47,13 +42,8 @@ Product &Product::operator=(const Product &other)
 
 nlohmann::json Product::toJSON() const
 {
-    return nlohmann::json{{"id", id},
-                          {"name", name},
-                          {"description", description},
-                          {"image", image},
-                          {"rating", rating},
-                          {"quantity", quantity},
-                          {"price", price->toJSON()}};
+    return nlohmann::json{{"id", id},         {"name", name},         {"description", description}, {"image", image},
+                          {"rating", rating}, {"quantity", quantity}, {"price", price->toJSON()}};
 }
 
 void Product::fromJSON(const nlohmann::json &json)

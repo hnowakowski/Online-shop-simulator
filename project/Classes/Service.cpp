@@ -1,5 +1,5 @@
-#include "../Enums/ServiceType.h"
 #include "Service.h"
+#include "../Enums/ServiceType.h"
 
 ServiceType Service::getType() const
 {
@@ -27,12 +27,7 @@ Service::Service()
     : servicetype(ServiceType::OTHER)
 {}
 
-Service::Service(std::string id,
-                 std::string name,
-                 std::string description,
-                 std::string image,
-                 std::string rating,
-                 std::shared_ptr<Price> price,
+Service::Service(std::string id, std::string name, std::string description, std::string image, std::string rating, std::shared_ptr<Price> price,
                  ServiceType type)
     : Buyable(id, name, description, image, rating, price)
     , servicetype(type)

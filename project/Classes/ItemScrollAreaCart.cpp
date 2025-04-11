@@ -71,8 +71,7 @@ void ItemScrollAreaCart::generatePanel(std::shared_ptr<CartItem> &item)
     infoLayout->addWidget(nameLabel);
 
     std::shared_ptr<Price> price = item->getBuyable()->getPrice();
-    std::string priceText = std::to_string(price->getMainUnit()) + "."
-                            + std::to_string(price->getSubUnit()) + " ZŁ";
+    std::string priceText = std::to_string(price->getMainUnit()) + "." + std::to_string(price->getSubUnit()) + " ZŁ";
 
     QLabel *priceLabel = new QLabel(QString::fromStdString(priceText));
     QFont priceFont = priceLabel->font();

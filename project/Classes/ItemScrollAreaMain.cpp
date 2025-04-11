@@ -36,25 +36,20 @@ void ItemScrollAreaMain::displayItems()
 
     switch (sortedBy) {
     case BuyableSortedBy::NAME:
-        std::sort(itemWidgets->begin(), itemWidgets->end(), [](const auto &a, const auto &b) {
-            return a.first->getName() < b.first->getName();
-        });
+        std::sort(itemWidgets->begin(), itemWidgets->end(), [](const auto &a, const auto &b) { return a.first->getName() < b.first->getName(); });
         // for (const auto &b : *buyables) {
         //     qDebug() << b->getName();
         // }
         break;
     case BuyableSortedBy::PRICE:
-        std::sort(itemWidgets->begin(), itemWidgets->end(), [](const auto &a, const auto &b) {
-            return *(a.first->getPrice()) < *(b.first->getPrice());
-        });
+        std::sort(itemWidgets->begin(), itemWidgets->end(), [](const auto &a, const auto &b) { return *(a.first->getPrice()) < *(b.first->getPrice()); });
         // for (const auto &b : *buyables) {
         //     qDebug() << b->getPrice()->getMainUnit() << " " << b->getPrice()->getSubUnit();
         // }
         break;
     case BuyableSortedBy::RATING:
-        std::sort(itemWidgets->begin(), itemWidgets->end(), [](const auto &a, const auto &b) {
-            return std::stof(a.first->getRating()) > std::stof(b.first->getRating());
-        });
+        std::sort(itemWidgets->begin(), itemWidgets->end(),
+                  [](const auto &a, const auto &b) { return std::stof(a.first->getRating()) > std::stof(b.first->getRating()); });
         // for (const auto &b : *buyables) {
         //     qDebug() << b->getRating();
         // }
@@ -95,8 +90,7 @@ void ItemScrollAreaMain::displayItems()
             }
         }
         if (std::shared_ptr<Product> product = std::dynamic_pointer_cast<Product>(buyable)) {
-            if (QLabel *quantityLabel = widget->findChild<QLabel *>("quantityLabel",
-                                                                    Qt::FindChildrenRecursively)) {
+            if (QLabel *quantityLabel = widget->findChild<QLabel *>("quantityLabel", Qt::FindChildrenRecursively)) {
                 uint32_t quantity = product->getQuantity();
                 //qDebug() << "QUANTITY IS " << quantity;
                 std::string quantityText = "In stock: " + std::to_string(quantity);
@@ -151,10 +145,7 @@ void ItemScrollAreaMain::generatePanel(std::shared_ptr<Buyable> &item)
     QWidget *buttonPanel = new QWidget();
     QVBoxLayout *buttonLayout = new QVBoxLayout(buttonPanel);
 
-    QSpacerItem *vButtonSpacerTop = new QSpacerItem(40,
-                                                    20,
-                                                    QSizePolicy::Minimum,
-                                                    QSizePolicy::Expanding);
+    QSpacerItem *vButtonSpacerTop = new QSpacerItem(40, 20, QSizePolicy::Minimum, QSizePolicy::Expanding);
     buttonLayout->addItem(vButtonSpacerTop);
 
     QPushButton *addToCartButton = new QPushButton("Add to Cart");
@@ -170,40 +161,32 @@ void ItemScrollAreaMain::generatePanel(std::shared_ptr<Buyable> &item)
     QLabel *quantityLabel = new QLabel("");
     quantityLabel->setObjectName("quantityLabel");
 
-    QObject::connect(addToCartButton,
-                     &QPushButton::clicked,
-                     [item, quantityLabel, addToCartButton]() {
-                         StoreSystem &system = StoreSystem::getInstance();
-                         //qDebug() << "Adding " << buyable->getName() << " to cart.";
+    QObject::connect(addToCartButton, &QPushButton::clicked, [item, quantityLabel, addToCartButton]() {
+        StoreSystem &system = StoreSystem::getInstance();
+        //qDebug() << "Adding " << buyable->getName() << " to cart.";
 
-                         if (std::shared_ptr<Product> product = std::dynamic_pointer_cast<Product>(
-                                 item)) {
-                             product->setQuantity(product->getQuantity() - 1);
+        if (std::shared_ptr<Product> product = std::dynamic_pointer_cast<Product>(item)) {
+            product->setQuantity(product->getQuantity() - 1);
 
-                             quantityLabel->setText(QString::fromStdString(
-                                 "In stock: " + std::to_string(product->getQuantity())));
+            quantityLabel->setText(QString::fromStdString("In stock: " + std::to_string(product->getQuantity())));
 
-                             if (product->getQuantity() == 0) {
-                                 addToCartButton->setDisabled(true);
-                             }
-                         }
-                         system.getCart().addBuyable(item);
-                         std::shared_ptr<Price> pr = system.getCart().getTotalPrice();
-                         qDebug() << pr->getMainUnit() << "." << pr->getSubUnit();
-                     });
+            if (product->getQuantity() == 0) {
+                addToCartButton->setDisabled(true);
+            }
+        }
+        system.getCart().addBuyable(item);
+        std::shared_ptr<Price> pr = system.getCart().getTotalPrice();
+        qDebug() << pr->getMainUnit() << "." << pr->getSubUnit();
+    });
 
     std::shared_ptr<Price> price = item->getPrice();
-    std::string priceText = std::to_string(price->getMainUnit()) + "."
-                            + std::to_string(price->getSubUnit()) + " ZŁ";
+    std::string priceText = std::to_string(price->getMainUnit()) + "." + std::to_string(price->getSubUnit()) + " ZŁ";
 
     QLabel *priceLabel = new QLabel(QString::fromStdString(priceText));
     buttonLayout->addWidget(priceLabel);
     buttonLayout->addWidget(quantityLabel);
 
-    QSpacerItem *vButtonSpacerBottom = new QSpacerItem(40,
-                                                       20,
-                                                       QSizePolicy::Minimum,
-                                                       QSizePolicy::Expanding);
+    QSpacerItem *vButtonSpacerBottom = new QSpacerItem(40, 20, QSizePolicy::Minimum, QSizePolicy::Expanding);
     buttonLayout->addItem(vButtonSpacerBottom);
 
     productLayout->addWidget(buttonPanel);

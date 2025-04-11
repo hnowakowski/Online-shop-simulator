@@ -48,12 +48,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     QObject::connect(&system.getCart(), &Cart::cartChanged, this, &MainWindow::updateCartLabel);
     QObject::connect(&system.getCart(), &Cart::cartChanged, this, &MainWindow::updateCartTotalPrice);
-    QObject::connect(&system.getCart(), &Cart::cartChanged, this, [this]() {
-        cartScrollArea.populate();
-    });
-    QObject::connect(&system.getCart(), &Cart::cartChanged, this, [this]() {
-        checkoutScrollArea.populate();
-    });
+    QObject::connect(&system.getCart(), &Cart::cartChanged, this, [this]() { cartScrollArea.populate(); });
+    QObject::connect(&system.getCart(), &Cart::cartChanged, this, [this]() { checkoutScrollArea.populate(); });
 
     QPixmap pixmapLogo((PATH + "Assets\\Images\\UI\\logo.png").c_str());
     QPixmap pixmapAd1((PATH + "Assets\\Images\\UI\\ad1.png").c_str());
@@ -89,12 +85,10 @@ void MainWindow::displayAccountInfo()
 {
     StoreSystem &system = StoreSystem::getInstance();
     std::shared_ptr<Customer> currCustomer = system.getCurrentCustomer();
-    ui->labelUserLogin->setText(
-        QString::fromStdString(currCustomer->getName() + " " + currCustomer->getSurname()));
+    ui->labelUserLogin->setText(QString::fromStdString(currCustomer->getName() + " " + currCustomer->getSurname()));
     uint32_t walletFirst = currCustomer->getWallet()->getMainUnit();
     uint32_t walletSecond = currCustomer->getWallet()->getSubUnit();
-    std::string walletStr = "Wallet: " + std::to_string(walletFirst) + "."
-                            + std::to_string(walletSecond) + " ZŁ";
+    std::string walletStr = "Wallet: " + std::to_string(walletFirst) + "." + std::to_string(walletSecond) + " ZŁ";
     ui->labelWalletStatus->setText(QString::fromStdString(walletStr));
 }
 

@@ -46,12 +46,7 @@ Buyable::Buyable()
     , price(nullptr)
 {}
 
-Buyable::Buyable(std::string id,
-                 std::string name,
-                 std::string description,
-                 std::string image,
-                 std::string rating,
-                 std::shared_ptr<Price> price)
+Buyable::Buyable(std::string id, std::string name, std::string description, std::string image, std::string rating, std::shared_ptr<Price> price)
     : id(id)
     , name(name)
     , description(description)
@@ -75,12 +70,7 @@ std::shared_ptr<Buyable> Buyable::createFromJSON(const nlohmann::json &json)
 
 nlohmann::json Buyable::toJSON() const
 {
-    return nlohmann::json{{"id", id},
-                          {"name", name},
-                          {"description", description},
-                          {"image", image},
-                          {"rating", rating},
-                          {"price", price->toJSON()}};
+    return nlohmann::json{{"id", id}, {"name", name}, {"description", description}, {"image", image}, {"rating", rating}, {"price", price->toJSON()}};
 }
 
 void Buyable::fromJSON(const nlohmann::json &json)

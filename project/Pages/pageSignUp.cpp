@@ -32,7 +32,8 @@ void MainWindow::on_btnSignUp_clicked()
         if (!ui->lineEditSignUpEmail->text().contains("@") || !ui->lineEditSignUpEmail->text().contains(".")) {
             ui->labelSignUpBadData->setText(QString::fromStdString("Please input a valid email address!"));
             ui->labelSignUpBadData->setVisible(true);
-        } else if (ui->lineEditSignUpPhoneNum->text().length() != ui->lineEditSignUpPhoneNum->maxLength() || !reg1.match(ui->lineEditSignUpPhoneNum->text()).hasMatch()) {
+        } else if (ui->lineEditSignUpPhoneNum->text().length() != ui->lineEditSignUpPhoneNum->maxLength()
+                   || !reg1.match(ui->lineEditSignUpPhoneNum->text()).hasMatch()) {
             ui->labelSignUpBadData->setText(QString::fromStdString("Please input a valid phone number!"));
             ui->labelSignUpBadData->setVisible(true);
         } else if (ui->lineEditSignUpPesel->text().length() != ui->lineEditSignUpPesel->maxLength() || !reg2.match(ui->lineEditSignUpPesel->text()).hasMatch()) {
@@ -72,7 +73,8 @@ void MainWindow::on_btnSignUp_clicked()
             std::string newPESEL = ui->lineEditSignUpPesel->text().toStdString();
             std::string newPassword = formPassword.toStdString();
 
-            std::shared_ptr<Customer> newCustomer = std::make_shared<Customer>(newId, newName, newSurname, newEmail, newPhone, newCity, newAddress, newPESEL, newPassword);
+            std::shared_ptr<Customer> newCustomer = std::make_shared<Customer>(newId, newName, newSurname, newEmail, newPhone, newCity, newAddress, newPESEL,
+                                                                               newPassword);
 
             system.addCustomer(newCustomer);
             system.setCurrentCustomerId(newId);
