@@ -24,24 +24,24 @@ void TestLoaderSaver::saveWallet()
 void TestLoaderSaver::saveProduct()
 {
     std::vector<std::shared_ptr<Product>> mockProducts;
-    mockProducts.push_back(std::make_shared<Product>("P1", "prod1", "desc1", "", "1/10", 1, std::make_shared<Price>(10, 1)));
-    mockProducts.push_back(std::make_shared<Product>("P2", "prod2", "desc2", "", "2/10", 2, std::make_shared<Price>(20, 2)));
+    mockProducts.push_back(std::make_shared<Product>("P1", "prod1", "desc1", "", "1", 1, std::make_shared<Price>(10, 1)));
+    mockProducts.push_back(std::make_shared<Product>("P2", "prod2", "desc2", "", "2", 2, std::make_shared<Price>(20, 2)));
     QVERIFY(LoaderSaver<Product>::save(JSONPATH + "TestJsons\\productTest.json", mockProducts));
 }
 
 void TestLoaderSaver::saveClothing()
 {
     std::vector<std::shared_ptr<Clothing>> mockClothing;
-    mockClothing.push_back(std::make_shared<Clothing>("P1", "prod1", "desc1", "", "1/10", 1, std::make_shared<Price>(10, 1), Color::BLACK, "type1", 1));
-    mockClothing.push_back(std::make_shared<Clothing>("P2", "prod2", "desc2", "", "2/10", 2, std::make_shared<Price>(20, 2), Color::BLUE, "type2", 2));
+    mockClothing.push_back(std::make_shared<Clothing>("P1", "prod1", "desc1", "", "1", 1, std::make_shared<Price>(10, 1), Color::BLACK, "type1", 1));
+    mockClothing.push_back(std::make_shared<Clothing>("P2", "prod2", "desc2", "", "2", 2, std::make_shared<Price>(20, 2), Color::BLUE, "type2", 2));
     QVERIFY(LoaderSaver<Clothing>::save(JSONPATH + "TestJsons\\clothingTest.json", mockClothing));
 }
 
 void TestLoaderSaver::saveService()
 {
     std::vector<std::shared_ptr<Service>> mockServices;
-    mockServices.push_back(std::make_shared<Service>("S1", "serv1", "desc1", "", "1/10", std::make_shared<Price>(10, 1), ServiceType::ART));
-    mockServices.push_back(std::make_shared<Service>("S2", "serv2", "desc2", "", "2/10", std::make_shared<Price>(20, 2), ServiceType::DISCORDIAN));
+    mockServices.push_back(std::make_shared<Service>("S1", "serv1", "desc1", "", "1", std::make_shared<Price>(10, 1), ServiceType::ART));
+    mockServices.push_back(std::make_shared<Service>("S2", "serv2", "desc2", "", "2", std::make_shared<Price>(20, 2), ServiceType::DISCORDIAN));
     QVERIFY(LoaderSaver<Service>::save(JSONPATH + "TestJsons\\serviceTest.json", mockServices));
 }
 
@@ -80,8 +80,8 @@ void TestLoaderSaver::saveAndLoadWallet()
 void TestLoaderSaver::saveAndLoadProduct()
 {
     std::vector<std::shared_ptr<Product>> mockProducts;
-    mockProducts.push_back(std::make_shared<Product>("P1", "prod1", "desc1", "", "1/10", 1, std::make_shared<Price>(10, 1)));
-    mockProducts.push_back(std::make_shared<Product>("P2", "prod2", "desc2", "", "2/10", 2, std::make_shared<Price>(20, 2)));
+    mockProducts.push_back(std::make_shared<Product>("P1", "prod1", "desc1", "", "1", 1, std::make_shared<Price>(10, 1)));
+    mockProducts.push_back(std::make_shared<Product>("P2", "prod2", "desc2", "", "2", 2, std::make_shared<Price>(20, 2)));
     LoaderSaver<Product>::save(JSONPATH + "TestJsons\\productTest2.json", mockProducts);
     std::vector<std::shared_ptr<Product>> loadedProducts;
     QVERIFY(LoaderSaver<Product>::load(JSONPATH + "TestJsons\\productTest2.json", loadedProducts));
@@ -92,8 +92,8 @@ void TestLoaderSaver::saveAndLoadProduct()
 void TestLoaderSaver::saveAndLoadClothing()
 {
     std::vector<std::shared_ptr<Clothing>> mockClothing;
-    mockClothing.push_back(std::make_shared<Clothing>("P1", "prod1", "desc1", "", "1/10", 1, std::make_shared<Price>(10, 1), Color::BLACK, "type1", 1));
-    mockClothing.push_back(std::make_shared<Clothing>("P2", "prod2", "desc2", "", "2/10", 2, std::make_shared<Price>(20, 2), Color::BLUE, "type2", 2));
+    mockClothing.push_back(std::make_shared<Clothing>("P1", "prod1", "desc1", "", "1", 1, std::make_shared<Price>(10, 1), Color::BLACK, "type1", 1));
+    mockClothing.push_back(std::make_shared<Clothing>("P2", "prod2", "desc2", "", "2", 2, std::make_shared<Price>(20, 2), Color::BLUE, "type2", 2));
     LoaderSaver<Clothing>::save(JSONPATH + "TestJsons\\clothingTest2.json", mockClothing);
     std::vector<std::shared_ptr<Clothing>> loadedClothing;
     QVERIFY(LoaderSaver<Clothing>::load(JSONPATH + "TestJsons\\clothingTest2.json", loadedClothing));
@@ -104,8 +104,8 @@ void TestLoaderSaver::saveAndLoadClothing()
 void TestLoaderSaver::saveAndLoadService()
 {
     std::vector<std::shared_ptr<Service>> mockServices;
-    mockServices.push_back(std::make_shared<Service>("S1", "serv1", "desc1", "", "1/10", std::make_shared<Price>(10, 1), ServiceType::ART));
-    mockServices.push_back(std::make_shared<Service>("S2", "serv2", "desc2", "", "2/10", std::make_shared<Price>(20, 2), ServiceType::DISCORDIAN));
+    mockServices.push_back(std::make_shared<Service>("S1", "serv1", "desc1", "", "1", std::make_shared<Price>(10, 1), ServiceType::ART));
+    mockServices.push_back(std::make_shared<Service>("S2", "serv2", "desc2", "", "2", std::make_shared<Price>(20, 2), ServiceType::DISCORDIAN));
     LoaderSaver<Service>::save(JSONPATH + "TestJsons\\serviceTest2.json", mockServices);
     std::vector<std::shared_ptr<Service>> loadedServices;
     QVERIFY(LoaderSaver<Service>::load(JSONPATH + "TestJsons\\serviceTest2.json", loadedServices));
