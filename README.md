@@ -4,7 +4,7 @@
 
 This project was originally made by me and my friend for our OOP classes. Afterwards I have decided to fork the repository and extensively rewrite almost every aspect of the app, so the **vast** majority of the codebase was written by me, but feel free to check the commit history.
 
-![readme_stuff/purchase.gif]
+![Demo purchase gif](readme_stuff/purchase.gif)
 
 ## Introduction
 
@@ -31,4 +31,4 @@ Note: Asset paths are relative and assume the app is run from the build director
 
 If setting it up is too much hassle, I’ve included a video demo of all of the core features:
 
-![readme_stuff/demo.mp4]
+![Demo video](https://www.youtube.com/watch?v=eDrE0IVixMk)

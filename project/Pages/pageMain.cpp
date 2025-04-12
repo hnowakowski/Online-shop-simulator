@@ -194,6 +194,7 @@ void MainWindow::on_btnMainGotoLogin_clicked()
 
 void MainWindow::on_btnLogout_clicked()
 {
+    StoreSystem &system = StoreSystem::getInstance();
     ui->stackedWidgetLogin->setCurrentWidget(ui->pageLoginLoggedOut);
-    StoreSystem::getInstance().setCurrentCustomerId("U0");
+    system.setCurrentCustomerId("U0");
 }

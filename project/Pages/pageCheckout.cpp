@@ -5,6 +5,7 @@
 #include "../Classes/ItemScrollAreaCart.h"
 #include "../Classes/ItemScrollAreaCheckout.h"
 #include "../Classes/StoreSystem.h"
+#include "../Templates/LoaderSaver.h"
 #include "../mainwindow.h"
 #include "../ui_mainwindow.h"
 
@@ -42,7 +43,6 @@ void MainWindow::on_btnCheckoutWallet_clicked()
             currCustomer->getWallet()->subtractSub(totalPrice->getSubUnit());
             system.getCart().getItems()->clear();
 
-            qDebug() << system.getCart().size();
             emit system.getCart().cartChanged();
 
             displayAccountInfo();
@@ -54,6 +54,10 @@ void MainWindow::on_btnCheckoutWallet_clicked()
             uint32_t walletSecond = currCustomer->getWallet()->getSubUnit();
             std::string walletStr = "Wallet: " + std::to_string(walletFirst) + "." + std::to_string(walletSecond) + " ZŁ";
             ui->labelCheckoutWalletStatus->setText(QString::fromStdString(walletStr));
+            auto customers = system.getCustomers();
+            if (!LoaderSaver<Customer>::save(PATH + "Assets\\customers.json", *customers)) {
+                qDebug() << "WARNING! - Saving customers.json failed!\n";
+            }
         } else {
             showWarning(ui->pageCheckout, "Cannot purchase", "Not enough funds in your account! :(");
         }
@@ -101,12 +105,15 @@ void MainWindow::on_btnCheckoutCard_clicked()
             showInfo(ui->pageCheckout, "Yipee!", "Products successfully purchased!");
             StoreSystem &system = StoreSystem::getInstance();
             system.getCart().getItems()->clear();
-            qDebug() << system.getCart().size();
             emit system.getCart().cartChanged();
             cartScrollArea.populate();
             checkoutScrollArea.populate();
             updateCartTotalPrice();
             ui->labelCheckout->setText("Checkout (Total: 0.0 ZŁ)");
+            auto customers = system.getCustomers();
+            if (!LoaderSaver<Customer>::save(PATH + "Assets\\customers.json", *customers)) {
+                qDebug() << "WARNING! - Saving customers.json failed!\n";
+            }
         }
     }
 }

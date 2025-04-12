@@ -157,7 +157,6 @@ void ItemScrollAreaMain::generatePanel(std::shared_ptr<Buyable> &item)
         }
         system.getCart().addBuyable(item);
         std::shared_ptr<Price> pr = system.getCart().getTotalPrice();
-        qDebug() << pr->getMainUnit() << "." << pr->getSubUnit();
     });
 
     std::shared_ptr<Price> price = item->getPrice();

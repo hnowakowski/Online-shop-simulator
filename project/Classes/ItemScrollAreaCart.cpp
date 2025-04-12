@@ -92,14 +92,12 @@ void ItemScrollAreaCart::generatePanel(std::shared_ptr<CartItem> &item)
             if (itemWidgets->at(i).first->getId() == item->getId()) {
                 itemWidgets->at(i).second->deleteLater();
                 itemWidgets->erase(itemWidgets->begin() + i);
-                qDebug() << "REMOVED BUYABLE WIDGET AT " << i;
                 break;
             }
         }
 
         system.getCart().removeBuyable(buyable);
 
-        qDebug() << system.getCart().size() << itemWidgets->size();
         displayItems();
     });
     buyableLayout->addWidget(productPanel);
@@ -126,7 +124,6 @@ void ItemScrollAreaCart::clearArea()
             itemWidgets->at(i).second->deleteLater();
             layout->removeWidget(itemWidgets->at(i).second);
             itemWidgets->erase(itemWidgets->begin() + i);
-            qDebug() << "ANNIHILATED BUYABLE WIDGET AT " << i;
         }
     }
 }
