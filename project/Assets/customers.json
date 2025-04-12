@@ -12,19 +12,5 @@
         "wallet": {
             "units": 199999
         }
-    },
-    {
-        "PESEL": "11111111111",
-        "address": "aaaaaaaa",
-        "city": "aaaaaa",
-        "email": "aaaaaaaa@.",
-        "id": "U2",
-        "name": "aaaaaaaa",
-        "password": "aaaaaaaaaa",
-        "phone": "111111111",
-        "surname": "aaaaaaa",
-        "wallet": {
-            "units": 0
-        }
     }
 ]
