@@ -58,6 +58,13 @@ void MainWindow::on_btnCheckoutWallet_clicked()
             if (!LoaderSaver<Customer>::save(PATH + "Assets\\customers.json", *customers)) {
                 qDebug() << "WARNING! - Saving customers.json failed!\n";
             }
+            QList<QLineEdit *> lineEdits = ui->pageCheckout->findChildren<QLineEdit *>();
+            for (QLineEdit *lineEdit : lineEdits) {
+                lineEdit->setText("");
+            }
+            ui->checkBoxCheckoutAgree1->setChecked(false);
+            ui->checkBoxCheckoutAgree2->setChecked(false);
+
         } else {
             showWarning(ui->pageCheckout, "Cannot purchase", "Not enough funds in your account! :(");
         }
@@ -114,6 +121,12 @@ void MainWindow::on_btnCheckoutCard_clicked()
             if (!LoaderSaver<Customer>::save(PATH + "Assets\\customers.json", *customers)) {
                 qDebug() << "WARNING! - Saving customers.json failed!\n";
             }
+            QList<QLineEdit *> lineEdits = ui->pageCheckout->findChildren<QLineEdit *>();
+            for (QLineEdit *lineEdit : lineEdits) {
+                lineEdit->setText("");
+            }
+            ui->checkBoxCheckoutAgree1->setChecked(false);
+            ui->checkBoxCheckoutAgree2->setChecked(false);
         }
     }
 }
