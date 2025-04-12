@@ -22,13 +22,7 @@ public:
 
     Product();
 
-    Product(std::string id,
-            std::string name,
-            std::string description,
-            std::string image,
-            std::string rating,
-            uint32_t quantity,
-            std::shared_ptr<Price> price);
+    Product(std::string id, std::string name, std::string description, std::string image, std::string rating, uint32_t quantity, std::shared_ptr<Price> price);
 
     nlohmann::json toJSON() const override;
 

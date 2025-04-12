@@ -64,23 +64,16 @@ inline void to_json(nlohmann::json &j, const Color &color)
         break;
 
     default:
-        throw std::invalid_argument("Unknown Color");
+        j = "BLACK";
     }
 }
 
 inline void from_json(const nlohmann::json &j, Color &color)
 {
-    static const std::unordered_map<std::string, Color> colorMap = {{"RED", Color::RED},
-                                                                    {"GREEN", Color::GREEN},
-                                                                    {"BLUE", Color::BLUE},
-                                                                    {"YELLOW", Color::YELLOW},
-                                                                    {"PURPLE", Color::PURPLE},
-                                                                    {"PINK", Color::PINK},
-                                                                    {"ORANGE", Color::ORANGE},
-                                                                    {"GREY", Color::GREY},
-                                                                    {"WHITE", Color::WHITE},
-                                                                    {"BLACK", Color::BLACK},
-                                                                    {"CYAN", Color::CYAN}};
+    static const std::unordered_map<std::string, Color> colorMap = {{"RED", Color::RED},       {"GREEN", Color::GREEN},   {"BLUE", Color::BLUE},
+                                                                    {"YELLOW", Color::YELLOW}, {"PURPLE", Color::PURPLE}, {"PINK", Color::PINK},
+                                                                    {"ORANGE", Color::ORANGE}, {"GREY", Color::GREY},     {"WHITE", Color::WHITE},
+                                                                    {"BLACK", Color::BLACK},   {"CYAN", Color::CYAN}};
     std::string colorStr = j.get<std::string>();
 
     auto it = colorMap.find(colorStr);
@@ -88,8 +81,6 @@ inline void from_json(const nlohmann::json &j, Color &color)
         color = it->second;
         return;
     }
-
-    throw std::invalid_argument("Unknown Color: " + colorStr);
 }
 
 #endif // OOP_PROJECT_COLOR_H

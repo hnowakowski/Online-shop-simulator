@@ -18,8 +18,7 @@ void MainWindow::on_btnLoginGotoSignUp_clicked()
 void MainWindow::on_btnLogIn_clicked()
 {
     if (ui->lineEditLoginEmail->text().isEmpty() || ui->lineEditLoginPassword->text().isEmpty()) {
-        ui->labelLoginBadData->setText(
-            QString::fromStdString("Some fields have not been filled in!"));
+        ui->labelLoginBadData->setText(QString::fromStdString("Some fields have not been filled in!"));
         ui->labelLoginBadData->setVisible(true);
     } else {
         if (!ui->lineEditLoginEmail->text().contains("@") || !ui->lineEditLoginEmail->text().contains(".")) {

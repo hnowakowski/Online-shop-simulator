@@ -43,8 +43,3 @@ HEADERS += \
         testWallet.h
 
 INCLUDEPATH += $$PWD/../project
-
-# test wallet <-> price conversion
-# test subtracting price from wallet
-# test some edgecases
-# file read/write (same thing as on startup)

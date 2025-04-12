@@ -129,9 +129,7 @@ bool StoreSystem::removeCustomer(const std::string &id)
     return false;
 }
 
-void StoreSystem::sortBuyables(
-    const std::function<bool(const std::shared_ptr<Buyable> &, const std::shared_ptr<Buyable> &)>
-        &comparator)
+void StoreSystem::sortBuyables(const std::function<bool(const std::shared_ptr<Buyable> &, const std::shared_ptr<Buyable> &)> &comparator)
 {
     std::sort(buyables->begin(), buyables->end(), comparator);
 }

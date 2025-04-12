@@ -23,7 +23,7 @@ nlohmann::json Price::toJSON() const
     return nlohmann::json{{"units", units}};
 }
 
-void Price::fromJSON(const nlohmann::json &json)
+void Price::fromJSON(const nlohmann::json& json)
 {
     units = json.at("units").get<uint32_t>();
 }

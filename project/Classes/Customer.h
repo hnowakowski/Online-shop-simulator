@@ -36,26 +36,11 @@ public:
 
     Customer &operator=(const Customer &other);
 
-    Customer(std::string id,
-             std::string name,
-             std::string surname,
-             std::string email,
-             std::string phone,
-             std::string city,
-             std::string address,
-             std::string PESEL,
-             std::string password);
+    Customer(std::string id, std::string name, std::string surname, std::string email, std::string phone, std::string city, std::string address,
+             std::string PESEL, std::string password);
 
-    Customer(std::string id,
-             std::string name,
-             std::string surname,
-             std::string email,
-             std::string phone,
-             std::string city,
-             std::string address,
-             std::string PESEL,
-             std::string password,
-             std::shared_ptr<Wallet> wallet);
+    Customer(std::string id, std::string name, std::string surname, std::string email, std::string phone, std::string city, std::string address,
+             std::string PESEL, std::string password, std::shared_ptr<Wallet> wallet);
 
     nlohmann::json toJSON() const override;
 

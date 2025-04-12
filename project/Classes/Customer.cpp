@@ -73,17 +73,13 @@ Customer &Customer::operator=(const Customer &other)
     return *this;
 }
 
-std::shared_ptr<Wallet> Customer::getWallet() { return wallet; }
+std::shared_ptr<Wallet> Customer::getWallet()
+{
+    return wallet;
+}
 
-Customer::Customer(std::string id,
-                   std::string name,
-                   std::string surname,
-                   std::string email,
-                   std::string phone,
-                   std::string city,
-                   std::string address,
-                   std::string PESEL,
-                   std::string password)
+Customer::Customer(std::string id, std::string name, std::string surname, std::string email, std::string phone, std::string city, std::string address,
+                   std::string PESEL, std::string password)
     : wallet(std::make_shared<Wallet>(0, 0))
 {
     this->id = id;
@@ -97,16 +93,8 @@ Customer::Customer(std::string id,
     this->password = password;
 }
 
-Customer::Customer(std::string id,
-                   std::string name,
-                   std::string surname,
-                   std::string email,
-                   std::string phone,
-                   std::string city,
-                   std::string address,
-                   std::string PESEL,
-                   std::string password,
-                   std::shared_ptr<Wallet> wallet)
+Customer::Customer(std::string id, std::string name, std::string surname, std::string email, std::string phone, std::string city, std::string address,
+                   std::string PESEL, std::string password, std::shared_ptr<Wallet> wallet)
     : wallet(wallet)
 {
     this->id = id;
@@ -123,16 +111,8 @@ Customer::Customer(std::string id,
 
 nlohmann::json Customer::toJSON() const
 {
-    return nlohmann::json{{"id", id},
-                          {"name", name},
-                          {"surname", surname},
-                          {"email", email},
-                          {"phone", phone},
-                          {"city", city},
-                          {"address", address},
-                          {"PESEL", PESEL},
-                          {"password", password},
-                          {"wallet", wallet->toJSON()}};
+    return nlohmann::json{{"id", id},     {"name", name},       {"surname", surname}, {"email", email},       {"phone", phone},
+                          {"city", city}, {"address", address}, {"PESEL", PESEL},     {"password", password}, {"wallet", wallet->toJSON()}};
 }
 
 void Customer::fromJSON(const nlohmann::json &json)

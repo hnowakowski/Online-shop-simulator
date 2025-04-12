@@ -22,12 +22,12 @@ void MoneyPossesive::setSubUnit(const uint32_t &amount)
     units = (units / 100) * 100 + amount % 100;
 }
 
-void MoneyPossesive::addMainUnit(const uint32_t& amount)
+void MoneyPossesive::addMainUnit(const uint32_t &amount)
 {
     units += amount * 100;
 }
 
-void MoneyPossesive::addSubUnit(const uint32_t& amount)
+void MoneyPossesive::addSubUnit(const uint32_t &amount)
 {
     units += amount;
 }

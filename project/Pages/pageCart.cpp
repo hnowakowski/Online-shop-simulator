@@ -15,8 +15,7 @@ void MainWindow::on_btnCartGotoMain_clicked()
 void MainWindow::updateCartTotalPrice()
 {
     std::shared_ptr<Price> totalPrice = StoreSystem::getInstance().getCart().getTotalPrice();
-    std::string priceStr = "Total: " + std::to_string(totalPrice->getMainUnit()) + "."
-                           + std::to_string(totalPrice->getSubUnit()) + " ZŁ";
+    std::string priceStr = "Total: " + std::to_string(totalPrice->getMainUnit()) + "." + std::to_string(totalPrice->getSubUnit()) + " ZŁ";
     QString priceQStr = QString::fromStdString(priceStr);
     ui->labelCartTotalPrice->setText(priceQStr);
 }
@@ -27,8 +26,7 @@ void MainWindow::on_btnCartGotoCheckout_clicked()
     checkoutScrollArea.populate();
     checkoutScrollArea.displayItems();
     std::shared_ptr<Price> totalPrice = StoreSystem::getInstance().getCart().getTotalPrice();
-    std::string priceStr = "Checkout (Total: " + std::to_string(totalPrice->getMainUnit()) + "."
-                           + std::to_string(totalPrice->getSubUnit()) + " ZŁ)";
+    std::string priceStr = "Checkout (Total: " + std::to_string(totalPrice->getMainUnit()) + "." + std::to_string(totalPrice->getSubUnit()) + " ZŁ)";
     QString priceQStr = QString::fromStdString(priceStr);
     ui->labelCheckout->setText(priceQStr);
 
@@ -43,8 +41,7 @@ void MainWindow::on_btnCartGotoCheckout_clicked()
         std::shared_ptr<Customer> currCustomer = system.getCurrentCustomer();
         uint32_t walletFirst = currCustomer->getWallet()->getMainUnit();
         uint32_t walletSecond = currCustomer->getWallet()->getSubUnit();
-        std::string walletStr = "Wallet: " + std::to_string(walletFirst) + "."
-                                + std::to_string(walletSecond) + " ZŁ";
+        std::string walletStr = "Wallet: " + std::to_string(walletFirst) + "." + std::to_string(walletSecond) + " ZŁ";
         ui->labelCheckoutWalletStatus->setText(QString::fromStdString(walletStr));
     }
 }

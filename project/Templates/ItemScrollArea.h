@@ -54,10 +54,7 @@ public:
         itemWidgets = std::make_shared<std::vector<std::pair<std::shared_ptr<T>, QWidget *>>>();
     }
 
-    ItemScrollArea()
-    {
-        itemWidgets = std::make_shared<std::vector<std::pair<std::shared_ptr<T>, QWidget *>>>();
-    }
+    ItemScrollArea() { itemWidgets = std::make_shared<std::vector<std::pair<std::shared_ptr<T>, QWidget *>>>(); }
 
     virtual ~ItemScrollArea() = default;
 };
