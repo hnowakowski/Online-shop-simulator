@@ -104,7 +104,7 @@ void ItemScrollAreaMain::generatePanel(std::shared_ptr<Buyable> &item)
     QHBoxLayout *productLayout = new QHBoxLayout(productPanel);
 
     QLabel *imageLabel = new QLabel();
-    std::string imgPath = (PATH + item->getImage()).c_str();
+    std::string imgPath = PATH + item->getImage();
     QPixmap pixmap(imgPath.c_str());
     imageLabel->setPixmap(pixmap.scaled(200, 200));
     productLayout->addWidget(imageLabel);

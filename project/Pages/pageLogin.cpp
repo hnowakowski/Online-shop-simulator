@@ -41,11 +41,13 @@ void MainWindow::on_btnLogIn_clicked()
                         displayAccountInfo();
                         ui->stackedWidgetLogin->setCurrentWidget(ui->pageLoginLoggedIn);
                         ui->stackedWidget->setCurrentWidget(ui->pageMain);
+                        ui->lineEditLoginEmail->setText("");
+                        ui->lineEditLoginPassword->setText("");
                         return;
                     }
                 }
             }
-            ui->labelLoginBadData->setText(QString::fromStdString("Email or password are incorrect!"));
+            ui->labelLoginBadData->setText("Email or password are incorrect!");
             ui->labelLoginBadData->setVisible(true);
         }
     }

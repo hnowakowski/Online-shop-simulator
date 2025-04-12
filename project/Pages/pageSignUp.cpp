@@ -84,6 +84,11 @@ void MainWindow::on_btnSignUp_clicked()
             if (!LoaderSaver<Customer>::save(PATH + "Assets\\customers.json", *customers)) {
                 qDebug() << "WARNING! - Saving customers.json failed!\n";
             }
+
+            for (QLineEdit *lineEdit : lineEdits) {
+                lineEdit->setText("");
+            }
+
             ui->stackedWidgetLogin->setCurrentWidget(ui->pageLoginLoggedIn);
             ui->stackedWidget->setCurrentWidget(ui->pageMain);
         }
