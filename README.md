@@ -31,4 +31,4 @@ Note: Asset paths are relative and assume the app is run from the build director
 
 If setting it up is too much hassle, I’ve included a video demo of all of the core features:
 
-![Demo video](https://www.youtube.com/watch?v=eDrE0IVixMk)
+![Demo vid](readme_stuff/demo.mp4)
