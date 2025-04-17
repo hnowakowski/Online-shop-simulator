@@ -62,6 +62,21 @@ FORMS += \
 
 RC_FILE = icon_resource.rc
 
+INCLUDEPATH += $$PWD/ExternalLibs/libsodium/include
+
+LIBS += -L$$PWD/ExternalLibs/libsodium/lib -lsodium
+
+CONFIG(debug, debug|release) {
+    DLL_DEST = \"$$OUT_PWD\\debug\\libsodium-23.dll\"
+} else {
+    DLL_DEST = \"$$OUT_PWD\\release\\libsodium-23.dll\"
+}
+
+copy_dll.target = copy_dll
+copy_dll.commands = cmd /C copy /Y \"$$PWD\\ExternalLibs\\libsodium\\bin\\libsodium-23.dll\" $$DLL_DEST
+QMAKE_EXTRA_TARGETS += copy_dll
+POST_TARGETDEPS += copy_dll
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

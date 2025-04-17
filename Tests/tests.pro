@@ -42,4 +42,21 @@ HEADERS += \
         testLoaderSaver.h \
         testWallet.h
 
-INCLUDEPATH += $$PWD/../project
+
+
+
+INCLUDEPATH += $$PWD/../project \
+               $$PWD/../project/ExternalLibs/libsodium/include
+
+LIBS += -L$$PWD/../project/ExternalLibs/libsodium/lib -lsodium
+
+CONFIG(debug, debug|release) {
+    DLL_DEST = \"$$OUT_PWD\\debug\\libsodium-23.dll\"
+} else {
+    DLL_DEST = \"$$OUT_PWD\\release\\libsodium-23.dll\"
+}
+
+copy_dll.target = copy_dll
+copy_dll.commands = cmd /C copy /Y \"$$PWD\\..\\project\\ExternalLibs\\libsodium\\bin\\libsodium-23.dll\" $$DLL_DEST
+QMAKE_EXTRA_TARGETS += copy_dll
+POST_TARGETDEPS += copy_dll

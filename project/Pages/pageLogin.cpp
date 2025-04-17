@@ -28,14 +28,13 @@ void MainWindow::on_btnLogIn_clicked()
             StoreSystem &system = StoreSystem::getInstance();
             auto customers = system.getCustomers();
             QString formEmail = ui->lineEditLoginEmail->text();
-            QString formPassword = ui->lineEditLoginPassword->text();
+            std::string formPassword = ui->lineEditLoginPassword->text().toStdString();
 
             if (customers->size()) {
                 for (const auto &customer : *customers) {
                     QString qEmail = QString::fromStdString(customer->getEmail());
-                    QString qPassword = QString::fromStdString(customer->getPassword());
 
-                    if (qEmail == formEmail && qPassword == formPassword) {
+                    if (qEmail == formEmail && customer->checkPassword(formPassword)) {
                         ui->labelLoginBadData->setVisible(false);
                         StoreSystem::getInstance().setCurrentCustomerId(customer->getId());
                         displayAccountInfo();

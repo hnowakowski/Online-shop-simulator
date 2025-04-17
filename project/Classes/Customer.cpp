@@ -1,6 +1,31 @@
+#include "../ExternalLibs/libsodium/include/sodium.h"
+#include "qdebug.h"
 #include <memory>
 
 #include "Customer.h"
+
+std::string Customer::hashString(const std::string &st)
+{
+    const char *stC = st.c_str();
+    char out[crypto_pwhash_STRBYTES];
+    if (crypto_pwhash_str(out, stC, strlen(stC), crypto_pwhash_OPSLIMIT_INTERACTIVE, crypto_pwhash_MEMLIMIT_INTERACTIVE) != 0) {
+        throw std::runtime_error("Hashing failed - ran out of memory");
+    }
+
+    std::string hashedStr = out;
+
+    return hashedStr;
+}
+
+bool Customer::checkPassword(const std::string &password) const
+{
+    return !crypto_pwhash_str_verify(this->password.c_str(), password.c_str(), password.length());
+}
+
+bool Customer::checkPESEL(const std::string &pesel) const
+{
+    return !crypto_pwhash_str_verify(this->PESEL.c_str(), pesel.c_str(), pesel.length());
+}
 
 std::string Customer::getId() const
 {
@@ -47,10 +72,11 @@ std::string Customer::getPassword() const
     return password;
 }
 
+// Does not compare password and pesel!
 bool Customer::operator==(const Customer &other) const
 {
-    return std::tie(id, name, surname, email, phone, city, address, PESEL, password, *wallet)
-           == std::tie(other.id, other.name, other.surname, other.email, other.phone, other.city, other.address, other.PESEL, other.password, *other.wallet);
+    return std::tie(id, name, surname, email, phone, city, address, *wallet)
+           == std::tie(other.id, other.name, other.surname, other.email, other.phone, other.city, other.address, *other.wallet);
 }
 
 Customer &Customer::operator=(const Customer &other)

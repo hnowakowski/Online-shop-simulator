@@ -1,8 +1,14 @@
 #include <QApplication>
 #include "mainwindow.h"
+#include <sodium.h>
 
 int main(int argc, char *argv[])
 {
+    if (sodium_init() < 0) {
+        throw std::runtime_error("Initialising libsodium failed, exiting");
+        return 1;
+    }
+
     QApplication a(argc, argv);
     a.setWindowIcon(QIcon(":/icons/logo.ico"));
     MainWindow w;
