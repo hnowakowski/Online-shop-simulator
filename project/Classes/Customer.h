@@ -34,6 +34,7 @@ public:
 
     static std::string hashString(const std::string &st);
     bool checkPassword(const std::string &password) const;
+    bool checkPESEL(const std::string &pesel) const;
 
     bool operator==(const Customer &other) const;
 

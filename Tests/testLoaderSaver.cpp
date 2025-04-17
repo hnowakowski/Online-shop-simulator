@@ -48,10 +48,10 @@ void TestLoaderSaver::saveService()
 void TestLoaderSaver::saveCustomer()
 {
     std::vector<std::shared_ptr<Customer>> mockCustomers;
-    mockCustomers.push_back(
-        std::make_shared<Customer>("C1", "cust1", "sur1", "email1", "phone1", "city1", "address1", "pesel1", "pass1", std::make_shared<Wallet>(10, 1)));
-    mockCustomers.push_back(
-        std::make_shared<Customer>("C2", "cust2", "sur2", "email2", "phone2", "city2", "address2", "pesel2", "pass2", std::make_shared<Wallet>(20, 2)));
+    mockCustomers.push_back(std::make_shared<Customer>("C1", "cust1", "sur1", "email1", "phone1", "city1", "address1", Customer::hashString("pesel1"),
+                                                       Customer::hashString("pass1"), std::make_shared<Wallet>(10, 1)));
+    mockCustomers.push_back(std::make_shared<Customer>("C2", "cust2", "sur2", "email2", "phone2", "city2", "address2", Customer::hashString("pesel2"),
+                                                       Customer::hashString("pass2"), std::make_shared<Wallet>(20, 2)));
     QVERIFY(LoaderSaver<Customer>::save(JSONPATH + "testJsons\\customerTest.json", mockCustomers));
 }
 
@@ -118,10 +118,10 @@ void TestLoaderSaver::saveAndLoadService()
 void TestLoaderSaver::saveAndLoadCustomer()
 {
     std::vector<std::shared_ptr<Customer>> mockCustomers;
-    mockCustomers.push_back(
-        std::make_shared<Customer>("C1", "cust1", "sur1", "email1", "phone1", "city1", "address1", "pesel1", "pass1", std::make_shared<Wallet>(10, 1)));
-    mockCustomers.push_back(
-        std::make_shared<Customer>("C2", "cust2", "sur2", "email2", "phone2", "city2", "address2", "pesel2", "pass2", std::make_shared<Wallet>(20, 2)));
+    mockCustomers.push_back(std::make_shared<Customer>("C1", "cust1", "sur1", "email1", "phone1", "city1", "address1", Customer::hashString("pesel1"),
+                                                       Customer::hashString("pass1"), std::make_shared<Wallet>(10, 1)));
+    mockCustomers.push_back(std::make_shared<Customer>("C2", "cust2", "sur2", "email2", "phone2", "city2", "address2", Customer::hashString("pesel2"),
+                                                       Customer::hashString("pass2"), std::make_shared<Wallet>(20, 2)));
     LoaderSaver<Customer>::save(JSONPATH + "testJsons\\customerTest2.json", mockCustomers);
     std::vector<std::shared_ptr<Customer>> loadedCustomers;
     QVERIFY(LoaderSaver<Customer>::load(JSONPATH + "TestJsons\\customerTest2.json", loadedCustomers));

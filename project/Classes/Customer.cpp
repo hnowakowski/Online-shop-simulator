@@ -22,6 +22,11 @@ bool Customer::checkPassword(const std::string &password) const
     return !crypto_pwhash_str_verify(this->password.c_str(), password.c_str(), password.length());
 }
 
+bool Customer::checkPESEL(const std::string &pesel) const
+{
+    return !crypto_pwhash_str_verify(this->PESEL.c_str(), pesel.c_str(), pesel.length());
+}
+
 std::string Customer::getId() const
 {
     return id;
@@ -67,11 +72,11 @@ std::string Customer::getPassword() const
     return password;
 }
 
+// Does not compare password and pesel!
 bool Customer::operator==(const Customer &other) const
 {
-    return std::tie(id, name, surname, email, phone, city, address, PESEL, *wallet)
-               == std::tie(other.id, other.name, other.surname, other.email, other.phone, other.city, other.address, other.PESEL, *other.wallet)
-           && this->checkPassword(other.password);
+    return std::tie(id, name, surname, email, phone, city, address, *wallet)
+           == std::tie(other.id, other.name, other.surname, other.email, other.phone, other.city, other.address, *other.wallet);
 }
 
 Customer &Customer::operator=(const Customer &other)
