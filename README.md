@@ -29,7 +29,7 @@ You can also compile and run a standalone executable, but it requires the follow
 
 Note: Asset paths are relative and assume the app is run from the build directory in the default Qt Creator project structure.
 
-Note 2: The file libsodium-23.dll should be automatically copied to the build directory next to the .exe automatically, but if it somehow isn't, manually copy it there from `project/ExternalLibs/libsodium/bin`
+Note 2: The file libsodium-23.dll should be automatically copied to the build directory next to the .exe automatically, but if it somehow isn't, manually copy it there from `project/ExternalLibs/libsodium/bin` to build dirs in `project` and `tests`
 
 If setting it up is too much hassle, I’ve included a video demo of all of the core features:
 

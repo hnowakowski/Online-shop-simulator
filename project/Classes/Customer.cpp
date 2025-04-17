@@ -12,14 +12,14 @@ std::string Customer::hashString(const std::string &st)
         throw std::runtime_error("Hashing failed - ran out of memory");
     }
 
-    std::string hashedPassword = out;
+    std::string hashedStr = out;
 
-    return hashedPassword;
+    return hashedStr;
 }
 
 bool Customer::checkPassword(const std::string &password) const
 {
-    return crypto_pwhash_str_verify(this->password.c_str(), password.c_str(), password.length());
+    return !crypto_pwhash_str_verify(this->password.c_str(), password.c_str(), password.length());
 }
 
 std::string Customer::getId() const
