@@ -5,9 +5,10 @@
 int main(int argc, char *argv[])
 {
     if (sodium_init() < 0) {
-        qDebug() << "Initialising libsodium failed, exiting";
+        throw std::runtime_error("Initialising libsodium failed, exiting");
         return 1;
     }
+
     QApplication a(argc, argv);
     a.setWindowIcon(QIcon(":/icons/logo.ico"));
     MainWindow w;

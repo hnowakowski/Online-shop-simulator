@@ -32,6 +32,9 @@ public:
     std::string getPassword() const;
     std::shared_ptr<Wallet> getWallet();
 
+    std::string hashString(const std::string &st);
+    bool checkPassword(const std::string &password) const;
+
     bool operator==(const Customer &other) const;
 
     Customer &operator=(const Customer &other);

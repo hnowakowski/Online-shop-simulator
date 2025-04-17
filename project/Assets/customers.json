@@ -1,12 +1,12 @@
 [
     {
-        "PESEL": "12345678901",
+        "PESEL": "$argon2id$v=19$m=65536,t=2,p=1$PiwzY7LVIb9yK0MlVOgeZw$y0/deiWbk4lm4xksn8PzjNSSVzAc3g10/EofeaR2Mdk",
         "address": "Piotrowo 4",
         "city": "Poznań",
         "email": "dragonslayer999@gmail.com",
         "id": "U1",
         "name": "Jan",
-        "password": "a",
+        "password": "$argon2id$v=19$m=65536,t=2,p=1$k5W3nabRjQ9RMBxqHS0T9A$Zi0G5czH0LnoGtvua18RR9VBdhqmMgUuIB7guaIgv3Y",
         "phone": "111222333",
         "surname": "Kowalski",
         "wallet": {
